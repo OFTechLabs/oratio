@@ -1,2 +1,1 @@
-export * from "./language/words/LevenshteinDistanceMatcher"
-export * from "./language/words/WordMatcher"
+export * from "./index"

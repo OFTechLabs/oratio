@@ -1,6 +1,7 @@
 {
-  "extends": "tslint:recommended",
+  "extends": "tslint:latest",
   "rules": {
-    "use-strict": true
+    "use-strict": true,
+    "variable-name": false
   }
 }
