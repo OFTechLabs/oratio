@@ -13,7 +13,7 @@ export class IdentityNeuron implements IHiveMindNeuron {
             [],
             IdentityNeuron.KNOWN_THREE_WORD_SEQUENCES,
             [],
-            "oratio.identity"))
+            "oratio.core.identity"))
             .process(words, context);
     }
 

@@ -4,7 +4,7 @@ import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 require("babel-core/register");
 require("babel-polyfill");
 
-describe("Identity neuron", () => {
+describe("Greeting neuron", () => {
 
     let greetingNeuron : GreetingNeuron;
 
@@ -26,7 +26,7 @@ describe("Identity neuron", () => {
 
             const simpleResponse = <SimpleResponse> response;
 
-            expect(simpleResponse.response).toBe("oratio.hello");
+            expect(simpleResponse.response).toBe("oratio.core.hello");
         })
 
     });
@@ -44,7 +44,7 @@ describe("Identity neuron", () => {
 
             const simpleResponse = <SimpleResponse> response;
 
-            expect(simpleResponse.response).toBe("oratio.hello");
+            expect(simpleResponse.response).toBe("oratio.core.hello");
             expect(simpleResponse.params.length).toBe(1);
             expect(simpleResponse.params[0]).toBe("Jacob");
         })

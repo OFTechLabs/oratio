@@ -16,7 +16,7 @@ export class GreetingNeuron implements IHiveMindNeuron {
             GreetingNeuron.KNOWN_TWO_WORD_SEQUENCES,
             GreetingNeuron.KNOWN_THREE_WORD_SEQUENCES,
             [],
-            "oratio.hello"))
+            "oratio.core.hello"))
             .process(words, context);
 
         if (initialResponse instanceof SimpleResponse) {

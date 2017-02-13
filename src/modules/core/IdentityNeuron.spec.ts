@@ -14,7 +14,7 @@ describe("Identity neuron", () => {
 
         const simpleResponse = <SimpleResponse> response;
 
-        expect(simpleResponse.response).toBe("oratio.identity");
+        expect(simpleResponse.response).toBe("oratio.core.identity");
     });
 
     it("should know what to do with who are you", () => {
@@ -25,7 +25,7 @@ describe("Identity neuron", () => {
 
         const simpleResponse = <SimpleResponse> response;
 
-        expect(simpleResponse.response).toBe("oratio.identity");
+        expect(simpleResponse.response).toBe("oratio.core.identity");
     });
 
     it("should know what to do with what are you", () => {
@@ -36,7 +36,7 @@ describe("Identity neuron", () => {
 
         const simpleResponse = <SimpleResponse> response;
 
-        expect(simpleResponse.response).toBe("oratio.identity");
+        expect(simpleResponse.response).toBe("oratio.core.identity");
     });
 
     it("should know what to do even with lots of noise", () => {
@@ -49,7 +49,7 @@ describe("Identity neuron", () => {
 
         const simpleResponse = <SimpleResponse> response;
 
-        expect(simpleResponse.response).toBe("oratio.identity");
+        expect(simpleResponse.response).toBe("oratio.core.identity");
     });
 
     it("should not know what to do with unrelated questions", () => {

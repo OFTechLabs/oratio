@@ -4,7 +4,7 @@ import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 require("babel-core/register");
 require("babel-polyfill");
 
-describe("Identity neuron", () => {
+describe("Time neuron", () => {
 
     it("should be able to give the time", () => {
         const neuron = new TimeNeuron();
@@ -22,7 +22,7 @@ describe("Identity neuron", () => {
 
             const simpleResponse = <SimpleResponse> response;
 
-            expect(simpleResponse.response).toBe("oratio.currentTime");
+            expect(simpleResponse.response).toBe("oratio.core.currentTime");
             expect(simpleResponse.params.length).toBe(1);
             expect(simpleResponse.params[0].length).toBeGreaterThan(3);
         })

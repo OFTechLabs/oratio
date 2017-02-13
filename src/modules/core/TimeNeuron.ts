@@ -14,7 +14,7 @@ export class TimeNeuron implements IHiveMindNeuron {
             TimeNeuron.KNOWN_TWO_WORD_SEQUENCES,
             [],
             TimeNeuron.KNOWN_FOUR_WORD_SEQUENCES,
-            "oratio.currentTime"))
+            "oratio.core.currentTime"))
             .process(input, context);
 
         if (initialResponse instanceof SimpleResponse) {

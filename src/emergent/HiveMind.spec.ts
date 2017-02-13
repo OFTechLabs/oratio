@@ -21,8 +21,8 @@ describe("HiveMind", () => {
 
     it("should process neurons correctly", function () {
         const inputs: {input: string, response: string}[] = [
-            {input: "who are you", response: "oratio.identity"},
-            {input: "what time is it", response: "oratio.currentTime"}
+            {input: "who are you", response: "oratio.core.identity"},
+            {input: "what time is it", response: "oratio.core.currentTime"}
         ];
 
 
