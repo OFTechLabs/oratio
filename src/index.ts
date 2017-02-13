@@ -1,3 +1,3 @@
 export * from "./language/languageModule"
 export * from "./emergent/emergentModule";
-export * from "./emergent/modules/core/coreNeurons";
+export * from "./modules/core/coreNeurons";

@@ -1,6 +1,6 @@
 import "jest";
 import {TimeNeuron} from "./TimeNeuron";
-import {SimpleResponse} from "../../neurons/responses/SimpleResponse";
+import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 require("babel-core/register");
 require("babel-polyfill");
 
@@ -24,7 +24,7 @@ describe("Identity neuron", () => {
 
             expect(simpleResponse.response).toBe("oratio.currentTime");
             expect(simpleResponse.params.length).toBe(1);
-            expect(simpleResponse.params[0].length).toBe(5);
+            expect(simpleResponse.params[0].length).toBeGreaterThan(3);
         })
     });
 

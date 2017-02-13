@@ -1,8 +1,8 @@
-import {IHiveMindNeuron} from "../../neurons/HiveMindNeuron";
-import {MultipleSequenceNeuron} from "../../neurons/MultipleSequenceNeuron";
-import {NeuronResponse} from "../../neurons/responses/NeuronResponse";
-import {WordAfterSequenceParser} from "../../../language/parsers/parameters/WordAfterSequenceParser";
-import {SimpleResponse} from "../../neurons/responses/SimpleResponse";
+import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
+import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
+import {MultipleSequenceNeuron} from "../../emergent/neurons/MultipleSequenceNeuron";
+import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {WordAfterSequenceParser} from "../../language/parsers/parameters/WordAfterSequenceParser";
 
 export class GreetingNeuron implements IHiveMindNeuron {
 

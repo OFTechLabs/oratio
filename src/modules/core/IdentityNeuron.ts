@@ -1,6 +1,6 @@
-import {IHiveMindNeuron} from "../../neurons/HiveMindNeuron";
-import {MultipleSequenceNeuron} from "../../neurons/MultipleSequenceNeuron";
-import {NeuronResponse} from "../../neurons/responses/NeuronResponse";
+import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
+import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
+import {MultipleSequenceNeuron} from "../../emergent/neurons/MultipleSequenceNeuron";
 
 export class IdentityNeuron implements IHiveMindNeuron {
 

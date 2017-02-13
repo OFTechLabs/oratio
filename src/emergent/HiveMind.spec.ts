@@ -1,8 +1,8 @@
 import "jest";
 import {IHiveMind, BasicHiveMind} from "./HiveMind";
 import {BasicHiveMindNeurons} from "./HiveMindNeurons";
-import {IdentityNeuron} from "./modules/core/IdentityNeuron";
-import {TimeNeuron} from "./modules/core/TimeNeuron";
+import {IdentityNeuron} from "../modules/core/IdentityNeuron";
+import {TimeNeuron} from "../modules/core/TimeNeuron";
 require("babel-core/register");
 require("babel-polyfill");
 
