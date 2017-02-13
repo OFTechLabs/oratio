@@ -21,4 +21,8 @@ export class SimpleResponse implements NeuronResponse {
     public hasAnswer(): boolean {
         return true;
     }
+
+    public withParams(params: string[]): SimpleResponse {
+        return new SimpleResponse(this._response, params);
+    }
 }

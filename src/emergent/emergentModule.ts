@@ -1,4 +1,3 @@
-
 export {HiveMind} from "./HiveMind";
 export {HiveMindNeurons} from "./HiveMindNeurons";
 export {HiveResponse} from "./HiveResponse";
