@@ -1,5 +1,5 @@
 import "jest";
-import {HiveMind, BasicHiveMind} from "./HiveMind";
+import {IHiveMind, BasicHiveMind} from "./HiveMind";
 import {BasicHiveMindNeurons} from "./HiveMindNeurons";
 import {IdentityNeuron} from "./modules/core/IdentityNeuron";
 import {TimeNeuron} from "./modules/core/TimeNeuron";
@@ -8,7 +8,7 @@ require("babel-polyfill");
 
 describe("HiveMind", () => {
 
-    let mind : HiveMind;
+    let mind : IHiveMind;
 
     beforeEach(function () {
         const neurons = new BasicHiveMindNeurons([

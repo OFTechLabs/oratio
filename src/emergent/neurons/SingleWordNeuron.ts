@@ -6,10 +6,10 @@ import {SimpleResponse} from "./responses/SimpleResponse";
 
 export class SingleWordNeuron implements HiveMindNeuron {
 
-    private knownWords;
-    private response;
+    private knownWords: string[];
+    private response: string;
 
-    constructor(knownWords, response) {
+    constructor(knownWords: string[], response: string) {
         this.knownWords = knownWords;
         this.response = response;
     }
@@ -24,6 +24,6 @@ export class SingleWordNeuron implements HiveMindNeuron {
             }
         }
 
-       return new Silence();
+        return new Silence();
     }
 }

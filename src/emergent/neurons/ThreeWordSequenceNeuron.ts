@@ -6,19 +6,19 @@ import {Silence} from "./responses/Silence";
 
 export class ThreeWordSequenceNeuron implements HiveMindNeuron {
 
-    private knownThreeWordSequences;
-    private response;
+    private knownThreeWordSequences: string[];
+    private response: string;
 
-    constructor(knownThreeWordSequences, response) {
+    constructor(knownThreeWordSequences: string[], response: string) {
         this.knownThreeWordSequences = knownThreeWordSequences;
         this.response = response;
     }
 
-    process(input: string[], context: string): NeuronResponse {
+    public process(input: string[], context: string): NeuronResponse {
         for (let i = 0; i < this.knownThreeWordSequences.length; i++) {
             const sequence = this.knownThreeWordSequences[i];
             for (let j = 0; j < (input.length - 2); j++) {
-                const sequenceTogether = input[j] + input[j+1] + input[j+2];
+                const sequenceTogether = input[j] + input[j + 1] + input[j + 2];
 
                 if (LevenshteinDistanceMatcher.MATCHER.matches(sequenceTogether, sequence)) {
                     return new SimpleResponse(this.response, []);

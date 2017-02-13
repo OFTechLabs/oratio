@@ -1,8 +1,8 @@
-export interface HiveResponse {
-    response(): string
+export interface IHiveResponse {
+    response(): string;
 }
 
-export class UnderstoodResponse implements HiveResponse {
+export class UnderstoodResponse implements IHiveResponse {
 
     constructor(private _response: string,
                 private _params: string[],
@@ -27,12 +27,12 @@ export class UnderstoodResponse implements HiveResponse {
     }
 }
 
-export class FailedResponse implements HiveResponse {
+export class FailedResponse implements IHiveResponse {
 
     constructor(private _response: string) {
     }
 
-    response(): string {
+    public response(): string {
         return this._response;
     }
 }
