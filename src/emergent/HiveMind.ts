@@ -20,19 +20,22 @@ export class BasicHiveMind implements HiveMind {
     }
 
     process(input: string, context: string): HiveResponse {
-        const neuronsResponse = this.neurons.findMatch(input, context);
+
+        const words = input.split(" ");
+
+        const neuronsResponse = this.neurons.findMatch(words, context);
 
         if (neuronsResponse.hasAnswer()) {
             if (neuronsResponse instanceof SimpleResponse) {
-                return new UnderstoodResponse(neuronsResponse.response, BasicHiveMind.EMPTY_ACTION, BasicHiveMind.EMPTY_CONTEXT);
+                return new UnderstoodResponse(neuronsResponse.response, neuronsResponse.params, BasicHiveMind.EMPTY_ACTION, BasicHiveMind.EMPTY_CONTEXT);
             } else if (neuronsResponse instanceof ActionResponse) {
-                return new UnderstoodResponse(neuronsResponse.response, neuronsResponse.action, BasicHiveMind.EMPTY_CONTEXT);
+                return new UnderstoodResponse(neuronsResponse.response,  neuronsResponse.params, neuronsResponse.action, BasicHiveMind.EMPTY_CONTEXT);
             } else if (neuronsResponse instanceof ActionWithContextResponse) {
-                return new UnderstoodResponse(neuronsResponse.response, neuronsResponse.action, neuronsResponse.context);
+                return new UnderstoodResponse(neuronsResponse.response,  neuronsResponse.params, neuronsResponse.action, neuronsResponse.context);
             }
         }
 
-        return new FailedResponse("did_not_unerstand :(");
+        return new FailedResponse("oratio.did.not.undestand");
     }
 
     private static EMPTY_ACTION  = () => {};

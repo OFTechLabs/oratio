@@ -4,8 +4,8 @@ export class ActionResponse extends SimpleResponse {
 
     private _action: () => void;
 
-    constructor(response: string, action: () => void) {
-        super(response);
+    constructor(response: string, params: string[], action: () => void) {
+        super(response, params);
         this._action = action;
     }
 

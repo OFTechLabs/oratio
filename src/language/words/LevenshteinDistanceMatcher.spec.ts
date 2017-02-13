@@ -5,7 +5,7 @@ import {LevenshteinDistanceMatcher} from "./LevenshteinDistanceMatcher";
 require("babel-core/register");
 require("babel-polyfill");
 
-describe("Example", () => {
+describe("Levenshtein distance matcher", () => {
 
     it("should correctly detect the same words", () => {
         const wordOne: string = "one";

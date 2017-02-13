@@ -2,6 +2,8 @@ import {WordMatcher} from "./WordMatcher";
 
 export class LevenshteinDistanceMatcher implements WordMatcher {
 
+    public static MATCHER = new LevenshteinDistanceMatcher();
+
     public matches(word: string, toMatchWith: string): boolean {
         return this.levenshtein(
             word,

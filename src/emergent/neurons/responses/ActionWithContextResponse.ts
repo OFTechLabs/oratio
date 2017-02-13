@@ -4,8 +4,8 @@ export class ActionWithContextResponse extends ActionResponse {
 
     private _context: any;
 
-    constructor(response: string, action: () => void, context: any) {
-        super(response, action);
+    constructor(response: string, params: string[], action: () => void, context: any) {
+        super(response, params, action);
         this._context = context;
     }
 
