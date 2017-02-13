@@ -23,7 +23,8 @@
     ]
   },
   "files": [
-    "src/main.ts"
+    "src/main.ts",
+    "node_modules/@types/mathjs/index.d.ts"
   ],
   "exclude": [
     "node_modules"
