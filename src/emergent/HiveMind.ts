@@ -1,5 +1,5 @@
 import {IHiveResponse, UnderstoodResponse, FailedResponse} from "./HiveResponse";
-import {HiveMindNeuron} from "./neurons/HiveMindNeuron";
+import {IHiveMindNeuron} from "./neurons/HiveMindNeuron";
 import {IHiveMindNeurons} from "./HiveMindNeurons";
 import {SimpleResponse} from "./neurons/responses/SimpleResponse";
 import {ActionResponse} from "./neurons/responses/ActionResponse";
@@ -55,7 +55,7 @@ export class BasicHiveMind implements IHiveMind {
         return new FailedResponse("oratio.did.not.undestand");
     }
 
-    public addNeurons(neurons: HiveMindNeuron[]) {
+    public addNeurons(neurons: IHiveMindNeuron[]) {
         this.neurons.registerNeurons(neurons);
     }
 }

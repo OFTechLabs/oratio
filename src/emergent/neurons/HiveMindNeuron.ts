@@ -1,7 +1,7 @@
 import {NeuronResponse} from "./responses/NeuronResponse";
 
-export interface HiveMindNeuron {
+export interface IHiveMindNeuron {
 
-    process(input: string[], context: string) : NeuronResponse;
+    process(words: string[], context: string) : NeuronResponse;
 
 }

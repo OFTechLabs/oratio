@@ -1,4 +1,4 @@
-import {HiveMindNeuron} from "./neurons/HiveMindNeuron";
+import {IHiveMindNeuron} from "./neurons/HiveMindNeuron";
 import {NeuronResponse} from "./neurons/responses/NeuronResponse";
 import {Silence} from "./neurons/responses/Silence";
 
@@ -6,15 +6,15 @@ export interface IHiveMindNeurons {
 
     findMatch(input: string[], context: string): NeuronResponse;
 
-    registerNeurons(toAdd: HiveMindNeuron[]): void;
+    registerNeurons(toAdd: IHiveMindNeuron[]): void;
 
 }
 
 export class BasicHiveMindNeurons implements IHiveMindNeurons {
 
-    private neurons: HiveMindNeuron[];
+    private neurons: IHiveMindNeuron[];
 
-    constructor(neurons: HiveMindNeuron[]) {
+    constructor(neurons: IHiveMindNeuron[]) {
         this.neurons = neurons;
     }
 
@@ -36,7 +36,7 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
         return new Silence();
     }
 
-    public registerNeurons(toAdd: HiveMindNeuron[]): void {
+    public registerNeurons(toAdd: IHiveMindNeuron[]): void {
         this.neurons = this.neurons.concat(toAdd);
     }
 }

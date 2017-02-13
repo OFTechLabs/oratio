@@ -1,10 +1,10 @@
-import {HiveMindNeuron} from "./HiveMindNeuron";
+import {IHiveMindNeuron} from "./HiveMindNeuron";
 import {LevenshteinDistanceMatcher} from "../../language/words/LevenshteinDistanceMatcher";
 import {NeuronResponse} from "./responses/NeuronResponse";
 import {Silence} from "./responses/Silence";
 import {SimpleResponse} from "./responses/SimpleResponse";
 
-export class MultipleSequenceNeuron implements HiveMindNeuron {
+export class MultipleSequenceNeuron implements IHiveMindNeuron {
 
     private knownWords: string[];
     private knownTwoWordSequences: string[];

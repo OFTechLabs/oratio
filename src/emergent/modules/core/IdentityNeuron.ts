@@ -1,8 +1,8 @@
-import {HiveMindNeuron} from "../../neurons/HiveMindNeuron";
+import {IHiveMindNeuron} from "../../neurons/HiveMindNeuron";
 import {MultipleSequenceNeuron} from "../../neurons/MultipleSequenceNeuron";
 import {NeuronResponse} from "../../neurons/responses/NeuronResponse";
 
-export class IdentityNeuron implements HiveMindNeuron {
+export class IdentityNeuron implements IHiveMindNeuron {
 
     private static KNOWN_WORDS: string [] = ["identity"];
     private static KNOWN_THREE_WORD_SEQUENCES: string[] = ["whoareyou", "whatareyou"];

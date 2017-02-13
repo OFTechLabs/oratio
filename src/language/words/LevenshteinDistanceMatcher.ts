@@ -12,7 +12,7 @@ export class LevenshteinDistanceMatcher implements WordMatcher {
     }
 
     private requiredDistance(toMatchWith: string) {
-        return (toMatchWith.length / 4);
+        return (toMatchWith.length / 4) + 1;
     }
 
     private levenshtein(word: string, toMatchWith: string, requiredDistance: number): boolean {

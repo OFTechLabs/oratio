@@ -1,9 +1,9 @@
-import {HiveMindNeuron} from "../../neurons/HiveMindNeuron";
+import {IHiveMindNeuron} from "../../neurons/HiveMindNeuron";
 import {MultipleSequenceNeuron} from "../../neurons/MultipleSequenceNeuron";
 import {NeuronResponse} from "../../neurons/responses/NeuronResponse";
 import {SimpleResponse} from "../../neurons/responses/SimpleResponse";
 
-export class TimeNeuron implements HiveMindNeuron {
+export class TimeNeuron implements IHiveMindNeuron {
 
     private static KNOWN_TWO_WORD_SEQUENCES: string[] = ["currenttime"];
     private static KNOWN_FOUR_WORD_SEQUENCES: string[] = ["whattimeisit"];
