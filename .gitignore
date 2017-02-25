@@ -8,4 +8,5 @@
 !.gitignore
 !.travis.yml
 !LICENSE
+!*.d.ts
 !.npmignore
