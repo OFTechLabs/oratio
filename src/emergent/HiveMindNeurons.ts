@@ -4,7 +4,7 @@ import {Silence} from "./neurons/responses/Silence";
 
 export interface IHiveMindNeurons {
 
-    findMatch(input: string[], context: string): NeuronResponse;
+    findMatch(input: string[], locale: string, context: string): NeuronResponse;
 
     registerNeurons(toAdd: IHiveMindNeuron[]): void;
 
@@ -18,9 +18,9 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
         this.neurons = neurons;
     }
 
-    public findMatch(input: string[], context: string): NeuronResponse {
+    public findMatch(input: string[], locale: string, context: string): NeuronResponse {
         for (let i = 0; i < this.neurons.length; i++) {
-            const response = this.neurons[i].process(input, context);
+            const response = this.neurons[i].process(input, locale, context);
 
             if (response.hasAnswer()) {
                 if (i > 0) {

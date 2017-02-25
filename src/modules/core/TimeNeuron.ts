@@ -8,14 +8,14 @@ export class TimeNeuron implements IHiveMindNeuron {
     private static KNOWN_TWO_WORD_SEQUENCES: string[] = ["currenttime"];
     private static KNOWN_FOUR_WORD_SEQUENCES: string[] = ["whattimeisit"];
 
-    public process(input: string[], context: string): NeuronResponse {
+    public process(input: string[], locale: string, context: string): NeuronResponse {
         const initialResponse = (new MultipleSequenceNeuron(
             [],
             TimeNeuron.KNOWN_TWO_WORD_SEQUENCES,
             [],
             TimeNeuron.KNOWN_FOUR_WORD_SEQUENCES,
             "oratio.core.currentTime"))
-            .process(input, context);
+            .process(input, locale, context);
 
         if (initialResponse instanceof SimpleResponse) {
             const date = new Date();

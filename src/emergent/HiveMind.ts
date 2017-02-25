@@ -7,7 +7,7 @@ import {ActionWithContextResponse} from "./neurons/responses/ActionWithContextRe
 
 export interface IHiveMind {
 
-    process(input: string, context: string): IHiveResponse;
+    process(input: string, locale: string, context: string): IHiveResponse;
 
 }
 
@@ -24,11 +24,11 @@ export class BasicHiveMind implements IHiveMind {
         this.neurons = neurons;
     }
 
-    public process(input: string, context: string): IHiveResponse {
+    public process(input: string, locale: string, context: string): IHiveResponse {
 
         const words = input.split(" ");
 
-        const neuronsResponse = this.neurons.findMatch(words, context);
+        const neuronsResponse = this.neurons.findMatch(words, locale, context);
 
         if (neuronsResponse.hasAnswer()) {
             if (neuronsResponse instanceof SimpleResponse) {

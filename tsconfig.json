@@ -23,6 +23,7 @@
     ]
   },
   "files": [
+    "typings.d.ts",
     "src/main.ts",
     "node_modules/@types/mathjs/index.d.ts"
   ],

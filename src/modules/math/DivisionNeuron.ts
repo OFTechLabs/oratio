@@ -6,11 +6,11 @@ export class DivisionNeuron implements IHiveMindNeuron {
 
     private static KNOWN_WORDS: string [] = ["divide", "/", "division"];
 
-    public process(words: string[], context: string): NeuronResponse {
+    public process(words: string[], locale: string, context: string): NeuronResponse {
         return (new BaseMathNeuron(
             DivisionNeuron.KNOWN_WORDS,
             "otario.math.division",
             (a, b) => a / b
-        )).process(words, context);
+        )).process(words, locale, context);
     }
 }

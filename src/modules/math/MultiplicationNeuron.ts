@@ -6,11 +6,11 @@ export class MultiplicationNeuron implements IHiveMindNeuron {
 
     private static KNOWN_WORDS: string [] = ["multiply", "*", "multiplication"];
 
-    public process(words: string[], context: string): NeuronResponse {
+    public process(words: string[], locale: string, context: string): NeuronResponse {
         return (new BaseMathNeuron(
             MultiplicationNeuron.KNOWN_WORDS,
             "otario.math.multiplication",
             (a, b) => a * b
-        )).process(words, context);
+        )).process(words, locale, context);
     }
 }

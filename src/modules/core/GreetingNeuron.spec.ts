@@ -21,7 +21,7 @@ describe("Greeting neuron", () => {
         ];
 
         userInput.forEach(input => {
-            const response = greetingNeuron.process(input, null);
+            const response = greetingNeuron.process(input, "en", null);
             expect(response.hasAnswer()).toBeTruthy();
 
             const simpleResponse = <SimpleResponse> response;
@@ -39,7 +39,7 @@ describe("Greeting neuron", () => {
         ];
 
         userInput.forEach(input => {
-            const response = greetingNeuron.process(input, null);
+            const response = greetingNeuron.process(input, "en", null);
             expect(response.hasAnswer()).toBeTruthy();
 
             const simpleResponse = <SimpleResponse> response;

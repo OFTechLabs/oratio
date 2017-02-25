@@ -19,7 +19,7 @@ export class BaseMathNeuron implements IHiveMindNeuron {
         this.apply = apply;
     }
 
-    public process(words: string[], context: string): NeuronResponse {
+    public process(words: string[], locale: string, context: string): NeuronResponse {
         for (let i = 0; i < words.length - 1; i++) {
             const word = words[i];
             for (let j = 0; j < this.knownOperators.length; j++) {

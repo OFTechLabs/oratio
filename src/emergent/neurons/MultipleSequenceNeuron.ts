@@ -24,7 +24,7 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
         this.response = response;
     }
 
-    public process(input: string[], context: string): NeuronResponse {
+    public process(input: string[], locale: string, context: string): NeuronResponse {
         for (let i = 0; i < this.knownWords.length; i++) {
             const knownWord = this.knownWords[i];
             for (let j = 0; j < input.length; j++) {

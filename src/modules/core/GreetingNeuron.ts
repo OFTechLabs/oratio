@@ -3,28 +3,29 @@ import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
 import {MultipleSequenceNeuron} from "../../emergent/neurons/MultipleSequenceNeuron";
 import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {WordAfterSequenceParser} from "../../language/parsers/parameters/WordAfterSequenceParser";
+import {SequenceParser} from "../../language/sequences/SequenceParser";
+import * as knownWords from "./GreetingNeuron.words.json";
 
 export class GreetingNeuron implements IHiveMindNeuron {
 
-    private static KNOWN_WORDS: string [] = ["hello", "hi"];
-    private static KNOWN_TWO_WORD_SEQUENCES: string [] = ["iam"];
-    private static KNOWN_THREE_WORD_SEQUENCES: string[] = ["mynameis"];
+    public process(words: string[], locale: string, context: string): NeuronResponse {
+        const localizedKnownWords: string[] = <string[]> (<any> knownWords).main[locale].words;
+        const sequences = SequenceParser.parse(localizedKnownWords);
 
-    public process(words: string[], context: string): NeuronResponse {
         const initialResponse: NeuronResponse = (new MultipleSequenceNeuron(
-            GreetingNeuron.KNOWN_WORDS,
-            GreetingNeuron.KNOWN_TWO_WORD_SEQUENCES,
-            GreetingNeuron.KNOWN_THREE_WORD_SEQUENCES,
+            sequences.singleWord.map(sequence => sequence.withoutSpaces),
+            sequences.twoWords.map(sequence => sequence.withoutSpaces),
+            sequences.threeWords.map(sequence => sequence.withoutSpaces),
             [],
             "oratio.core.hello"))
-            .process(words, context);
+            .process(words, locale, context);
 
         if (initialResponse instanceof SimpleResponse) {
+            const localizedKnownParams: string[] = <string[]> (<any> knownWords).params[locale].words;
+            const paramSequences = SequenceParser.parse(localizedKnownParams);
+
             const parser = new WordAfterSequenceParser(
-                [
-                    ["my", "name", "is"],
-                    ["I", "am"],
-                ],
+                paramSequences.sequences.map(sequence => sequence.sequence.split(" "))
             );
 
             return initialResponse.withParams(parser.parse(words));

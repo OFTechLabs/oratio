@@ -9,7 +9,7 @@ export class MathJSNeuron implements IHiveMindNeuron {
 
     private static MATH_START: string = "math:";
 
-    public process(words: string[], context: string): NeuronResponse {
+    public process(words: string[], locale: string, context: string): NeuronResponse {
         if (words[0] === MathJSNeuron.MATH_START) {
             const remainder: string = words.slice(1, words.length).reduce((a, b) => a + b);
             const evaluated = math.eval(remainder);
