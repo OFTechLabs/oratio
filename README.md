@@ -10,7 +10,7 @@ There is no single major intelligence responsible for the system, instead every 
 
 A neuron can easily be added to the hive, all it has to do is implement the following function:
 
-<code>process(input: string[], context: string) : NeuronResponse;</code>
+<code>process(input: string[], locale: sring, context: string) : NeuronResponse;</code>
 
 then it has to be registered with the hive who manages all neurons.
 
