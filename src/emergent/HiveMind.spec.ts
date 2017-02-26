@@ -1,8 +1,6 @@
 import "jest";
-import {IHiveMind, BasicHiveMind} from "./HiveMind";
-import {BasicHiveMindNeurons} from "./HiveMindNeurons";
-import {IdentityNeuron} from "../modules/core/IdentityNeuron";
-import {TimeNeuron} from "../modules/core/TimeNeuron";
+import {IHiveMind} from "./HiveMind";
+import {HiveMindBuilder} from "./HiveMindBuilder";
 require("babel-core/register");
 require("babel-polyfill");
 
@@ -11,13 +9,12 @@ describe("HiveMind", () => {
     let mind : IHiveMind;
     const locale : string = "en";
 
-    beforeEach(function () {
-        const neurons = new BasicHiveMindNeurons([
-            new IdentityNeuron(),
-            new TimeNeuron
-        ]);
-
-        mind = new BasicHiveMind(neurons);
+    beforeEach(() => {
+        mind = HiveMindBuilder.createEmpty()
+            .registerCoreModules()
+            .registerMathModules()
+            .registerMathJsModules()
+            .build();
     });
 
     it("should process neurons correctly", function () {

@@ -55,8 +55,4 @@ export class BasicHiveMind implements IHiveMind {
 
         return new FailedResponse("oratio.did.not.undestand");
     }
-
-    public addNeurons(neurons: IHiveMindNeuron[]) {
-        this.neurons.registerNeurons(neurons);
-    }
 }

@@ -5,9 +5,6 @@ import {Silence} from "./neurons/responses/Silence";
 export interface IHiveMindNeurons {
 
     findMatch(input: string[], locale: string, context: string): NeuronResponse;
-
-    registerNeurons(toAdd: IHiveMindNeuron[]): void;
-
 }
 
 export class BasicHiveMindNeurons implements IHiveMindNeurons {
@@ -34,9 +31,5 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
         }
 
         return new Silence();
-    }
-
-    public registerNeurons(toAdd: IHiveMindNeuron[]): void {
-        this.neurons = this.neurons.concat(toAdd);
     }
 }
