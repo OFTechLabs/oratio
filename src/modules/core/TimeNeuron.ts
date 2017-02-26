@@ -1,15 +1,14 @@
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
-import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
 import {MultipleSequenceNeuron} from "../../emergent/neurons/MultipleSequenceNeuron";
-import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {SimpleResponse, INeuronResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {SequenceParser} from "../../language/sequences/SequenceParser";
 import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 import * as knownWords from "./TimeNeuron.words.json";
 import {Sequence} from "../../language/sequences/Sequence";
+import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 
 export class TimeNeuron implements IHiveMindNeuron {
 
-    public process(input: string[], locale: string, context: string): NeuronResponse {
+    public process(input: string[], locale: string, context: string): INeuronResponse {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 

@@ -1,8 +1,8 @@
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
 import {AdditionNeuron} from "./AdditionNeuron";
 import {DivisionNeuron} from "./DivisionNeuron";
 import {MultiplicationNeuron} from "./MultiplicationNeuron";
 import {SubstractionNeuron} from "./SubstractionNeuron";
+import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 
 export * from "./AdditionNeuron";
 export * from "./SubstractionNeuron";

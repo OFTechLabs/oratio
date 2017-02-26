@@ -1,10 +1,15 @@
-import {IHiveMindNeuron} from "./neurons/HiveMindNeuron";
-import {NeuronResponse} from "./neurons/responses/NeuronResponse";
 import {Silence} from "./neurons/responses/Silence";
+import {INeuronResponse} from "./neurons/responses/SimpleResponse";
 
 export interface IHiveMindNeurons {
 
-    findMatch(input: string[], locale: string, context: string): NeuronResponse;
+    findMatch(input: string[], locale: string, context: string): INeuronResponse;
+}
+
+export interface IHiveMindNeuron {
+
+    process(words: string[], locale: string, context: string): INeuronResponse;
+
 }
 
 export class BasicHiveMindNeurons implements IHiveMindNeurons {
@@ -15,7 +20,7 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
         this.neurons = neurons;
     }
 
-    public findMatch(input: string[], locale: string, context: string): NeuronResponse {
+    public findMatch(input: string[], locale: string, context: string): INeuronResponse {
         for (let i = 0; i < this.neurons.length; i++) {
             const response = this.neurons[i].process(input, locale, context);
 
@@ -27,9 +32,10 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
                 }
 
                 return response;
-            }
-        }
 
-        return new Silence();
+            }
+
+            return new Silence();
+        }
     }
 }

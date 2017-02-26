@@ -1,6 +1,8 @@
-import {NeuronResponse} from "./NeuronResponse";
+export interface INeuronResponse {
+    hasAnswer(): boolean;
+}
 
-export class SimpleResponse implements NeuronResponse {
+export class SimpleResponse implements INeuronResponse {
 
     private _response: string;
     private _params: string[];

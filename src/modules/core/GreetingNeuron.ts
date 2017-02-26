@@ -1,20 +1,19 @@
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
-import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
 import {MultipleSequenceNeuron} from "../../emergent/neurons/MultipleSequenceNeuron";
-import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {SimpleResponse, INeuronResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {WordAfterSequenceParser} from "../../language/parsers/parameters/WordAfterSequenceParser";
 import {SequenceParser} from "../../language/sequences/SequenceParser";
 import * as knownWords from "./GreetingNeuron.words.json";
 import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 import {Sequence} from "../../language/sequences/Sequence";
+import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 
 export class GreetingNeuron implements IHiveMindNeuron {
 
-    public process(words: string[], locale: string, context: string): NeuronResponse {
+    public process(words: string[], locale: string, context: string): INeuronResponse {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
-        const initialResponse: NeuronResponse = (new MultipleSequenceNeuron(
+        const initialResponse: INeuronResponse = (new MultipleSequenceNeuron(
             sequences.singleWord.map((sequence: Sequence) => sequence.withoutSpaces),
             sequences.twoWords.map((sequence: Sequence) => sequence.withoutSpaces),
             sequences.threeWords.map((sequence: Sequence) => sequence.withoutSpaces),

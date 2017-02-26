@@ -1,5 +1,4 @@
-import {IHiveMindNeurons, BasicHiveMindNeurons} from "./HiveMindNeurons";
-import {IHiveMindNeuron} from "./neurons/HiveMindNeuron";
+import {BasicHiveMindNeurons, IHiveMindNeuron} from "./HiveMindNeurons";
 import {CoreNeurons} from "../modules/core/coreNeurons";
 import {IHiveMind, BasicHiveMind} from "./HiveMind";
 import {MathNeurons} from "../modules/math/mathNeurons";

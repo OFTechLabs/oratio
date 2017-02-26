@@ -22,12 +22,15 @@
       "@types/node"
     ]
   },
+  "include": [
+    "src/**/*.ts"
+  ],
   "files": [
     "typings.d.ts",
-    "src/**/*.ts",
     "node_modules/@types/mathjs/index.d.ts"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "**/*.spec.ts"
   ]
 }

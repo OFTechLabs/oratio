@@ -2,7 +2,6 @@ export * from "./HiveMind";
 export * from "./HiveMindNeurons";
 export * from "./HiveResponse";
 
-export {IHiveMindNeuron} from "./neurons/HiveMindNeuron";
 export {MultipleSequenceNeuron} from "./neurons/MultipleSequenceNeuron";
 export {SingleWordNeuron} from "./neurons/SingleWordNeuron";
 export {ThreeWordSequenceNeuron} from "./neurons/ThreeWordSequenceNeuron";

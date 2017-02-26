@@ -1,5 +1,4 @@
 import {IHiveResponse, UnderstoodResponse} from "./HiveResponse";
-import {IHiveMindNeuron} from "./neurons/HiveMindNeuron";
 import {IHiveMindNeurons} from "./HiveMindNeurons";
 import {SimpleResponse} from "./neurons/responses/SimpleResponse";
 import {ActionResponse} from "./neurons/responses/ActionResponse";
@@ -17,7 +16,7 @@ export class BasicHiveMind implements IHiveMind {
     private static EMPTY_CONTEXT = {};
     private static EMPTY_ACTION = () => {
         return;
-    };
+    }
 
     private neurons: IHiveMindNeurons;
 

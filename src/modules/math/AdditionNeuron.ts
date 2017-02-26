@@ -1,12 +1,12 @@
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
-import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
 import {BaseMathNeuron} from "./BaseMathNeuron";
 import * as knownWords from "./AdditionNeuron.words.json";
 import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
+import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
+import {INeuronResponse} from "../../emergent/neurons/responses/SimpleResponse";
 
 export class AdditionNeuron implements IHiveMindNeuron {
 
-    public process(words: string[], locale: string, context: string): NeuronResponse {
+    public process(words: string[], locale: string, context: string): INeuronResponse {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
 
         return (new BaseMathNeuron(

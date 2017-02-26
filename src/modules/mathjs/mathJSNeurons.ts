@@ -1,5 +1,5 @@
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
 import {MathJSNeuron} from "./MathJSNeuron";
+import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 export * from "./MathJSNeuron"
 
 export class MathJSNeurons {

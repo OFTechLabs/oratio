@@ -1,8 +1,7 @@
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
-import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
 import {Silence} from "../../emergent/neurons/responses/Silence";
 import {LevenshteinDistanceMatcher} from "../../language/words/LevenshteinDistanceMatcher";
-import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {SimpleResponse, INeuronResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 
 export class BaseMathNeuron implements IHiveMindNeuron {
 
@@ -19,7 +18,7 @@ export class BaseMathNeuron implements IHiveMindNeuron {
         this.apply = apply;
     }
 
-    public process(words: string[], locale: string, context: string): NeuronResponse {
+    public process(words: string[], locale: string, context: string): INeuronResponse {
         let index = 0;
         for (const word of words) {
             for (const knownOperator of this.knownOperators) {

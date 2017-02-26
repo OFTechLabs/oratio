@@ -1,8 +1,7 @@
-import {IHiveMindNeuron} from "./HiveMindNeuron";
 import {LevenshteinDistanceMatcher} from "../../language/words/LevenshteinDistanceMatcher";
-import {NeuronResponse} from "./responses/NeuronResponse";
 import {Silence} from "./responses/Silence";
-import {SimpleResponse} from "./responses/SimpleResponse";
+import {SimpleResponse, INeuronResponse} from "./responses/SimpleResponse";
+import {IHiveMindNeuron} from "../HiveMindNeurons";
 
 export class MultipleSequenceNeuron implements IHiveMindNeuron {
 
@@ -24,7 +23,7 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
         this.response = response;
     }
 
-    public process(input: string[], locale: string, context: string): NeuronResponse {
+    public process(input: string[], locale: string, context: string): INeuronResponse {
         for (const knownWord of this.knownWords) {
             for (const inputWord of input) {
                 if (LevenshteinDistanceMatcher.MATCHER.matches(inputWord, knownWord)) {

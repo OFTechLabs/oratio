@@ -1,6 +1,9 @@
-import {WordMatcher} from "./WordMatcher";
+export interface IWordMatcher {
 
-export class LevenshteinDistanceMatcher implements WordMatcher {
+    matches(word: string, toMatchWith: string): boolean;
+}
+
+export class LevenshteinDistanceMatcher implements IWordMatcher {
 
     public static MATCHER = new LevenshteinDistanceMatcher();
 
