@@ -5,18 +5,19 @@ import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {SequenceParser} from "../../language/sequences/SequenceParser";
 import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 import * as knownWords from "./TimeNeuron.words.json";
+import {Sequence} from "../../language/sequences/Sequence";
 
 export class TimeNeuron implements IHiveMindNeuron {
 
     public process(input: string[], locale: string, context: string): NeuronResponse {
-        const localizedKnownWords: string[] = (<LocalizedWordsJson> (<any> knownWords)).main[locale].words;
+        const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
         const initialResponse = (new MultipleSequenceNeuron(
-            sequences.singleWord.map(sequence => sequence.withoutSpaces),
-            sequences.twoWords.map(sequence => sequence.withoutSpaces),
-            sequences.threeWords.map(sequence => sequence.withoutSpaces),
-            sequences.fourWords.map(sequence => sequence.withoutSpaces),
+            sequences.singleWord.map((sequence: Sequence) => sequence.withoutSpaces),
+            sequences.twoWords.map((sequence: Sequence) => sequence.withoutSpaces),
+            sequences.threeWords.map((sequence: Sequence) => sequence.withoutSpaces),
+            sequences.fourWords.map((sequence: Sequence) => sequence.withoutSpaces),
             "oratio.core.currentTime"))
             .process(input, locale, context);
 

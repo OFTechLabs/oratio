@@ -10,8 +10,7 @@ export class WordAfterSequenceParser implements IParameterParser {
     }
 
     public parse(words: string[]): string[] {
-        for (let i = 0; i < this.sequences.length; i++) {
-            const sequence = this.sequences[i];
+        for (const sequence of this.sequences) {
             for (let j = 0; j < (words.length - sequence.length); j++) {
                 for (let k = 0; k < sequence.length; k++) {
                     const word = words[j + k];

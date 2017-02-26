@@ -1,9 +1,10 @@
-import {IHiveResponse, UnderstoodResponse, FailedResponse} from "./HiveResponse";
+import {IHiveResponse, UnderstoodResponse} from "./HiveResponse";
 import {IHiveMindNeuron} from "./neurons/HiveMindNeuron";
 import {IHiveMindNeurons} from "./HiveMindNeurons";
 import {SimpleResponse} from "./neurons/responses/SimpleResponse";
 import {ActionResponse} from "./neurons/responses/ActionResponse";
 import {ActionWithContextResponse} from "./neurons/responses/ActionWithContextResponse";
+import {FailedResponse} from "./FailedResponse";
 
 export interface IHiveMind {
 

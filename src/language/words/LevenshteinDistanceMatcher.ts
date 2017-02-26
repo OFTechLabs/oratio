@@ -39,7 +39,7 @@ export class LevenshteinDistanceMatcher implements WordMatcher {
                               lengthOfMatchCandidate: number): number {
         const matrix = new Array<number[]>(lengthOfMatchCandidate + 1);
         for (let i = 0; i <= lengthOfMatchCandidate; ++i) {
-            let row = matrix[i] = new Array<number>(lengthOfWord + 1);
+            const row = matrix[i] = new Array<number>(lengthOfWord + 1);
             row[0] = i;
         }
         const firstRow = matrix[0];
@@ -52,9 +52,9 @@ export class LevenshteinDistanceMatcher implements WordMatcher {
                     matrix[i][j] = matrix[i - 1][j - 1];
                 } else {
                     matrix[i][j] = Math.min(
-                            matrix[i - 1][j - 1], // substitution
-                            matrix[i][j - 1], // insertion
-                            matrix[i - 1][j] // deletion
+                            matrix[i - 1][j - 1],
+                            matrix[i][j - 1],
+                            matrix[i - 1][j],
                         ) + 1;
                 }
             }

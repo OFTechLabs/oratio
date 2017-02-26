@@ -15,8 +15,7 @@ export class ThreeWordSequenceNeuron implements IHiveMindNeuron {
     }
 
     public process(input: string[], locale: string, context: string): NeuronResponse {
-        for (let i = 0; i < this.knownThreeWordSequences.length; i++) {
-            const sequence = this.knownThreeWordSequences[i];
+        for (const sequence of this.knownThreeWordSequences) {
             for (let j = 0; j < (input.length - 2); j++) {
                 const sequenceTogether = input[j] + input[j + 1] + input[j + 2];
 

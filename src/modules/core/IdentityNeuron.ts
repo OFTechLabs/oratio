@@ -4,18 +4,19 @@ import {MultipleSequenceNeuron} from "../../emergent/neurons/MultipleSequenceNeu
 import * as knownWords from "./IdentityNeuron.words.json";
 import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 import {SequenceParser} from "../../language/sequences/SequenceParser";
+import {Sequence} from "../../language/sequences/Sequence";
 
 export class IdentityNeuron implements IHiveMindNeuron {
 
     public process(words: string[], locale: string, context: string): NeuronResponse {
-        const localizedKnownWords: string[] = (<LocalizedWordsJson> (<any> knownWords)).main[locale].words;
+        const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
         return (new MultipleSequenceNeuron(
-            sequences.singleWord.map(sequence => sequence.withoutSpaces),
-            sequences.twoWords.map(sequence => sequence.withoutSpaces),
-            sequences.threeWords.map(sequence => sequence.withoutSpaces),
-            sequences.fourWords.map(sequence => sequence.withoutSpaces),
+            sequences.singleWord.map((sequence: Sequence) => sequence.withoutSpaces),
+            sequences.twoWords.map((sequence: Sequence) => sequence.withoutSpaces),
+            sequences.threeWords.map((sequence: Sequence) => sequence.withoutSpaces),
+            sequences.fourWords.map((sequence: Sequence) => sequence.withoutSpaces),
             "oratio.core.identity"))
             .process(words, locale, context);
     }

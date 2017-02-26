@@ -15,10 +15,9 @@ export class SingleWordNeuron implements IHiveMindNeuron {
     }
 
     public process(input: string[], locale: string, context: string): NeuronResponse {
-        for (let i = 0; i < this.knownWords.length; i++) {
-            const knownWord = this.knownWords[i];
-            for (let j = 0; j < input.length; j++) {
-                if (LevenshteinDistanceMatcher.MATCHER.matches(input[j], knownWord)) {
+        for (const knownWord of this.knownWords) {
+            for (const inputWord of input) {
+                if (LevenshteinDistanceMatcher.MATCHER.matches(inputWord, knownWord)) {
                     return new SimpleResponse(this.response, []);
                 }
             }

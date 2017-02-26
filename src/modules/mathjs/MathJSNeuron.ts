@@ -11,7 +11,7 @@ import {LanguageUtil} from "../../language/LanguageUtil";
 export class MathJSNeuron implements IHiveMindNeuron {
 
     public process(words: string[], locale: string, context: string): NeuronResponse {
-        const localizedKnownWords: string[] = (<LocalizedWordsJson> (<any> knownWords)).main[locale].words;
+        const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
 
         if (this.startsWith(words[0], localizedKnownWords)) {
             const remainder: string = words.slice(1, words.length).reduce((a, b) => a + b);
@@ -19,7 +19,7 @@ export class MathJSNeuron implements IHiveMindNeuron {
 
             return new SimpleResponse(
                 "otario.mathjs.evaluated",
-                [evaluated + ""]
+                [evaluated + ""],
             );
         }
 
@@ -28,7 +28,7 @@ export class MathJSNeuron implements IHiveMindNeuron {
 
     private startsWith(word: string, possibleStarts: string[]): boolean {
         if (LanguageUtil.isSequence(possibleStarts)) {
-            return possibleStarts.filter(possibleStart => {
+            return possibleStarts.filter((possibleStart: string) => {
                 return possibleStart === word;
             }).length > 0;
         }

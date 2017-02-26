@@ -25,17 +25,15 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
     }
 
     public process(input: string[], locale: string, context: string): NeuronResponse {
-        for (let i = 0; i < this.knownWords.length; i++) {
-            const knownWord = this.knownWords[i];
-            for (let j = 0; j < input.length; j++) {
-                if (LevenshteinDistanceMatcher.MATCHER.matches(input[j], knownWord)) {
+        for (const knownWord of this.knownWords) {
+            for (const inputWord of input) {
+                if (LevenshteinDistanceMatcher.MATCHER.matches(inputWord, knownWord)) {
                     return new SimpleResponse(this.response, []);
                 }
             }
         }
 
-        for (let i = 0; i < this.knownTwoWordSequences.length; i++) {
-            const sequence = this.knownTwoWordSequences[i];
+        for (const sequence of this.knownTwoWordSequences) {
             for (let j = 0; j < (input.length - 1); j++) {
                 const sequenceTogether = input[j] + input[j + 1];
 
@@ -45,8 +43,7 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
             }
         }
 
-        for (let i = 0; i < this.knownThreeWordSequences.length; i++) {
-            const sequence = this.knownThreeWordSequences[i];
+        for (const sequence of this.knownThreeWordSequences) {
             for (let j = 0; j < (input.length - 2); j++) {
                 const sequenceTogether = input[j] + input[j + 1] + input[j + 2];
 
@@ -56,8 +53,7 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
             }
         }
 
-        for (let i = 0; i < this.knownFourWordSequences.length; i++) {
-            const sequence = this.knownFourWordSequences[i];
+        for (const sequence of this.knownFourWordSequences) {
             for (let j = 0; j < (input.length - 3); j++) {
                 const sequenceTogether = input[j] + input[j + 1] + input[j + 2] + input[j + 3];
 

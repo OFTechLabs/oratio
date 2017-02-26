@@ -20,33 +20,34 @@ export class BaseMathNeuron implements IHiveMindNeuron {
     }
 
     public process(words: string[], locale: string, context: string): NeuronResponse {
-        for (let i = 0; i < words.length - 1; i++) {
-            const word = words[i];
-            for (let j = 0; j < this.knownOperators.length; j++) {
-                if (LevenshteinDistanceMatcher.MATCHER.matches(word, this.knownOperators[j])) {
-                    const possibleNumberOne = parseFloat(words[i - 1]);
-                    const possibleNumberTwo = parseFloat(words[i + 1]);
-                    const possibleNumberThree = parseFloat(words[i + 2]);
-                    const possibleNumberFour = parseFloat(words[i + 3]);
+        let index = 0;
+        for (const word of words) {
+            for (const knownOperator of this.knownOperators) {
+                if (LevenshteinDistanceMatcher.MATCHER.matches(word, knownOperator)) {
+                    const possibleNumberOne = parseFloat(words[index - 1]);
+                    const possibleNumberTwo = parseFloat(words[index + 1]);
+                    const possibleNumberThree = parseFloat(words[index + 2]);
+                    const possibleNumberFour = parseFloat(words[index + 3]);
 
                     if (this.isNumeric(possibleNumberOne) && this.isNumeric(possibleNumberTwo)) {
                         return new SimpleResponse(
                             this.response,
-                            ["" + this.roundToTwo(this.apply(possibleNumberOne, possibleNumberTwo))]
+                            ["" + this.roundToTwo(this.apply(possibleNumberOne, possibleNumberTwo))],
                         );
                     } else if (this.isNumeric(possibleNumberTwo) && this.isNumeric(possibleNumberThree)) {
                         return new SimpleResponse(
                             this.response,
-                            ["" + this.roundToTwo(this.apply(possibleNumberTwo, possibleNumberThree))]
+                            ["" + this.roundToTwo(this.apply(possibleNumberTwo, possibleNumberThree))],
                         );
                     } else if (this.isNumeric(possibleNumberTwo) && this.isNumeric(possibleNumberFour)) {
                         return new SimpleResponse(
                             this.response,
-                            ["" + this.roundToTwo(this.apply(possibleNumberTwo, possibleNumberFour))]
+                            ["" + this.roundToTwo(this.apply(possibleNumberTwo, possibleNumberFour))],
                         );
                     }
                 }
             }
+            index++;
         }
 
         return new Silence();
@@ -57,6 +58,6 @@ export class BaseMathNeuron implements IHiveMindNeuron {
     }
 
     private roundToTwo(num: number): number {
-        return +(Math.round(<any> (num + "e+2")) + "e-2");
+        return +(Math.round((num + "e+2") as any) + "e-2");
     }
 }

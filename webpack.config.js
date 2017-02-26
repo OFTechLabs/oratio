@@ -6,6 +6,7 @@ var fs = require('fs');
 var os = require('os');
 var dts = require('dts-bundle');
 var deleteEmpty = require('delete-empty');
+var LoaderOptionsPlugin = require("webpack/lib/LoaderOptionsPlugin");
 
 /* helper function to get into build directory */
 var libPath = function (name) {
@@ -100,25 +101,49 @@ var webpack_opts = {
         libraryTarget: "commonjs2"
     },
     resolve: {
-        extensions: ['', '.ts', '.js'],
+        extensions: ['.ts', '.js'],
         modules: [
             'node_modules',
             'src',
         ]
     },
     module: {
-        preLoaders: [{test: /\.ts$/, loaders: ['tslint']}],
-        loaders: [{test: /\.ts$/, loaders: ['babel-loader', 'awesome-typescript-loader']}, {test: /\.json$/, loaders: 'json-loader'}]
+        rules: [
+            {
+                test: /\.ts$/,
+                enforce: 'pre',
+                loader: 'tslint-loader',
+                options: {
+                    emitErrors: true,
+                    failOnHint: true,
+                    resourcePath: "src"
+                }
+            },
+            {
+                test: /\.ts$/,
+                loaders: ['babel-loader', 'awesome-typescript-loader']
+            },
+            {
+                test: /\.json$/,
+                loaders: 'json-loader'
+            }
+        ],
     },
     externals: [nodeExternals()],
     plugins: [
         new webpack.optimize.UglifyJsPlugin(),
-        new webpack.ProgressPlugin(percentage_handler)
-    ],
-    tslint: {
-        emitErrors: true,
-        failOnHint: true
-    }
+        new webpack.ProgressPlugin(percentage_handler),
+        new webpack.LoaderOptionsPlugin({
+            options: {
+                tslint: {
+                    emitErrors: true,
+                    failOnHint: true,
+                    resourcePath: "src"
+                }
+            }
+        })
+
+    ]
 };
 
 var create_browser_version = function (inputJs) {

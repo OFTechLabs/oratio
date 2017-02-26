@@ -9,6 +9,6 @@ export class SequenceParser {
             return new Sequences([]);
         }
 
-        return new Sequences(sequences.map(sequence => new Sequence(sequence.split(" ").length, sequence)));
+        return new Sequences(sequences.map((sequence: string) => new Sequence(sequence.split(" ").length, sequence)));
     }
 }
