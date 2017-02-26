@@ -5,11 +5,12 @@ import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {WordAfterSequenceParser} from "../../language/parsers/parameters/WordAfterSequenceParser";
 import {SequenceParser} from "../../language/sequences/SequenceParser";
 import * as knownWords from "./GreetingNeuron.words.json";
+import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 
 export class GreetingNeuron implements IHiveMindNeuron {
 
     public process(words: string[], locale: string, context: string): NeuronResponse {
-        const localizedKnownWords: string[] = <string[]> (<any> knownWords).main[locale].words;
+        const localizedKnownWords: string[] = (<LocalizedWordsJson> (<any> knownWords)).main[locale].words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
         const initialResponse: NeuronResponse = (new MultipleSequenceNeuron(
@@ -21,7 +22,7 @@ export class GreetingNeuron implements IHiveMindNeuron {
             .process(words, locale, context);
 
         if (initialResponse instanceof SimpleResponse) {
-            const localizedKnownParams: string[] = <string[]> (<any> knownWords).params[locale].words;
+            const localizedKnownParams: string[] = (<LocalizedWordsJson> (<any> knownWords)).params[locale].words;
             const paramSequences = SequenceParser.parse(localizedKnownParams);
 
             const parser = new WordAfterSequenceParser(

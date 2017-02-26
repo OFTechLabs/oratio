@@ -6,10 +6,12 @@ require("babel-polyfill");
 
 describe("Identity neuron", () => {
 
+    const locale = "en";
+
     it("should know what to do with identity", () => {
         const neuron = new IdentityNeuron();
 
-        const response = neuron.process(["what", "identity", "you"], null);
+        const response = neuron.process(["what", "identity", "you"], locale, null);
         expect(response.hasAnswer()).toBeTruthy();
 
         const simpleResponse = <SimpleResponse> response;
@@ -20,7 +22,7 @@ describe("Identity neuron", () => {
     it("should know what to do with who are you", () => {
         const neuron = new IdentityNeuron();
 
-        const response = neuron.process(["who", "are", "you"], null);
+        const response = neuron.process(["who", "are", "you"], locale, null);
         expect(response.hasAnswer()).toBeTruthy();
 
         const simpleResponse = <SimpleResponse> response;
@@ -31,7 +33,18 @@ describe("Identity neuron", () => {
     it("should know what to do with what are you", () => {
         const neuron = new IdentityNeuron();
 
-        const response = neuron.process(["what", "are", "you"], null);
+        const response = neuron.process(["what", "are", "you"], locale, null);
+        expect(response.hasAnswer()).toBeTruthy();
+
+        const simpleResponse = <SimpleResponse> response;
+
+        expect(simpleResponse.response).toBe("oratio.core.identity");
+    });
+
+    it("should be able to use localization", () => {
+        const neuron = new IdentityNeuron();
+
+        const response = neuron.process(["wat", "ben", "je"], "nl", null);
         expect(response.hasAnswer()).toBeTruthy();
 
         const simpleResponse = <SimpleResponse> response;
@@ -44,7 +57,7 @@ describe("Identity neuron", () => {
 
         let words: string[] = "Hello I am a Human, what are you?".split(" ");
 
-        const response = neuron.process(words, null);
+        const response = neuron.process(words, locale, null);
         expect(response.hasAnswer()).toBeTruthy();
 
         const simpleResponse = <SimpleResponse> response;
@@ -57,7 +70,7 @@ describe("Identity neuron", () => {
 
         let words: string[] = "What is the time?".split(" ");
 
-        const response = neuron.process(words, null);
+
+        const response = neuron.process(words, locale, null);
         expect(response.hasAnswer()).toBeFalsy();
     });
-});

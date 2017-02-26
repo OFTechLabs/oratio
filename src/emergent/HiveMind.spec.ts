@@ -9,6 +9,7 @@ require("babel-polyfill");
 describe("HiveMind", () => {
 
     let mind : IHiveMind;
+    const locale : string = "en";
 
     beforeEach(function () {
         const neurons = new BasicHiveMindNeurons([
@@ -27,7 +28,7 @@ describe("HiveMind", () => {
 
 
         inputs.forEach(input => {
-            const response = mind.process(input.input, null);
+            const response = mind.process(input.input, locale, null);
 
             expect(response.response()).toBe(input.response)
         })

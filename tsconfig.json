@@ -24,7 +24,7 @@
   },
   "files": [
     "typings.d.ts",
-    "src/main.ts",
+    "src/**/*.ts",
     "node_modules/@types/mathjs/index.d.ts"
   ],
   "exclude": [

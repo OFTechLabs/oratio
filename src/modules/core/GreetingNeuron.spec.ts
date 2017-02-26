@@ -51,4 +51,24 @@ describe("Greeting neuron", () => {
 
     });
 
+    it("should be able to localize", function () {
+
+        const userInput : string[][] = [
+            ["hlalo", "mijn", "naam", "is", "Jacob"],
+            ["mjin", "naam", "is", "Jacob"],
+        ];
+
+        userInput.forEach(input => {
+            const response = greetingNeuron.process(input, "nl", null);
+            expect(response.hasAnswer()).toBeTruthy();
+
+            const simpleResponse = <SimpleResponse> response;
+
+            expect(simpleResponse.response).toBe("oratio.core.hello");
+            expect(simpleResponse.params.length).toBe(1);
+            expect(simpleResponse.params[0]).toBe("Jacob");
+        })
+
+    });
+
 });
