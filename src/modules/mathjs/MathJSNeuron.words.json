@@ -1,0 +1,18 @@
+{
+  "main": {
+    "en": {
+      "words": [
+        "math:",
+        "calculate:",
+        "evaluate:"
+      ]
+    },
+    "nl": {
+      "words": [
+        "bereken:",
+        "evalueer:"
+      ]
+    }
+  },
+  "params": {}
+}

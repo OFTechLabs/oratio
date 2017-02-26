@@ -4,13 +4,16 @@ import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
 import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {Silence} from "../../emergent/neurons/responses/Silence";
 import math = require("mathjs");
+import * as knownWords from "./MathJSNeuron.words.json";
+import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
+import {LanguageUtil} from "../../language/LanguageUtil";
 
 export class MathJSNeuron implements IHiveMindNeuron {
 
-    private static MATH_START: string = "math:";
-
     public process(words: string[], locale: string, context: string): NeuronResponse {
-        if (words[0] === MathJSNeuron.MATH_START) {
+        const localizedKnownWords: string[] = (<LocalizedWordsJson> (<any> knownWords)).main[locale].words;
+
+        if (this.startsWith(words[0], localizedKnownWords)) {
             const remainder: string = words.slice(1, words.length).reduce((a, b) => a + b);
             const evaluated = math.eval(remainder);
 
@@ -21,5 +24,15 @@ export class MathJSNeuron implements IHiveMindNeuron {
         }
 
         return new Silence();
+    }
+
+    private startsWith(word: string, possibleStarts: string[]): boolean {
+        if (LanguageUtil.isSequence(possibleStarts)) {
+            return possibleStarts.filter(possibleStart => {
+                return possibleStart === word;
+            }).length > 0;
+        }
+
+        return false;
     }
 }
