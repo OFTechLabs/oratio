@@ -1,0 +1,19 @@
+{
+  "main": {
+    "en": {
+      "words": [
+        "divide",
+        "division",
+        "/"
+      ]
+    },
+    "nl": {
+      "words": [
+        "delen",
+        "deling",
+        "/"
+      ]
+    }
+  },
+  "params": {}
+}

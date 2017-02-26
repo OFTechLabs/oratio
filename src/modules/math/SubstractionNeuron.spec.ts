@@ -1,12 +1,13 @@
 import "jest";
-import {SubtractionNeuron} from "./SubtractionNeuron";
+import {SubstractionNeuron} from "./SubstractionNeuron";
 import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 require("babel-core/register");
 require("babel-polyfill");
 
 describe("Subtraction neuron", () => {
 
-    let neuron: SubtractionNeuron = new SubtractionNeuron();
+    const locale: string = "en";
+    let neuron: SubstractionNeuron = new SubstractionNeuron();
 
     it("should be able to subtract two numbers", function () {
         const inputs: {input: string[], param: string}[] = [
@@ -16,7 +17,7 @@ describe("Subtraction neuron", () => {
         ];
 
         inputs.forEach(input => {
-            const response = neuron.process(input.input, "");
+            const response = neuron.process(input.input, locale, "");
 
             expect(response.hasAnswer()).toBeTruthy();
 
@@ -35,7 +36,7 @@ describe("Subtraction neuron", () => {
         ];
 
         inputs.forEach(input => {
-            const response = neuron.process(input.input, "");
+            const response = neuron.process(input.input, locale, "");
 
             expect(response.hasAnswer()).toBeTruthy();
 

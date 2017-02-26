@@ -6,6 +6,7 @@ require("babel-polyfill");
 
 describe("Multiplication neuron", () => {
 
+    const locale: string = "en";
     let neuron: MultiplicationNeuron = new MultiplicationNeuron();
 
     it("should be able to multiply two numbers", function () {
@@ -16,7 +17,7 @@ describe("Multiplication neuron", () => {
         ];
 
         inputs.forEach(input => {
-            const response = neuron.process(input.input, "");
+            const response = neuron.process(input.input, locale, "");
 
             expect(response.hasAnswer()).toBeTruthy();
 
@@ -35,7 +36,7 @@ describe("Multiplication neuron", () => {
         ];
 
         inputs.forEach(input => {
-            const response = neuron.process(input.input, "");
+            const response = neuron.process(input.input, locale, "");
 
             expect(response.hasAnswer()).toBeTruthy();
 

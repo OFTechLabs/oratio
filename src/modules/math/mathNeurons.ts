@@ -1,4 +1,4 @@
 export * from "./AdditionNeuron";
-export * from "./SubtractionNeuron";
+export * from "./SubstractionNeuron";
 export * from "./MultiplicationNeuron";
 export * from "./DivisionNeuron";

@@ -1,0 +1,20 @@
+{
+  "main": {
+    "en": {
+      "words": [
+        "multiply",
+        "multiplication",
+        "*"
+      ]
+    },
+    "nl": {
+      "words": [
+        "vermenigvuldig",
+        "maal",
+        "keer",
+        "*"
+      ]
+    }
+  },
+  "params": {}
+}

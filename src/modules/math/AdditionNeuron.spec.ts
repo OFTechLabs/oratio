@@ -6,6 +6,7 @@ require("babel-polyfill");
 
 describe("Addition neuron", () => {
 
+    const locale: string = "en";
     let neuron: AdditionNeuron = new AdditionNeuron();
 
     it("should be able to add two numbers", function () {
@@ -17,7 +18,7 @@ describe("Addition neuron", () => {
         ];
 
         inputs.forEach(input => {
-            const response = neuron.process(input.input, "");
+            const response = neuron.process(input.input, locale, "");
 
             expect(response.hasAnswer()).toBeTruthy();
 
@@ -37,7 +38,7 @@ describe("Addition neuron", () => {
         ];
 
         inputs.forEach(input => {
-            const response = neuron.process(input.input, "");
+            const response = neuron.process(input.input, locale, "");
 
             expect(response.hasAnswer()).toBeTruthy();
 
