@@ -23,21 +23,33 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
     }
 
     public findMatch(input: string[], locale: string, context: any): INeuronResponse {
+        let potentialResponse = null;
+        let maxCertainty = 0;
+
         for (let i = 0; i < this.neurons.length; i++) {
             const response = this.neurons[i].process(input, locale, context);
 
-            if (response.hasAnswer() && response.getCertainty() >= this.certaintyThreshold) {
-                if (i > 0) {
-                    const swap = this.neurons[0];
-                    this.neurons[0] = this.neurons[i];
-                    this.neurons[i] = swap;
+            if (response.hasAnswer()) {
+                if (response.getCertainty() >= this.certaintyThreshold) {
+                    this.placeNeuronToTop(i);
+                    return response;
                 }
 
-                return response;
-
+                if (response.getCertainty() > maxCertainty) {
+                    potentialResponse = response;
+                    maxCertainty = response.getCertainty();
+                }
             }
         }
 
-        return new Silence();
+        return potentialResponse == null ? new Silence() : potentialResponse;
+    }
+
+    private placeNeuronToTop(i: number) {
+        if (i > 0) {
+            const swap = this.neurons[0];
+            this.neurons[0] = this.neurons[i];
+            this.neurons[i] = swap;
+        }
     }
 }
