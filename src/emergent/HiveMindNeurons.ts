@@ -34,8 +34,8 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
                 return response;
 
             }
-
-            return new Silence();
         }
+
+        return new Silence();
     }
 }
