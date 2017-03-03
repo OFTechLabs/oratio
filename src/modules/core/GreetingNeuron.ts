@@ -24,12 +24,13 @@ export class GreetingNeuron implements IHiveMindNeuron {
         if (initialResponse instanceof SimpleResponse) {
             const localizedKnownParams: string[] = ((knownWords as any) as LocalizedWordsJson).params[locale].words;
             const paramSequences = SequenceParser.parse(localizedKnownParams);
+            const newCertainty = ((initialResponse.getCertainty() * words.length) + 1) / words.length;
 
             const parser = new WordAfterSequenceParser(
                 paramSequences.sequences.map((sequence: Sequence) => sequence.sequence.split(" ")),
             );
 
-            return initialResponse.withParams(parser.parse(words));
+            return initialResponse.withParams(parser.parse(words)).withCertainty(newCertainty);
         }
 
         return initialResponse;

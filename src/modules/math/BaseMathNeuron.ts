@@ -2,6 +2,7 @@ import {Silence} from "../../emergent/neurons/responses/Silence";
 import {LevenshteinDistanceMatcher} from "../../language/words/LevenshteinDistanceMatcher";
 import {SimpleResponse, INeuronResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
+import {NumberOfKnownWordsCertaintyCalculator} from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator";
 
 export class BaseMathNeuron implements IHiveMindNeuron {
 
@@ -19,10 +20,6 @@ export class BaseMathNeuron implements IHiveMindNeuron {
     }
 
     public process(words: string[], locale: string, context: any): INeuronResponse {
-        if (words.length > 4) {
-            return new Silence();
-        }
-
         let index = 0;
         for (const word of words) {
             for (const knownOperator of this.knownOperators) {
@@ -36,16 +33,19 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                         return new SimpleResponse(
                             this.response,
                             ["" + this.roundToTwo(this.apply(possibleNumberOne, possibleNumberTwo))],
+                            NumberOfKnownWordsCertaintyCalculator.calculate(3, words),
                         );
                     } else if (this.isNumeric(possibleNumberTwo) && this.isNumeric(possibleNumberThree)) {
                         return new SimpleResponse(
                             this.response,
                             ["" + this.roundToTwo(this.apply(possibleNumberTwo, possibleNumberThree))],
+                            NumberOfKnownWordsCertaintyCalculator.calculate(3, words),
                         );
                     } else if (this.isNumeric(possibleNumberTwo) && this.isNumeric(possibleNumberFour)) {
                         return new SimpleResponse(
                             this.response,
                             ["" + this.roundToTwo(this.apply(possibleNumberTwo, possibleNumberFour))],
+                            NumberOfKnownWordsCertaintyCalculator.calculate(3, words),
                         );
                     }
                 }

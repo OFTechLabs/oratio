@@ -11,12 +11,13 @@ describe("Identity neuron", () => {
     it("should know what to do with identity", () => {
         const neuron = new IdentityNeuron();
 
-        const response = neuron.process(["what", "identity", "you"], locale, null);
+        const response = neuron.process(["identity"], locale, null);
         expect(response.hasAnswer()).toBeTruthy();
 
         const simpleResponse = <SimpleResponse> response;
 
         expect(simpleResponse.response).toBe("oratio.core.identity");
+        expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
     });
 
     it("should know what to do with who are you", () => {
@@ -28,6 +29,7 @@ describe("Identity neuron", () => {
         const simpleResponse = <SimpleResponse> response;
 
         expect(simpleResponse.response).toBe("oratio.core.identity");
+        expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
     });
 
     it("should know what to do with what are you", () => {
@@ -39,6 +41,7 @@ describe("Identity neuron", () => {
         const simpleResponse = <SimpleResponse> response;
 
         expect(simpleResponse.response).toBe("oratio.core.identity");
+        expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
     });
 
     it("should be able to use localization", () => {
@@ -50,12 +53,13 @@ describe("Identity neuron", () => {
         const simpleResponse = <SimpleResponse> response;
 
         expect(simpleResponse.response).toBe("oratio.core.identity");
+        expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
     });
 
     it("should not match wrong input", function () {
         const neuron = new IdentityNeuron();
 
-        const userInput : string[][] = [
+        const userInput: string[][] = [
             ["hoe laat is het"],
             ["hoe laat is het nu"],
         ];
@@ -67,6 +71,7 @@ describe("Identity neuron", () => {
             const simpleResponse = <SimpleResponse> response;
 
             expect(simpleResponse.response).toBe(undefined);
+            expect(simpleResponse.getCertainty()).toBe(0);
         })
 
     });
@@ -82,6 +87,7 @@ describe("Identity neuron", () => {
         const simpleResponse = <SimpleResponse> response;
 
         expect(simpleResponse.response).toBe("oratio.core.identity");
+        expect(simpleResponse.getCertainty()).toBeGreaterThan(0.0);
     });
 
     it("should not know what to do with unrelated questions", () => {
@@ -92,4 +98,6 @@ describe("Identity neuron", () => {
 
         const response = neuron.process(words, locale, null);
         expect(response.hasAnswer()).toBeFalsy();
+        expect(response.getCertainty()).toBe(0);
     });
+});

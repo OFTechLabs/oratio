@@ -15,7 +15,7 @@ describe("Time neuron", () => {
             ["current", "time"],
             ["what", "time", "is", "it"],
             ["what", "time", "is", "it"],
-            ["can", "you", "tell", "me", "what", "time", "it", "is"]
+            ["tell", "what", "time", "it", "is"]
         ];
 
         inputs.forEach(input => {
@@ -27,6 +27,7 @@ describe("Time neuron", () => {
             expect(simpleResponse.response).toBe("oratio.core.currentTime");
             expect(simpleResponse.params.length).toBe(1);
             expect(simpleResponse.params[0].length).toBeGreaterThan(3);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
     });
 
@@ -46,6 +47,7 @@ describe("Time neuron", () => {
             expect(simpleResponse.response).toBe("oratio.core.currentTime");
             expect(simpleResponse.params.length).toBe(1);
             expect(simpleResponse.params[0].length).toBeGreaterThan(3);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
     });
 

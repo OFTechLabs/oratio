@@ -32,21 +32,27 @@ export class BasicHiveMind implements IHiveMind {
 
         if (neuronsResponse.hasAnswer()) {
             if (neuronsResponse instanceof ActionWithContextResponse) {
+
                 return new UnderstoodResponse(
                     neuronsResponse.response,
                     neuronsResponse.params,
+                    neuronsResponse.getCertainty(),
                     neuronsResponse.action,
                     neuronsResponse.context);
             }  else if (neuronsResponse instanceof ActionResponse) {
+
                 return new UnderstoodResponse(
                     neuronsResponse.response,
                     neuronsResponse.params,
+                    neuronsResponse.getCertainty(),
                     neuronsResponse.action,
                     BasicHiveMind.EMPTY_CONTEXT);
             } else if (neuronsResponse instanceof SimpleResponse) {
+
                 return new UnderstoodResponse(
                     neuronsResponse.response,
                     neuronsResponse.params,
+                    neuronsResponse.getCertainty(),
                     BasicHiveMind.EMPTY_ACTION,
                     BasicHiveMind.EMPTY_CONTEXT);
             }

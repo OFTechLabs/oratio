@@ -2,6 +2,7 @@ import {LevenshteinDistanceMatcher} from "../../language/words/LevenshteinDistan
 import {SimpleResponse, INeuronResponse} from "./responses/SimpleResponse";
 import {Silence} from "./responses/Silence";
 import {IHiveMindNeuron} from "../HiveMindNeurons";
+import {NumberOfKnownWordsCertaintyCalculator} from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator";
 
 export class ThreeWordSequenceNeuron implements IHiveMindNeuron {
 
@@ -19,7 +20,11 @@ export class ThreeWordSequenceNeuron implements IHiveMindNeuron {
                 const sequenceTogether = input[j] + input[j + 1] + input[j + 2];
 
                 if (LevenshteinDistanceMatcher.MATCHER.matches(sequenceTogether, sequence)) {
-                    return new SimpleResponse(this.response, []);
+                    return new SimpleResponse(
+                        this.response,
+                        [],
+                        NumberOfKnownWordsCertaintyCalculator.calculate(3, input),
+                    );
                 }
             }
         }

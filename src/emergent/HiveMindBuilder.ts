@@ -11,9 +11,11 @@ export class HiveMindBuilder {
     }
 
     private neurons: IHiveMindNeuron[];
+    private certaintyThreshold: number;
 
     private constructor() {
         this.neurons = [];
+        this.certaintyThreshold = 0.80;
     }
 
     public registerCoreModules(): HiveMindBuilder {
@@ -36,9 +38,14 @@ export class HiveMindBuilder {
         return this;
     }
 
+    public withCertaintyThreshold(threshold: number): HiveMindBuilder {
+        this.certaintyThreshold = threshold;
+        return this;
+    }
+
     public build(): IHiveMind {
         return new BasicHiveMind(
-            new BasicHiveMindNeurons(this.neurons),
+            new BasicHiveMindNeurons(this.neurons, this.certaintyThreshold),
         );
     }
 }

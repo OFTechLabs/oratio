@@ -25,11 +25,12 @@ describe("MathJS Neuron", () => {
 
             expect(response.hasAnswer()).toBeTruthy();
 
-            const simleResponse = <SimpleResponse> response;
+            const simpleResponse = <SimpleResponse> response;
 
-            expect(simleResponse.response).toBe("otario.mathjs.evaluated");
-            expect(simleResponse.params.length).toBe(1);
-            expect(simleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.response).toBe("otario.mathjs.evaluated");
+            expect(simpleResponse.params.length).toBe(1);
+            expect(simpleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
     });
 
@@ -48,11 +49,12 @@ describe("MathJS Neuron", () => {
 
             expect(response.hasAnswer()).toBeTruthy();
 
-            const simleResponse = <SimpleResponse> response;
+            const simpleResponse = <SimpleResponse> response;
 
-            expect(simleResponse.response).toBe("otario.mathjs.evaluated");
-            expect(simleResponse.params.length).toBe(1);
-            expect(simleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.response).toBe("otario.mathjs.evaluated");
+            expect(simpleResponse.params.length).toBe(1);
+            expect(simpleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
     });
 });

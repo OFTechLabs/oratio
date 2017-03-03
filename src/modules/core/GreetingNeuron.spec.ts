@@ -27,6 +27,7 @@ describe("Greeting neuron", () => {
             const simpleResponse = <SimpleResponse> response;
 
             expect(simpleResponse.response).toBe("oratio.core.hello");
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
 
     });
@@ -65,13 +66,14 @@ describe("Greeting neuron", () => {
             expect(simpleResponse.response).toBe("oratio.core.hello");
             expect(simpleResponse.params.length).toBe(1);
             expect(simpleResponse.params[0]).toBe("Jacob");
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
 
     });
 
     it("should be able to localize", function () {
 
-        const userInput : string[][] = [
+        const userInput = [
             ["hlalo", "mijn", "naam", "is", "Jacob"],
             ["mijn", "naam", "is", "Jacob"],
         ];
@@ -85,6 +87,7 @@ describe("Greeting neuron", () => {
             expect(simpleResponse.response).toBe("oratio.core.hello");
             expect(simpleResponse.params.length).toBe(1);
             expect(simpleResponse.params[0]).toBe("Jacob");
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
 
     });

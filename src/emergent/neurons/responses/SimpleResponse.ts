@@ -1,15 +1,18 @@
 export interface INeuronResponse {
     hasAnswer(): boolean;
+    getCertainty(): number;
 }
 
 export class SimpleResponse implements INeuronResponse {
 
     private _response: string;
     private _params: string[];
+    private _certainty: number;
 
-    constructor(response: string, params: string[]) {
+    constructor(response: string, params: string[], certainty: number) {
         this._response = response;
         this._params = params;
+        this._certainty = certainty;
     }
 
     get response(): string {
@@ -20,11 +23,19 @@ export class SimpleResponse implements INeuronResponse {
         return this._params;
     }
 
+    public getCertainty(): number {
+        return this._certainty;
+    }
+
     public hasAnswer(): boolean {
         return true;
     }
 
     public withParams(params: string[]): SimpleResponse {
-        return new SimpleResponse(this._response, params);
+        return new SimpleResponse(this._response, params, this._certainty);
+    }
+
+    public withCertainty(certainty: number): SimpleResponse {
+        return new SimpleResponse(this._response, this._params, certainty);
     }
 }

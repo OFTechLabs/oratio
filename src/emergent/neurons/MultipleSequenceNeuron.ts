@@ -2,6 +2,7 @@ import {LevenshteinDistanceMatcher} from "../../language/words/LevenshteinDistan
 import {Silence} from "./responses/Silence";
 import {SimpleResponse, INeuronResponse} from "./responses/SimpleResponse";
 import {IHiveMindNeuron} from "../HiveMindNeurons";
+import {NumberOfKnownWordsCertaintyCalculator} from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator";
 
 export class MultipleSequenceNeuron implements IHiveMindNeuron {
 
@@ -24,10 +25,12 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
     }
 
     public process(input: string[], locale: string, context: any): INeuronResponse {
+        let maxCertainty = 0.0;
+
         for (const knownWord of this.knownWords) {
             for (const inputWord of input) {
                 if (LevenshteinDistanceMatcher.MATCHER.matches(inputWord, knownWord)) {
-                    return new SimpleResponse(this.response, []);
+                    maxCertainty = NumberOfKnownWordsCertaintyCalculator.calculate(1, input);
                 }
             }
         }
@@ -37,7 +40,7 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
                 const sequenceTogether = input[j] + input[j + 1];
 
                 if (LevenshteinDistanceMatcher.MATCHER.matches(sequenceTogether, sequence)) {
-                    return new SimpleResponse(this.response, []);
+                    maxCertainty = NumberOfKnownWordsCertaintyCalculator.calculate(2, input);
                 }
             }
         }
@@ -47,7 +50,7 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
                 const sequenceTogether = input[j] + input[j + 1] + input[j + 2];
 
                 if (LevenshteinDistanceMatcher.MATCHER.matches(sequenceTogether, sequence)) {
-                    return new SimpleResponse(this.response, []);
+                    maxCertainty = NumberOfKnownWordsCertaintyCalculator.calculate(3, input);
                 }
             }
         }
@@ -57,11 +60,20 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
                 const sequenceTogether = input[j] + input[j + 1] + input[j + 2] + input[j + 3];
 
                 if (LevenshteinDistanceMatcher.MATCHER.matches(sequenceTogether, sequence)) {
-                    return new SimpleResponse(this.response, []);
+                    maxCertainty = NumberOfKnownWordsCertaintyCalculator.calculate(4, input);
                 }
             }
         }
 
+        if (maxCertainty > 0) {
+            return new SimpleResponse(
+                this.response,
+                [],
+                maxCertainty,
+            );
+        }
+
         return new Silence();
     }
+
 }

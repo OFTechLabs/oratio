@@ -21,11 +21,12 @@ describe("Divison neuron", () => {
 
             expect(response.hasAnswer()).toBeTruthy();
 
-            const simleResponse = <SimpleResponse> response;
+            const simpleResponse = <SimpleResponse> response;
 
-            expect(simleResponse.response).toBe("otario.math.division");
-            expect(simleResponse.params.length).toBe(1);
-            expect(simleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.response).toBe("otario.math.division");
+            expect(simpleResponse.params.length).toBe(1);
+            expect(simpleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
     });
 
@@ -40,11 +41,12 @@ describe("Divison neuron", () => {
 
             expect(response.hasAnswer()).toBeTruthy();
 
-            const simleResponse = <SimpleResponse> response;
+            const simpleResponse = <SimpleResponse> response;
 
-            expect(simleResponse.response).toBe("otario.math.division");
-            expect(simleResponse.params.length).toBe(1);
-            expect(simleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.response).toBe("otario.math.division");
+            expect(simpleResponse.params.length).toBe(1);
+            expect(simpleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
     });
 

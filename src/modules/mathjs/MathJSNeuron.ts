@@ -6,6 +6,7 @@ import * as knownWords from "./MathJSNeuron.words.json";
 import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 import {LanguageUtil} from "../../language/LanguageUtil";
 import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
+import {NumberOfKnownWordsCertaintyCalculator} from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator";
 
 export class MathJSNeuron implements IHiveMindNeuron {
 
@@ -19,6 +20,7 @@ export class MathJSNeuron implements IHiveMindNeuron {
             return new SimpleResponse(
                 "otario.mathjs.evaluated",
                 [evaluated + ""],
+                1,
             );
         }
 

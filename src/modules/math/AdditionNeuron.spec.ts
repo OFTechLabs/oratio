@@ -22,11 +22,12 @@ describe("Addition neuron", () => {
 
             expect(response.hasAnswer()).toBeTruthy();
 
-            const simleResponse = <SimpleResponse> response;
+            const simpleResponse = <SimpleResponse> response;
 
-            expect(simleResponse.response).toBe("otario.math.addition");
-            expect(simleResponse.params.length).toBe(1);
-            expect(simleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.response).toBe("otario.math.addition");
+            expect(simpleResponse.params.length).toBe(1);
+            expect(simpleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
     });
 
@@ -42,11 +43,12 @@ describe("Addition neuron", () => {
 
             expect(response.hasAnswer()).toBeTruthy();
 
-            const simleResponse = <SimpleResponse> response;
+            const simpleResponse = <SimpleResponse> response;
 
-            expect(simleResponse.response).toBe("otario.math.addition");
-            expect(simleResponse.params.length).toBe(1);
-            expect(simleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.response).toBe("otario.math.addition");
+            expect(simpleResponse.params.length).toBe(1);
+            expect(simpleResponse.params[0]).toBe(input.param);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
         })
     });
 });

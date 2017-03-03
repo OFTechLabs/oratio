@@ -6,6 +6,7 @@ export class UnderstoodResponse implements IHiveResponse {
 
     constructor(private _response: string,
                 private _params: string[],
+                private _certainty: number,
                 private _action: () => void,
                 private _context: any) {
     }
@@ -16,6 +17,10 @@ export class UnderstoodResponse implements IHiveResponse {
 
     get params(): string[] {
         return this._params;
+    }
+
+    get certainty(): number {
+        return this._certainty;
     }
 
     get action(): () => void {
