@@ -85,12 +85,12 @@ var bundle_opts = {
     removeSource: true,
     newline: os.EOL,
     indent: '	',
-    prefix: '',
+    prefix: '__',
     separator: '/',
     verbose: false,
     emitOnIncludedFileNotFound: false,
     emitOnNoIncludedFileNotFound: false,
-    outputAsModuleFolder: false
+    outputAsModuleFolder: true
 };
 
 var webpack_opts = {

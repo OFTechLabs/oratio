@@ -6,14 +6,14 @@ import {MathJSNeurons} from "../modules/mathjs/mathJSNeurons";
 
 export class HiveMindBuilder {
 
+    public static createEmpty(): HiveMindBuilder {
+        return new HiveMindBuilder();
+    }
+
     private neurons: IHiveMindNeuron[];
 
     private constructor() {
         this.neurons = [];
-    }
-
-    public static createEmpty(): HiveMindBuilder {
-        return new HiveMindBuilder();
     }
 
     public registerCoreModules(): HiveMindBuilder {
@@ -37,7 +37,7 @@ export class HiveMindBuilder {
 
     public build(): IHiveMind {
         return new BasicHiveMind(
-            new BasicHiveMindNeurons(this.neurons)
+            new BasicHiveMindNeurons(this.neurons),
         );
     }
 }
