@@ -52,6 +52,25 @@ describe("Identity neuron", () => {
         expect(simpleResponse.response).toBe("oratio.core.identity");
     });
 
+    it("should not match wrong input", function () {
+        const neuron = new IdentityNeuron();
+
+        const userInput : string[][] = [
+            ["hoe laat is het"],
+            ["hoe laat is het nu"],
+        ];
+
+        userInput.forEach(input => {
+            const response = neuron.process(input, "nl", null);
+            expect(response.hasAnswer()).toBeFalsy();
+
+            const simpleResponse = <SimpleResponse> response;
+
+            expect(simpleResponse.response).toBe(undefined);
+        })
+
+    });
+
     it("should know what to do even with lots of noise", () => {
         const neuron = new IdentityNeuron();
 

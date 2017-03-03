@@ -14,7 +14,7 @@ describe("Time neuron", () => {
         const inputs : string[][] = [
             ["current", "time"],
             ["what", "time", "is", "it"],
-            ["wgat", "time", "is", "it"],
+            ["what", "time", "is", "it"],
             ["can", "you", "tell", "me", "what", "time", "it", "is"]
         ];
 

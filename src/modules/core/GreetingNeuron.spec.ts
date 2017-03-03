@@ -15,7 +15,7 @@ describe("Greeting neuron", () => {
     it("should be able to greet", function () {
 
         const userInput : string[][] = [
-            ["hlelo"],
+            ["hello"],
             ["hi"],
             ["my", "name", "is"],
         ];
@@ -27,6 +27,24 @@ describe("Greeting neuron", () => {
             const simpleResponse = <SimpleResponse> response;
 
             expect(simpleResponse.response).toBe("oratio.core.hello");
+        })
+
+    });
+
+    it("should not match wrong input", function () {
+
+        const userInput : string[][] = [
+            ["hoe laat is het"],
+            ["hoe laat is het nu"],
+        ];
+
+        userInput.forEach(input => {
+            const response = greetingNeuron.process(input, "nl", null);
+            expect(response.hasAnswer()).toBeFalsy();
+
+            const simpleResponse = <SimpleResponse> response;
+
+            expect(simpleResponse.response).toBe(undefined);
         })
 
     });
@@ -55,7 +73,7 @@ describe("Greeting neuron", () => {
 
         const userInput : string[][] = [
             ["hlalo", "mijn", "naam", "is", "Jacob"],
-            ["mjin", "naam", "is", "Jacob"],
+            ["mijn", "naam", "is", "Jacob"],
         ];
 
         userInput.forEach(input => {

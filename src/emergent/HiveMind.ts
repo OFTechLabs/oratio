@@ -31,24 +31,24 @@ export class BasicHiveMind implements IHiveMind {
         const neuronsResponse = this.neurons.findMatch(words, locale, context);
 
         if (neuronsResponse.hasAnswer()) {
-            if (neuronsResponse instanceof SimpleResponse) {
-                return new UnderstoodResponse(
-                    neuronsResponse.response,
-                    neuronsResponse.params,
-                    BasicHiveMind.EMPTY_ACTION,
-                    BasicHiveMind.EMPTY_CONTEXT);
-            } else if (neuronsResponse instanceof ActionResponse) {
-                return new UnderstoodResponse(
-                    neuronsResponse.response,
-                    neuronsResponse.params,
-                    neuronsResponse.action,
-                    BasicHiveMind.EMPTY_CONTEXT);
-            } else if (neuronsResponse instanceof ActionWithContextResponse) {
+            if (neuronsResponse instanceof ActionWithContextResponse) {
                 return new UnderstoodResponse(
                     neuronsResponse.response,
                     neuronsResponse.params,
                     neuronsResponse.action,
                     neuronsResponse.context);
+            }  else if (neuronsResponse instanceof ActionResponse) {
+                return new UnderstoodResponse(
+                    neuronsResponse.response,
+                    neuronsResponse.params,
+                    neuronsResponse.action,
+                    BasicHiveMind.EMPTY_CONTEXT);
+            } else if (neuronsResponse instanceof SimpleResponse) {
+                return new UnderstoodResponse(
+                    neuronsResponse.response,
+                    neuronsResponse.params,
+                    BasicHiveMind.EMPTY_ACTION,
+                    BasicHiveMind.EMPTY_CONTEXT);
             }
         }
 

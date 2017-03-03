@@ -14,8 +14,8 @@ export class LevenshteinDistanceMatcher implements IWordMatcher {
             this.requiredDistance(toMatchWith));
     }
 
-    private requiredDistance(toMatchWith: string) {
-        return (toMatchWith.length / 4) + 1;
+    private requiredDistance(toMatchWith: string): number {
+        return Math.floor(toMatchWith.length / 4);
     }
 
     private levenshtein(word: string, toMatchWith: string, requiredDistance: number): boolean {

@@ -19,6 +19,10 @@ export class BaseMathNeuron implements IHiveMindNeuron {
     }
 
     public process(words: string[], locale: string, context: string): INeuronResponse {
+        if (words.length > 4) {
+            return new Silence();
+        }
+
         let index = 0;
         for (const word of words) {
             for (const knownOperator of this.knownOperators) {

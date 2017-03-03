@@ -31,8 +31,9 @@ export class HiveMindBuilder {
         return this;
     }
 
-    public register(neurons: IHiveMindNeuron[]) {
+    public register(neurons: IHiveMindNeuron[]): HiveMindBuilder {
         this.neurons = this.neurons.concat(neurons);
+        return this;
     }
 
     public build(): IHiveMind {
