@@ -28,8 +28,8 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
 
             if (response.hasAnswer() && response.getCertainty() >= this.certaintyThreshold) {
                 if (i > 0) {
-                    const swap = this.neurons[i - 1];
-                    this.neurons[i - 1] = this.neurons[i];
+                    const swap = this.neurons[0];
+                    this.neurons[0] = this.neurons[i];
                     this.neurons[i] = swap;
                 }
 
