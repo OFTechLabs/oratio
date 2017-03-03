@@ -3,12 +3,12 @@ import {INeuronResponse} from "./neurons/responses/SimpleResponse";
 
 export interface IHiveMindNeurons {
 
-    findMatch(input: string[], locale: string, context: string): INeuronResponse;
+    findMatch(input: string[], locale: string, context: any): INeuronResponse;
 }
 
 export interface IHiveMindNeuron {
 
-    process(words: string[], locale: string, context: string): INeuronResponse;
+    process(words: string[], locale: string, context: any): INeuronResponse;
 
 }
 
@@ -20,7 +20,7 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
         this.neurons = neurons;
     }
 
-    public findMatch(input: string[], locale: string, context: string): INeuronResponse {
+    public findMatch(input: string[], locale: string, context: any): INeuronResponse {
         for (let i = 0; i < this.neurons.length; i++) {
             const response = this.neurons[i].process(input, locale, context);
 

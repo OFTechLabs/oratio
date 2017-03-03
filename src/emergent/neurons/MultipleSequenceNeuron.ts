@@ -23,7 +23,7 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
         this.response = response;
     }
 
-    public process(input: string[], locale: string, context: string): INeuronResponse {
+    public process(input: string[], locale: string, context: any): INeuronResponse {
         for (const knownWord of this.knownWords) {
             for (const inputWord of input) {
                 if (LevenshteinDistanceMatcher.MATCHER.matches(inputWord, knownWord)) {

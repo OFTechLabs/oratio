@@ -9,7 +9,7 @@ import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 
 export class GreetingNeuron implements IHiveMindNeuron {
 
-    public process(words: string[], locale: string, context: string): INeuronResponse {
+    public process(words: string[], locale: string, context: any): INeuronResponse {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 

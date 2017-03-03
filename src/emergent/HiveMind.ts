@@ -7,7 +7,7 @@ import {FailedResponse} from "./FailedResponse";
 
 export interface IHiveMind {
 
-    process(input: string, locale: string, context: string): IHiveResponse;
+    process(input: string, locale: string, context: any): IHiveResponse;
 
 }
 
@@ -24,7 +24,7 @@ export class BasicHiveMind implements IHiveMind {
         this.neurons = neurons;
     }
 
-    public process(input: string, locale: string, context: string): IHiveResponse {
+    public process(input: string, locale: string, context: any): IHiveResponse {
 
         const words = input.split(" ");
 

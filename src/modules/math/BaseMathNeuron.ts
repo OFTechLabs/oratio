@@ -18,7 +18,7 @@ export class BaseMathNeuron implements IHiveMindNeuron {
         this.apply = apply;
     }
 
-    public process(words: string[], locale: string, context: string): INeuronResponse {
+    public process(words: string[], locale: string, context: any): INeuronResponse {
         if (words.length > 4) {
             return new Silence();
         }
