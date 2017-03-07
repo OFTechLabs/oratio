@@ -24,7 +24,7 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
         this.response = response;
     }
 
-    public process(input: string[], locale: string, context: any): INeuronResponse {
+        public process(input: string[], locale: string, context: any): Promise<INeuronResponse> {
         let maxCertainty = 0.0;
 
         for (const knownWord of this.knownWords) {
@@ -66,14 +66,14 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
         }
 
         if (maxCertainty > 0) {
-            return new SimpleResponse(
+            return Promise.resolve(new SimpleResponse(
                 this.response,
                 [],
                 maxCertainty,
-            );
+            ));
         }
 
-        return new Silence();
+        return Promise.resolve(new Silence());
     }
 
 }

@@ -1,54 +1,39 @@
 import "jest";
 import {TimeNeuron} from "./TimeNeuron";
 import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {GeneralTestMethods} from "../generalTestMethods.spec";
 require("babel-core/register");
 require("babel-polyfill");
 
 describe("Time neuron", () => {
 
-    const locale: string = "en";
+    let generalTestMethods : GeneralTestMethods;
+    let generalTestMethodsNL : GeneralTestMethods;
+    const expectedResponse : string = "oratio.core.currentTime";
 
-    it("should be able to give the time", () => {
-        const neuron = new TimeNeuron();
-
-        const inputs : string[][] = [
-            ["current", "time"],
-            ["what", "time", "is", "it"],
-            ["what", "time", "is", "it"],
-            ["tell", "what", "time", "it", "is"]
-        ];
-
-        inputs.forEach(input => {
-            const response = neuron.process(input, locale, null);
-            expect(response.hasAnswer()).toBeTruthy();
-
-            const simpleResponse = <SimpleResponse> response;
-
-            expect(simpleResponse.response).toBe("oratio.core.currentTime");
-            expect(simpleResponse.params.length).toBe(1);
-            expect(simpleResponse.params[0].length).toBeGreaterThan(3);
-            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
-        })
+    beforeEach(function () {
+        generalTestMethods = GeneralTestMethods.create(new TimeNeuron());
+        generalTestMethodsNL = GeneralTestMethods.create(new TimeNeuron()).withLocale("nl");
     });
 
-    it("should be able to localize", () => {
-        const neuron = new TimeNeuron();
-
-        const inputs : string[][] = [
-            ["hoe", "lata", "is", "het"]
-        ];
-
-        inputs.forEach(input => {
-            const response = neuron.process(input, "nl", null);
-            expect(response.hasAnswer()).toBeTruthy();
-
-            const simpleResponse = <SimpleResponse> response;
-
-            expect(simpleResponse.response).toBe("oratio.core.currentTime");
-            expect(simpleResponse.params.length).toBe(1);
-            expect(simpleResponse.params[0].length).toBeGreaterThan(3);
-            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
-        })
+    it("should be able to handle current time", function () {
+        return generalTestMethods.expectInputToGiveResponseAndHaveParam("current time", expectedResponse);
     });
 
+    it("should be able to handle what time is it", function () {
+        return generalTestMethods
+            .withMinimumCertainty(0.6)
+            .expectInputToGiveResponseAndHaveParam("what time is it", expectedResponse);
+    });
+
+    it("should be able to handle tell what time is it", function () {
+        return generalTestMethods
+            .withMinimumCertainty(0.6)
+            .expectInputToGiveResponseAndHaveParam("tell me what time it is", expectedResponse);
+    });
+
+
+    it("should be able to localize", function () {
+        return generalTestMethodsNL.expectInputToGiveResponseAndHaveParam("hoe lata is het", expectedResponse);
+    });
 });

@@ -1,55 +1,40 @@
 import "jest";
 import {DivisionNeuron} from "./DivisionNeuron";
 import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {GeneralTestMethods} from "../generalTestMethods.spec";
 require("babel-core/register");
 require("babel-polyfill");
 
 describe("Divison neuron", () => {
 
-    const locale: string = "en";
-    let neuron: DivisionNeuron = new DivisionNeuron();
+    let generalTestMethods : GeneralTestMethods;
+    let generalTestMethodsNL : GeneralTestMethods;
+    const expectedResponse : string = "oratio.math.division";
 
-    it("should be able to divide two numbers", function () {
-        const inputs: {input: string[], param: string}[] = [
-            {input: ["9", "/", "3"], param: "3"},
-            {input: ["100", "/", "22"], param: "4.55"},
-            {input: ["1000", "/", "2000"], param: "0.5"},
-        ];
-
-        inputs.forEach(input => {
-            const response = neuron.process(input.input, locale, "");
-
-            expect(response.hasAnswer()).toBeTruthy();
-
-            const simpleResponse = <SimpleResponse> response;
-
-            expect(simpleResponse.response).toBe("otario.math.division");
-            expect(simpleResponse.params.length).toBe(1);
-            expect(simpleResponse.params[0]).toBe(input.param);
-            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
-        })
+    beforeEach(function () {
+        generalTestMethods = GeneralTestMethods.create(new DivisionNeuron());
+        generalTestMethodsNL = GeneralTestMethods.create(new DivisionNeuron()).withLocale("nl");
     });
 
-    it("should ignore middle words", function () {
-        const inputs: {input: string[], param: string}[] = [
-            {input: ["divide", "3", "by", "3"], param: "1"},
-            {input: ["/", "3", "1"], param: "3"}
-        ];
-
-        inputs.forEach(input => {
-            const response = neuron.process(input.input, locale, "");
-
-            expect(response.hasAnswer()).toBeTruthy();
-
-            const simpleResponse = <SimpleResponse> response;
-
-            expect(simpleResponse.response).toBe("otario.math.division");
-            expect(simpleResponse.params.length).toBe(1);
-            expect(simpleResponse.params[0]).toBe(input.param);
-            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
-        })
+    it("should be able to handle 9 / 3", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("9 / 3", expectedResponse, "3");
     });
 
+    it("should be able to handle 100 / 22", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("100 / 22", expectedResponse, "4.55");
+    });
+
+    it("should be able to handle 1000 / 2000", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("1000 / 2000", expectedResponse, "0.5");
+    });
+
+    it("should be able to handle divide 3 by 3", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("divide 3 by 3", expectedResponse, "1");
+    });
+
+    it("should be able to handle / 3 1", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("/ 3 1", expectedResponse, "3");
+    });
 });
 
 

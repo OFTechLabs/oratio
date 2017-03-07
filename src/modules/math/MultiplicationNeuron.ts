@@ -6,12 +6,12 @@ import {INeuronResponse} from "../../emergent/neurons/responses/SimpleResponse";
 
 export class MultiplicationNeuron implements IHiveMindNeuron {
 
-    public process(words: string[], locale: string, context: any): INeuronResponse {
+    public process(words: string[], locale: string, context: any): Promise<INeuronResponse> {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
 
         return (new BaseMathNeuron(
             localizedKnownWords,
-            "otario.math.multiplication",
+            "oratio.math.multiplication",
             (a, b) => a * b,
         )).process(words, locale, context);
     }

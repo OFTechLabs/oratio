@@ -9,11 +9,11 @@ import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 
 export class GreetingNeuron implements IHiveMindNeuron {
 
-    public process(words: string[], locale: string, context: any): INeuronResponse {
+    public process(words: string[], locale: string, context: any): Promise<INeuronResponse> {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
-        const initialResponse: INeuronResponse = (new MultipleSequenceNeuron(
+        const initialResponsePromise: Promise<INeuronResponse> = (new MultipleSequenceNeuron(
             sequences.singleWord.map((sequence: Sequence) => sequence.withoutSpaces),
             sequences.twoWords.map((sequence: Sequence) => sequence.withoutSpaces),
             sequences.threeWords.map((sequence: Sequence) => sequence.withoutSpaces),
@@ -21,19 +21,21 @@ export class GreetingNeuron implements IHiveMindNeuron {
             "oratio.core.hello"))
             .process(words, locale, context);
 
-        if (initialResponse instanceof SimpleResponse) {
-            const localizedKnownParams: string[] = ((knownWords as any) as LocalizedWordsJson).params[locale].words;
-            const paramSequences = SequenceParser.parse(localizedKnownParams);
-            const newCertainty = ((initialResponse.getCertainty() * words.length) + 1) / words.length;
+        return initialResponsePromise.then((initialResponse: INeuronResponse) => {
+            if (initialResponse instanceof SimpleResponse) {
+                const localizedKnownParams: string[] = ((knownWords as any) as LocalizedWordsJson).params[locale].words;
+                const paramSequences = SequenceParser.parse(localizedKnownParams);
+                const newCertainty = ((initialResponse.getCertainty() * words.length) + 1) / words.length;
 
-            const parser = new WordAfterSequenceParser(
-                paramSequences.sequences.map((sequence: Sequence) => sequence.sequence.split(" ")),
-            );
+                const parser = new WordAfterSequenceParser(
+                    paramSequences.sequences.map((sequence: Sequence) => sequence.sequence.split(" ")),
+                );
 
-            return initialResponse.withParams(parser.parse(words)).withCertainty(newCertainty);
-        }
+                return Promise.resolve(initialResponse.withParams(parser.parse(words)).withCertainty(newCertainty));
+            }
 
-        return initialResponse;
+            return Promise.resolve(initialResponse);
+        });
     }
 
 }

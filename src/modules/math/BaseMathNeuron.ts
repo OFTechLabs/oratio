@@ -19,7 +19,7 @@ export class BaseMathNeuron implements IHiveMindNeuron {
         this.apply = apply;
     }
 
-    public process(words: string[], locale: string, context: any): INeuronResponse {
+    public process(words: string[], locale: string, context: any): Promise<INeuronResponse> {
         let index = 0;
         for (const word of words) {
             for (const knownOperator of this.knownOperators) {
@@ -30,30 +30,30 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                     const possibleNumberFour = parseFloat(words[index + 3]);
 
                     if (this.isNumeric(possibleNumberOne) && this.isNumeric(possibleNumberTwo)) {
-                        return new SimpleResponse(
+                        return Promise.resolve(new SimpleResponse(
                             this.response,
                             ["" + this.roundToTwo(this.apply(possibleNumberOne, possibleNumberTwo))],
                             NumberOfKnownWordsCertaintyCalculator.calculate(3, words),
-                        );
+                        ));
                     } else if (this.isNumeric(possibleNumberTwo) && this.isNumeric(possibleNumberThree)) {
-                        return new SimpleResponse(
+                        return Promise.resolve(new SimpleResponse(
                             this.response,
                             ["" + this.roundToTwo(this.apply(possibleNumberTwo, possibleNumberThree))],
                             NumberOfKnownWordsCertaintyCalculator.calculate(3, words),
-                        );
+                        ));
                     } else if (this.isNumeric(possibleNumberTwo) && this.isNumeric(possibleNumberFour)) {
-                        return new SimpleResponse(
+                        return Promise.resolve(new SimpleResponse(
                             this.response,
                             ["" + this.roundToTwo(this.apply(possibleNumberTwo, possibleNumberFour))],
                             NumberOfKnownWordsCertaintyCalculator.calculate(3, words),
-                        );
+                        ));
                     }
                 }
             }
             index++;
         }
 
-        return new Silence();
+        return Promise.resolve(new Silence());
     }
 
     private isNumeric(n: number): boolean {

@@ -10,21 +10,21 @@ import {NumberOfKnownWordsCertaintyCalculator} from "../../language/sequences/Nu
 
 export class MathJSNeuron implements IHiveMindNeuron {
 
-    public process(words: string[], locale: string, context: any): INeuronResponse {
+    public process(words: string[], locale: string, context: any): Promise<INeuronResponse> {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
 
         if (this.startsWith(words[0], localizedKnownWords)) {
             const remainder: string = words.slice(1, words.length).reduce((a, b) => a + b);
             const evaluated = math.eval(remainder);
 
-            return new SimpleResponse(
-                "otario.mathjs.evaluated",
+            return Promise.resolve(new SimpleResponse(
+                "oratio.mathjs.evaluated",
                 [evaluated + ""],
                 1,
-            );
+            ));
         }
 
-        return new Silence();
+        return Promise.resolve(new Silence());
     }
 
     private startsWith(word: string, possibleStarts: string[]): boolean {

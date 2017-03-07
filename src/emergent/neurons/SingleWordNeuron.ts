@@ -14,19 +14,19 @@ export class SingleWordNeuron implements IHiveMindNeuron {
         this.response = response;
     }
 
-    public process(input: string[], locale: string, context: any): INeuronResponse {
+    public process(input: string[], locale: string, context: any): Promise<INeuronResponse> {
         for (const knownWord of this.knownWords) {
             for (const inputWord of input) {
                 if (LevenshteinDistanceMatcher.MATCHER.matches(inputWord, knownWord)) {
-                    return new SimpleResponse(
+                    return Promise.resolve(new SimpleResponse(
                         this.response,
                         [],
                         NumberOfKnownWordsCertaintyCalculator.calculate(1, input),
-                    );
+                    ));
                 }
             }
         }
 
-        return new Silence();
+        return Promise.resolve(new Silence());
     }
 }

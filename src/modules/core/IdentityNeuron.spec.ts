@@ -1,103 +1,47 @@
 import "jest";
 import {IdentityNeuron} from "./IdentityNeuron";
-import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {GeneralTestMethods} from "../generalTestMethods.spec";
 require("babel-core/register");
 require("babel-polyfill");
 
 describe("Identity neuron", () => {
 
-    const locale = "en";
+    let generalTestMethods : GeneralTestMethods;
+    let generalTestMethodsNL : GeneralTestMethods;
+    const expectedResponse : string = "oratio.core.identity";
+
+    beforeEach(function () {
+        generalTestMethods = GeneralTestMethods.create(new IdentityNeuron());
+        generalTestMethodsNL = GeneralTestMethods.create(new IdentityNeuron()).withLocale("nl");
+    });
 
     it("should know what to do with identity", () => {
-        const neuron = new IdentityNeuron();
-
-        const response = neuron.process(["identity"], locale, null);
-        expect(response.hasAnswer()).toBeTruthy();
-
-        const simpleResponse = <SimpleResponse> response;
-
-        expect(simpleResponse.response).toBe("oratio.core.identity");
-        expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
+        return generalTestMethods.expectInputToGiveResponse("identity", expectedResponse);
     });
 
     it("should know what to do with who are you", () => {
-        const neuron = new IdentityNeuron();
-
-        const response = neuron.process(["who", "are", "you"], locale, null);
-        expect(response.hasAnswer()).toBeTruthy();
-
-        const simpleResponse = <SimpleResponse> response;
-
-        expect(simpleResponse.response).toBe("oratio.core.identity");
-        expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
+        return generalTestMethods.expectInputToGiveResponse("who are you", expectedResponse);
     });
 
     it("should know what to do with what are you", () => {
-        const neuron = new IdentityNeuron();
-
-        const response = neuron.process(["what", "are", "you"], locale, null);
-        expect(response.hasAnswer()).toBeTruthy();
-
-        const simpleResponse = <SimpleResponse> response;
-
-        expect(simpleResponse.response).toBe("oratio.core.identity");
-        expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
+        return generalTestMethods.expectInputToGiveResponse("what are you", expectedResponse);
     });
 
     it("should be able to use localization", () => {
-        const neuron = new IdentityNeuron();
-
-        const response = neuron.process(["wat", "ben", "je"], "nl", null);
-        expect(response.hasAnswer()).toBeTruthy();
-
-        const simpleResponse = <SimpleResponse> response;
-
-        expect(simpleResponse.response).toBe("oratio.core.identity");
-        expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
+        return generalTestMethodsNL.expectInputToGiveResponse("wat ben je", expectedResponse);
     });
 
     it("should not match wrong input", function () {
-        const neuron = new IdentityNeuron();
-
-        const userInput: string[][] = [
-            ["hoe laat is het"],
-            ["hoe laat is het nu"],
-        ];
-
-        userInput.forEach(input => {
-            const response = neuron.process(input, "nl", null);
-            expect(response.hasAnswer()).toBeFalsy();
-
-            const simpleResponse = <SimpleResponse> response;
-
-            expect(simpleResponse.response).toBe(undefined);
-            expect(simpleResponse.getCertainty()).toBe(0);
-        })
-
+        return generalTestMethodsNL.expectInputToGiveSilence("hoe laat is het");
     });
 
     it("should know what to do even with lots of noise", () => {
-        const neuron = new IdentityNeuron();
-
-        let words: string[] = "Hello I am a Human, what are you?".split(" ");
-
-        const response = neuron.process(words, locale, null);
-        expect(response.hasAnswer()).toBeTruthy();
-
-        const simpleResponse = <SimpleResponse> response;
-
-        expect(simpleResponse.response).toBe("oratio.core.identity");
-        expect(simpleResponse.getCertainty()).toBeGreaterThan(0.0);
+        return generalTestMethods
+            .withMinimumCertainty(0.3)
+            .expectInputToGiveResponse("Hello I am a Human, what are you", expectedResponse);
     });
 
     it("should not know what to do with unrelated questions", () => {
-        const neuron = new IdentityNeuron();
-
-        let words: string[] = "What is the time?".split(" ");
-
-
-        const response = neuron.process(words, locale, null);
-        expect(response.hasAnswer()).toBeFalsy();
-        expect(response.getCertainty()).toBe(0);
+        return generalTestMethods.expectInputToGiveSilence("What is the time");
     });
 });

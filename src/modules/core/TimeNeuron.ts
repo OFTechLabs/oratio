@@ -8,11 +8,11 @@ import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 
 export class TimeNeuron implements IHiveMindNeuron {
 
-    public process(input: string[], locale: string, context: any): INeuronResponse {
+    public process(input: string[], locale: string, context: any): Promise<INeuronResponse> {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
-        const initialResponse = (new MultipleSequenceNeuron(
+        const initialResponse: Promise<INeuronResponse> = (new MultipleSequenceNeuron(
             sequences.singleWord.map((sequence: Sequence) => sequence.withoutSpaces),
             sequences.twoWords.map((sequence: Sequence) => sequence.withoutSpaces),
             sequences.threeWords.map((sequence: Sequence) => sequence.withoutSpaces),
@@ -20,14 +20,15 @@ export class TimeNeuron implements IHiveMindNeuron {
             "oratio.core.currentTime"))
             .process(input, locale, context);
 
-        if (initialResponse instanceof SimpleResponse) {
-            const date = new Date();
-            const time = date.getHours() + ":" + date.getMinutes();
+        return initialResponse.then((response: INeuronResponse) => {
+            if (response instanceof SimpleResponse) {
+                const date = new Date();
+                const time = date.getHours() + ":" + date.getMinutes();
 
-            return initialResponse.withParams([time]);
-        }
+                return response.withParams([time]);
+            }
 
-        return initialResponse;
+            return response;
+        });
     }
-
 }

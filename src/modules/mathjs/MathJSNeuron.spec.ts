@@ -1,61 +1,41 @@
 import "jest";
 import {MathJSNeuron} from "./MathJSNeuron";
 import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {GeneralTestMethods} from "../generalTestMethods.spec";
 require("babel-core/register");
 require("babel-polyfill");
 require('mathjs');
 
 describe("MathJS Neuron", () => {
 
-    const locale: string = "en";
-    let neuron: MathJSNeuron = new MathJSNeuron();
+    let generalTestMethods : GeneralTestMethods;
+    let generalTestMethodsNL : GeneralTestMethods;
+    const expectedResponse : string = "oratio.mathjs.evaluated";
 
-    it("should be able to evaluate with mathjs", function () {
-        const longerExpresion: string = "math: (1000 / 25) * ((24 + 15) / 5) - (21 + 43)";
-
-        const inputs: {input: string[], param: string}[] = [
-            {input: ["math:", "(9", "*", "3)", "/", "3"], param: "9"},
-            {input: ["math:", "100", "*", "22"], param: "2200"},
-            {input: ["math:", "0.5", "*", "2000"], param: "1000"},
-            {input: longerExpresion.split(" "), param: "248"},
-        ];
-
-        inputs.forEach(input => {
-            const response = neuron.process(input.input, locale, "");
-
-            expect(response.hasAnswer()).toBeTruthy();
-
-            const simpleResponse = <SimpleResponse> response;
-
-            expect(simpleResponse.response).toBe("otario.mathjs.evaluated");
-            expect(simpleResponse.params.length).toBe(1);
-            expect(simpleResponse.params[0]).toBe(input.param);
-            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
-        })
+    beforeEach(function () {
+        generalTestMethods = GeneralTestMethods.create(new MathJSNeuron());
+        generalTestMethodsNL = GeneralTestMethods.create(new MathJSNeuron()).withLocale("nl");
     });
 
-    it("should be able to localize", function () {
-        const longerExpresion: string = "evalueer: (1000 / 25) * ((24 + 15) / 5) - (21 + 43)";
+    it("should be able to handle math: (9 * 3) / 3", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("math: (9 * 3) / 3", expectedResponse, "9");
+    });
 
-        const inputs: {input: string[], param: string}[] = [
-            {input: ["bereken:", "(9", "*", "3)", "/", "3"], param: "9"},
-            {input: ["evalueer:", "100", "*", "22"], param: "2200"},
-            {input: ["bereken:", "0.5", "*", "2000"], param: "1000"},
-            {input: longerExpresion.split(" "), param: "248"},
-        ];
+    it("should be able to handle math: 100 * 22", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("math: 100 * 22", expectedResponse, "2200");
+    });
 
-        inputs.forEach(input => {
-            const response = neuron.process(input.input, "nl", "");
+    it("should be able to handle math: -0.5 * 2000", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("math: -0.5 * 2000", expectedResponse, "-1000");
+    });
 
-            expect(response.hasAnswer()).toBeTruthy();
+    it("should be able to handle math: (1000 / 25) * ((24 + 15) / 5) - (21 + 43)", function () {
+        return generalTestMethods.expectInputToGiveResponseAndParam("math: (1000 / 25) * ((24 + 15) / 5) - (21 + 43)", expectedResponse, "248");
+    });
 
-            const simpleResponse = <SimpleResponse> response;
 
-            expect(simpleResponse.response).toBe("otario.mathjs.evaluated");
-            expect(simpleResponse.params.length).toBe(1);
-            expect(simpleResponse.params[0]).toBe(input.param);
-            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(0.75);
-        })
+    it("should be able to localize bereken: 100 * 22", function () {
+        return generalTestMethodsNL.expectInputToGiveResponseAndParam("bereken: 100 * 22", expectedResponse, "2200");
     });
 });
 
