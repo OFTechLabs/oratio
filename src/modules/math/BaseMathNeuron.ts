@@ -3,6 +3,7 @@ import {LevenshteinDistanceMatcher} from "../../language/words/LevenshteinDistan
 import {SimpleResponse, INeuronResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 import {NumberOfKnownWordsCertaintyCalculator} from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator";
+import {HiveMindContext} from "../../emergent/HiveMindContext";
 
 export class BaseMathNeuron implements IHiveMindNeuron {
 
@@ -19,7 +20,7 @@ export class BaseMathNeuron implements IHiveMindNeuron {
         this.apply = apply;
     }
 
-    public process(words: string[], locale: string, context: any): Promise<INeuronResponse> {
+    public process(words: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse> {
         let index = 0;
         for (const word of words) {
             for (const knownOperator of this.knownOperators) {

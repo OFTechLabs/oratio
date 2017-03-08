@@ -7,10 +7,11 @@ import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 import {LanguageUtil} from "../../language/LanguageUtil";
 import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
 import {NumberOfKnownWordsCertaintyCalculator} from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator";
+import {HiveMindContext} from "../../emergent/HiveMindContext";
 
 export class MathJSNeuron implements IHiveMindNeuron {
 
-    public process(words: string[], locale: string, context: any): Promise<INeuronResponse> {
+    public process(words: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse> {
         const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
 
         if (this.startsWith(words[0], localizedKnownWords)) {

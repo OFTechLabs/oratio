@@ -2,6 +2,8 @@ export * from "./HiveMind";
 export * from "./HiveMindNeurons";
 export * from "./HiveResponse";
 export * from "./HiveMindBuilder";
+export * from "./HiveMindContext";
+export * from "./HiveMindInputNode";
 
 export {MultipleSequenceNeuron} from "./neurons/MultipleSequenceNeuron";
 export {SingleWordNeuron} from "./neurons/SingleWordNeuron";

@@ -4,10 +4,11 @@ import {SimpleResponse, INeuronResponse} from "./neurons/responses/SimpleRespons
 import {ActionResponse} from "./neurons/responses/ActionResponse";
 import {ActionWithContextResponse} from "./neurons/responses/ActionWithContextResponse";
 import {FailedResponse} from "./FailedResponse";
+import {HiveMindContext} from "./HiveMindContext";
 
 export interface IHiveMind {
 
-    process(input: string, locale: string, context: any): Promise<IHiveResponse>;
+    process(input: string, locale: string, context: HiveMindContext): Promise<IHiveResponse>;
 
 }
 
@@ -24,7 +25,7 @@ export class BasicHiveMind implements IHiveMind {
         this.neurons = neurons;
     }
 
-    public process(input: string, locale: string, context: any): Promise<IHiveResponse> {
+    public process(input: string, locale: string, context: HiveMindContext): Promise<IHiveResponse> {
 
         const words = input.split(" ");
 

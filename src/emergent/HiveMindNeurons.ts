@@ -1,14 +1,15 @@
 import {Silence} from "./neurons/responses/Silence";
 import {INeuronResponse} from "./neurons/responses/SimpleResponse";
+import {HiveMindContext} from "./HiveMindContext";
 
 export interface IHiveMindNeurons {
 
-    findMatch(input: string[], locale: string, context: any): Promise<INeuronResponse>;
+    findMatch(input: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse>;
 }
 
 export interface IHiveMindNeuron {
 
-    process(words: string[], locale: string, context: any): Promise<INeuronResponse>;
+    process(words: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse>;
 
 }
 
@@ -22,7 +23,7 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
         this.certaintyThreshold = certaintyThreshold;
     }
 
-    public findMatch(input: string[], locale: string, context: any): Promise<INeuronResponse> {
+    public findMatch(input: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse> {
         return new Promise((resolve, reject) => {
             let potentialResponse: INeuronResponse = new Silence();
             let maxCertainty = 0;
