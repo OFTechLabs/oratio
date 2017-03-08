@@ -1,10 +1,12 @@
 import {IHiveResponse, UnderstoodResponse} from "./HiveResponse";
 import {IHiveMindNeurons} from "./HiveMindNeurons";
-import {SimpleResponse, INeuronResponse} from "./neurons/responses/SimpleResponse";
+import {SimpleResponse} from "./neurons/responses/SimpleResponse";
 import {ActionResponse} from "./neurons/responses/ActionResponse";
 import {ActionWithContextResponse} from "./neurons/responses/ActionWithContextResponse";
 import {FailedResponse} from "./FailedResponse";
 import {HiveMindContext} from "./HiveMindContext";
+import {HiveMindInputNode} from "./HiveMindInputNode";
+import {INeuronsResponse} from "./NeuronsResponse";
 
 export interface IHiveMind {
 
@@ -20,9 +22,11 @@ export class BasicHiveMind implements IHiveMind {
     }
 
     private neurons: IHiveMindNeurons;
+    private previousInput: HiveMindInputNode;
 
     constructor(neurons: IHiveMindNeurons) {
         this.neurons = neurons;
+        this.previousInput = null;
     }
 
     public process(input: string, locale: string, context: HiveMindContext): Promise<IHiveResponse> {
@@ -31,34 +35,40 @@ export class BasicHiveMind implements IHiveMind {
 
         const neuronsResponsePromise = this.neurons.findMatch(words, locale, context);
 
-        return neuronsResponsePromise.then((neuronsResponse: INeuronResponse)  => {
-            if (neuronsResponse.hasAnswer()) {
-                if (neuronsResponse instanceof ActionWithContextResponse) {
+        return neuronsResponsePromise.then((neuronsResponse: INeuronsResponse)  => {
+            const response = neuronsResponse.getResponse();
+
+            if (response.hasAnswer()) {
+                this.previousInput = new HiveMindInputNode(this.previousInput, neuronsResponse.getFiredNeuron(), words);
+
+                if (response instanceof ActionWithContextResponse) {
 
                     return new UnderstoodResponse(
-                        neuronsResponse.response,
-                        neuronsResponse.params,
-                        neuronsResponse.getCertainty(),
-                        neuronsResponse.action,
-                        neuronsResponse.context);
-                } else if (neuronsResponse instanceof ActionResponse) {
+                        response.response,
+                        response.params,
+                        response.getCertainty(),
+                        response.action,
+                        response.context);
+                } else if (response instanceof ActionResponse) {
 
                     return new UnderstoodResponse(
-                        neuronsResponse.response,
-                        neuronsResponse.params,
-                        neuronsResponse.getCertainty(),
-                        neuronsResponse.action,
+                        response.response,
+                        response.params,
+                        response.getCertainty(),
+                        response.action,
                         BasicHiveMind.EMPTY_CONTEXT);
-                } else if (neuronsResponse instanceof SimpleResponse) {
+                } else if (response instanceof SimpleResponse) {
 
                     return new UnderstoodResponse(
-                        neuronsResponse.response,
-                        neuronsResponse.params,
-                        neuronsResponse.getCertainty(),
+                        response.response,
+                        response.params,
+                        response.getCertainty(),
                         BasicHiveMind.EMPTY_ACTION,
                         BasicHiveMind.EMPTY_CONTEXT);
                 }
             }
+
+            this.previousInput = new HiveMindInputNode(this.previousInput, null, words);
             return new FailedResponse("oratio.did.not.understand");
         });
     }

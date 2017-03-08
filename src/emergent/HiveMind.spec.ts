@@ -2,6 +2,7 @@ import "jest";
 import {IHiveMind} from "./HiveMind";
 import {HiveMindBuilder} from "./HiveMindBuilder";
 import {IHiveResponse} from "./HiveResponse";
+import {INeuronsResponse} from "./NeuronsResponse";
 require("babel-core/register");
 require("babel-polyfill");
 var chai = require('chai');
@@ -29,7 +30,7 @@ describe("HiveMind", () => {
         inputs.forEach(input => {
             const responsePromise = mind.process(input.input, locale, null);
 
-            responsePromise.then(response => {
+            responsePromise.then((response: IHiveResponse) => {
                 expect(response.response()).toBe(input.response)
             })
 
