@@ -23,33 +23,34 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
     }
 
     public findMatch(input: string[], locale: string, context: any): Promise<INeuronResponse> {
-        let potentialResponse: Promise<INeuronResponse> = null;
-        let maxCertainty = 0;
-        let certainResponse: Promise<INeuronResponse> = null;
+        return new Promise((resolve, reject) => {
+            let potentialResponse: INeuronResponse = new Silence();
+            let maxCertainty = 0;
 
-        const neuronResponses: Array<Promise<INeuronResponse>> = [];
+            const neuronResponses: Array<Promise<INeuronResponse>> = [];
 
-        for (let i = 0; i < this.neurons.length; i++) {
-            const promiseResponse = this.neurons[i].process(input, locale, context);
-            neuronResponses.push(promiseResponse);
+            for (let i = 0; i < this.neurons.length; i++) {
+                const promiseResponse = this.neurons[i].process(input, locale, context);
+                neuronResponses.push(promiseResponse);
 
-            promiseResponse.then((response: INeuronResponse) => {
-                if (response.hasAnswer()) {
-                    if (response.getCertainty() > maxCertainty) {
-                        potentialResponse = Promise.resolve(response);
-                        maxCertainty = response.getCertainty();
+                promiseResponse.then((response: INeuronResponse) => {
+                    if (response.hasAnswer()) {
+                        if (response.getCertainty() >= this.certaintyThreshold) {
+                            this.placeNeuronToTop(i);
+                            resolve(response);
+                        }
+
+                        if (response.getCertainty() > maxCertainty) {
+                            potentialResponse = response;
+                            maxCertainty = response.getCertainty();
+                        }
                     }
+                });
+            }
 
-                    if (response.getCertainty() >= this.certaintyThreshold) {
-                        this.placeNeuronToTop(i);
-                        certainResponse = potentialResponse;
-                    }
-                }
+            Promise.all(neuronResponses).then((allResolved: INeuronResponse[]) => {
+                resolve(potentialResponse);
             });
-        }
-
-        return Promise.all(neuronResponses).then((allResolved: INeuronResponse[]) => {
-            return (certainResponse === null) ? new Silence() : potentialResponse;
         });
     }
 
