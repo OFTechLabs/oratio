@@ -76,8 +76,24 @@ export class GeneralTestMethods {
         })
     }
 
+    expectInputAndContextToGiveResponseWithParam(input: string,
+                                                 context: HiveMindContext,
+                                                 response: string,
+                                                 param: string): Promise<void> {
+        return this.neuron.process(input.split(" "), this.locale, context).then(neuronResponse => {
+            expect(neuronResponse.hasAnswer()).toBeTruthy();
+
+            const simpleResponse = <SimpleResponse> neuronResponse;
+
+            expect(simpleResponse.response).toBe(response);
+            expect(simpleResponse.params.length).toBe(1);
+            expect(simpleResponse.params[0]).toBe(param);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(this.minimumCertainty);
+        })
+    }
+
     expectInputToGiveResponseAndHaveParam(input: string,
-                              response: string): Promise<void> {
+                                          response: string): Promise<void> {
         return this.neuron.process(input.split(" "), this.locale, this.emptyContext).then(neuronResponse => {
             expect(neuronResponse.hasAnswer()).toBeTruthy();
 

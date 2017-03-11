@@ -14,5 +14,17 @@
       ]
     }
   },
-  "params": {}
+  "params": {},
+  "continuation": {
+    "en": {
+      "words": [
+        "and"
+      ]
+    },
+    "nl": {
+      "words": [
+        "en"
+      ]
+    }
+  }
 }

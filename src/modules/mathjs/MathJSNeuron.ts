@@ -12,7 +12,11 @@ import {HiveMindContext} from "../../emergent/HiveMindContext";
 export class MathJSNeuron implements IHiveMindNeuron {
 
     public process(words: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse> {
-        const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
+        let localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
+        if (context.hasPreviousInput() && context.previousInput.neuronHandled instanceof MathJSNeuron) {
+            const continuations: string[] = ((knownWords as any) as LocalizedWordsJson).continuation[locale].words;
+            localizedKnownWords = localizedKnownWords.concat(continuations);
+        }
 
         if (this.startsWith(words[0], localizedKnownWords)) {
             const remainder: string = words.slice(1, words.length).reduce((a, b) => a + b);
