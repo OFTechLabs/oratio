@@ -10,9 +10,13 @@ import {HiveMindContext} from "../../emergent/HiveMindContext";
 export class TimeNeuron implements IHiveMindNeuron {
 
     public process(input: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse> {
-        const localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
-        const sequences = SequenceParser.parse(localizedKnownWords);
+        let localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
+        if (context.hasPreviousInput() && context.previousInput.neuronHandled instanceof TimeNeuron) {
+            const continuations: string[] = ((knownWords as any) as LocalizedWordsJson).continuation[locale].words;
+            localizedKnownWords = localizedKnownWords.concat(continuations);
+        }
 
+        const sequences = SequenceParser.parse(localizedKnownWords);
         const initialResponse: Promise<INeuronResponse> = (new MultipleSequenceNeuron(
             sequences.singleWord.map((sequence: Sequence) => sequence.withoutSpaces),
             sequences.twoWords.map((sequence: Sequence) => sequence.withoutSpaces),

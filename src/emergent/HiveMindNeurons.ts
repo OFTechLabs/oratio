@@ -34,7 +34,8 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
             const neuronResponses: Array<Promise<INeuronResponse>> = [];
 
             for (let i = 0; i < this.neurons.length; i++) {
-                const promiseResponse = this.neurons[i].process(
+                const neuron = this.neurons[i];
+                const promiseResponse = neuron.process(
                     input,
                     locale,
                     context);
@@ -44,11 +45,11 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
                     if (response.hasAnswer()) {
                         if (response.getCertainty() >= this.certaintyThreshold) {
                             this.placeNeuronToTop(i);
-                            resolve(new NeuronsResponse(this.neurons[i], response));
+                            resolve(new NeuronsResponse(neuron, response));
                         }
 
                         if (response.getCertainty() > maxCertainty) {
-                            potentialResponse = new NeuronsResponse(this.neurons[i], response);
+                            potentialResponse = new NeuronsResponse(neuron, response);
                             potentialResponseIndex = i;
                             maxCertainty = response.getCertainty();
                         }

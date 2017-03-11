@@ -29,10 +29,10 @@ export class BasicHiveMind implements IHiveMind {
         this.previousInput = null;
     }
 
-    public process(input: string, locale: string, context: HiveMindContext): Promise<IHiveResponse> {
-
+    public process(input: string, locale: string, clientModel: any): Promise<IHiveResponse> {
         const words = input.split(" ");
 
+        const context = new HiveMindContext(this.previousInput, clientModel);
         const neuronsResponsePromise = this.neurons.findMatch(words, locale, context);
 
         return neuronsResponsePromise.then((neuronsResponse: INeuronsResponse)  => {

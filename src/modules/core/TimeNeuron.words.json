@@ -14,5 +14,17 @@
       ]
     }
   },
-  "params": {}
+  "params": {},
+  "continuation": {
+    "en": {
+      "words": [
+        "and now"
+      ]
+    },
+    "nl": {
+      "words": [
+        "en nu"
+      ]
+    }
+  }
 }

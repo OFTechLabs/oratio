@@ -1,6 +1,5 @@
 import "jest";
 import {GreetingNeuron} from "./GreetingNeuron";
-import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {GeneralTestMethods} from "../generalTestMethods.spec";
 require("babel-core/register");
 require("babel-polyfill");

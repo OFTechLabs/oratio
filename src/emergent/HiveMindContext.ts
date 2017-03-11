@@ -1,4 +1,5 @@
 import {HiveMindInputNode} from "./HiveMindInputNode";
+import {LanguageUtil} from "../language/LanguageUtil";
 
 export class HiveMindContext {
 
@@ -10,7 +11,11 @@ export class HiveMindContext {
         this._clientModel = clientModel;
     }
 
-    get previousInput(): HiveMindInputNode {
+    public hasPreviousInput(): boolean {
+        return LanguageUtil.isDefined(this._previousInput);
+    }
+
+    get previousInput(): (HiveMindInputNode|null) {
         return this._previousInput;
     }
 

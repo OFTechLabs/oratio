@@ -1,6 +1,8 @@
 import {IHiveMindNeuron} from "../emergent/HiveMindNeurons";
 import {SimpleResponse} from "../emergent/neurons/responses/SimpleResponse";
 import {GreetingNeuron} from "./core/GreetingNeuron";
+import {HiveMindContext} from "../emergent/HiveMindContext";
+import {HiveMindInputNode} from "../emergent/HiveMindInputNode";
 
 describe("General test methids", () => {
 
@@ -17,6 +19,7 @@ export class GeneralTestMethods {
     private neuron: IHiveMindNeuron;
     private locale: string;
     private minimumCertainty: number;
+    private emptyContext = new HiveMindContext(null, null)
 
     constructor(neuron: IHiveMindNeuron, locale: string, certainty: number) {
         this.neuron = neuron;
@@ -50,7 +53,20 @@ export class GeneralTestMethods {
 
     expectInputToGiveResponse(input: string,
                               response: string): Promise<void> {
-        return this.neuron.process(input.split(" "), this.locale, "").then(neuronResponse => {
+        return this.neuron.process(input.split(" "), this.locale, this.emptyContext).then(neuronResponse => {
+            expect(neuronResponse.hasAnswer()).toBeTruthy();
+
+            const simpleResponse = <SimpleResponse> neuronResponse;
+
+            expect(simpleResponse.response).toBe(response);
+            expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(this.minimumCertainty);
+        })
+    }
+
+    expectInputAndContextToGiveResponse(input: string,
+                                        context: HiveMindContext,
+                                        response: string): Promise<void> {
+        return this.neuron.process(input.split(" "), this.locale, context).then(neuronResponse => {
             expect(neuronResponse.hasAnswer()).toBeTruthy();
 
             const simpleResponse = <SimpleResponse> neuronResponse;
@@ -62,7 +78,7 @@ export class GeneralTestMethods {
 
     expectInputToGiveResponseAndHaveParam(input: string,
                               response: string): Promise<void> {
-        return this.neuron.process(input.split(" "), this.locale, "").then(neuronResponse => {
+        return this.neuron.process(input.split(" "), this.locale, this.emptyContext).then(neuronResponse => {
             expect(neuronResponse.hasAnswer()).toBeTruthy();
 
             const simpleResponse = <SimpleResponse> neuronResponse;
@@ -77,7 +93,7 @@ export class GeneralTestMethods {
     expectInputToGiveResponseAndParam(input: string,
                                       response: string,
                                       param: string): Promise<void> {
-        return this.neuron.process(input.split(" "), this.locale, "").then(neuronResponse => {
+        return this.neuron.process(input.split(" "), this.locale, this.emptyContext).then(neuronResponse => {
             expect(neuronResponse.hasAnswer()).toBeTruthy();
 
             const simpleResponse = <SimpleResponse> neuronResponse;
@@ -90,7 +106,7 @@ export class GeneralTestMethods {
     }
 
     expectInputToGiveSilence(input: string): Promise<void> {
-        return this.neuron.process(input.split(" "), this.locale, "").then(response => {
+        return this.neuron.process(input.split(" "), this.locale, this.emptyContext).then(response => {
             expect(response.hasAnswer()).toBeFalsy();
 
             const simpleResponse = <SimpleResponse> response;
