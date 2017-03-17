@@ -10,7 +10,7 @@ import {INeuronsResponse} from "./NeuronsResponse";
 
 export interface IHiveMind {
 
-    process(input: string, locale: string, context: HiveMindContext): Promise<IHiveResponse>;
+    process(input: string, locale: string, clientModel: any): Promise<IHiveResponse>;
 
 }
 
