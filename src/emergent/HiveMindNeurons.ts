@@ -1,16 +1,16 @@
 import {Silence} from "./neurons/responses/Silence";
 import {INeuronResponse} from "./neurons/responses/SimpleResponse";
-import {HiveMindContext} from "./HiveMindContext";
+import {RequestContext} from "./RequestContext";
 import {NeuronsResponse, INeuronsResponse} from "./NeuronsResponse";
 
 export interface IHiveMindNeurons {
 
-    findMatch(input: string[], locale: string, context: HiveMindContext): Promise<INeuronsResponse>;
+    findMatch(input: string[], locale: string, context: RequestContext): Promise<INeuronsResponse>;
 }
 
 export interface IHiveMindNeuron {
 
-    process(words: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse>;
+    process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse>;
 
 }
 
@@ -25,7 +25,7 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
 
     }
 
-    public findMatch(input: string[], locale: string, context: HiveMindContext): Promise<INeuronsResponse> {
+    public findMatch(input: string[], locale: string, context: RequestContext): Promise<INeuronsResponse> {
         return new Promise((resolve, reject) => {
             let potentialResponse: INeuronsResponse = new NeuronsResponse(null, new Silence());
             let potentialResponseIndex: number;

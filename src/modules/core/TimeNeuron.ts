@@ -5,11 +5,11 @@ import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 import * as knownWords from "./TimeNeuron.words.json";
 import {Sequence} from "../../language/sequences/Sequence";
 import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
-import {HiveMindContext} from "../../emergent/HiveMindContext";
+import {RequestContext} from "../../emergent/RequestContext";
 
 export class TimeNeuron implements IHiveMindNeuron {
 
-    public process(input: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse> {
+    public process(input: string[], locale: string, context: RequestContext): Promise<INeuronResponse> {
         let localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         if (context.hasPreviousInput() && context.previousInput.neuronHandled instanceof TimeNeuron) {
             const continuations: string[] = ((knownWords as any) as LocalizedWordsJson).continuation[locale].words;

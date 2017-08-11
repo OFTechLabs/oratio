@@ -1,7 +1,7 @@
 import {HiveMindInputNode} from "./HiveMindInputNode";
 import {LanguageUtil} from "../language/LanguageUtil";
 
-export class HiveMindContext {
+export class RequestContext {
 
     private _previousInput: HiveMindInputNode;
     private _clientModel: any;

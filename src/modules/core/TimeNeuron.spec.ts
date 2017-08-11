@@ -2,7 +2,7 @@ import "jest";
 import {TimeNeuron} from "./TimeNeuron";
 import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {GeneralTestMethods} from "../generalTestMethods.spec";
-import {HiveMindContext} from "../../emergent/HiveMindContext";
+import {RequestContext} from "../../emergent/RequestContext";
 import {HiveMindInputNode} from "../../emergent/HiveMindInputNode";
 require("babel-core/register");
 require("babel-polyfill");
@@ -43,7 +43,7 @@ describe("Time neuron", () => {
         const previousInput: string[] = "hoe laat is het nu?".split(" ");
 
         const previous = new HiveMindInputNode(null, new TimeNeuron(), previousInput);
-        const context = new HiveMindContext(previous, null);
+        const context = new RequestContext(previous, null);
 
         return generalTestMethodsNL.expectInputAndContextToGiveResponse("en nu", context, expectedResponse);
     });

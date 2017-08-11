@@ -4,7 +4,7 @@ import {SimpleResponse} from "./neurons/responses/SimpleResponse";
 import {ActionResponse} from "./neurons/responses/ActionResponse";
 import {ActionWithContextResponse} from "./neurons/responses/ActionWithContextResponse";
 import {FailedResponse} from "./FailedResponse";
-import {HiveMindContext} from "./HiveMindContext";
+import {RequestContext} from "./RequestContext";
 import {HiveMindInputNode} from "./HiveMindInputNode";
 import {INeuronsResponse} from "./NeuronsResponse";
 
@@ -32,7 +32,7 @@ export class BasicHiveMind implements IHiveMind {
     public process(input: string, locale: string, clientModel: any): Promise<IHiveResponse> {
         const words = input.split(" ");
 
-        const context = new HiveMindContext(this.previousInput, clientModel);
+        const context = new RequestContext(this.previousInput, clientModel);
         const neuronsResponsePromise = this.neurons.findMatch(words, locale, context);
 
         return neuronsResponsePromise.then((neuronsResponse: INeuronsResponse)  => {

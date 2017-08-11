@@ -1,7 +1,7 @@
 import {IHiveMindNeuron} from "../emergent/HiveMindNeurons";
 import {SimpleResponse} from "../emergent/neurons/responses/SimpleResponse";
 import {GreetingNeuron} from "./core/GreetingNeuron";
-import {HiveMindContext} from "../emergent/HiveMindContext";
+import {RequestContext} from "../emergent/RequestContext";
 import {HiveMindInputNode} from "../emergent/HiveMindInputNode";
 
 describe("General test methids", () => {
@@ -19,7 +19,7 @@ export class GeneralTestMethods {
     private neuron: IHiveMindNeuron;
     private locale: string;
     private minimumCertainty: number;
-    private emptyContext = new HiveMindContext(null, null)
+    private emptyContext = new RequestContext(null, null)
 
     constructor(neuron: IHiveMindNeuron, locale: string, certainty: number) {
         this.neuron = neuron;
@@ -64,7 +64,7 @@ export class GeneralTestMethods {
     }
 
     expectInputAndContextToGiveResponse(input: string,
-                                        context: HiveMindContext,
+                                        context: RequestContext,
                                         response: string): Promise<void> {
         return this.neuron.process(input.split(" "), this.locale, context).then(neuronResponse => {
             expect(neuronResponse.hasAnswer()).toBeTruthy();
@@ -77,7 +77,7 @@ export class GeneralTestMethods {
     }
 
     expectInputAndContextToGiveResponseWithParam(input: string,
-                                                 context: HiveMindContext,
+                                                 context: RequestContext,
                                                  response: string,
                                                  param: string): Promise<void> {
         return this.neuron.process(input.split(" "), this.locale, context).then(neuronResponse => {

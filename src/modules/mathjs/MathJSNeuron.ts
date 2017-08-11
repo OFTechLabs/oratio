@@ -1,17 +1,16 @@
 ///<reference path="../../../node_modules/@types/mathjs/index.d.ts"/>
-import {SimpleResponse, INeuronResponse} from "../../emergent/neurons/responses/SimpleResponse";
+import {INeuronResponse, SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
 import {Silence} from "../../emergent/neurons/responses/Silence";
-import math = require("mathjs");
 import * as knownWords from "./MathJSNeuron.words.json";
 import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
 import {LanguageUtil} from "../../language/LanguageUtil";
 import {IHiveMindNeuron} from "../../emergent/HiveMindNeurons";
-import {NumberOfKnownWordsCertaintyCalculator} from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator";
-import {HiveMindContext} from "../../emergent/HiveMindContext";
+import {RequestContext} from "../../emergent/RequestContext";
+import math = require("mathjs");
 
 export class MathJSNeuron implements IHiveMindNeuron {
 
-    public process(words: string[], locale: string, context: HiveMindContext): Promise<INeuronResponse> {
+    public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse> {
         let localizedKnownWords: string[] = ((knownWords as any) as LocalizedWordsJson).main[locale].words;
         if (context.hasPreviousInput() && context.previousInput.neuronHandled instanceof MathJSNeuron) {
             const continuations: string[] = ((knownWords as any) as LocalizedWordsJson).continuation[locale].words;
