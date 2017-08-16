@@ -1,8 +1,11 @@
 {
-  "name": "oratio",
+  "name": "@oratio/oratio",
   "version": "0.1.0",
   "description": "Emergent natural language interfacing",
+  "author": "Jelle Verstegen",
+  "license": "MIT",
   "main": "dist/main.js",
+  "types": "dist/index.d.ts",
   "typings": "dist/main.d.ts",
   "jam": {
     "main": "./dist/main.browser.js"
@@ -11,7 +14,6 @@
     "dist/main.js": "./dist/main.browser.js"
   },
   "scripts": {
-    "prebuild": "npm install",
     "build": "webpack || echo not ok",
     "test": "jest",
     "test:watch": "npm test -- --watch",
@@ -25,10 +27,8 @@
     "url": "git+https://github.com/jelleverstegen/oratio.git"
   },
   "keywords": [
-    "natural language processing"
+    "nlp conversational"
   ],
-  "author": "Jelle Verstegen",
-  "license": "MIT",
   "bugs": {
     "url": "https://github.com/jelleverstegen/oratio/issues"
   },
@@ -45,7 +45,6 @@
     "browserify": "14.4.0",
     "chai": "4.1.1",
     "delete-empty": "1.0.1",
-    "dts-bundle": "0.7.3",
     "jest": "20.0.4",
     "json-loader": "0.5.7",
     "standard-version": "4.2.0",
