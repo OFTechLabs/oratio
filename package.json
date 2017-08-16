@@ -34,10 +34,10 @@
   },
   "homepage": "https://github.com/jelleverstegen/oratio",
   "devDependencies": {
-    "@types/chai": "4.0.2",
-    "@types/jest": "20.0.6",
-    "@types/node": "8.0.20",
-    "awesome-typescript-loader": "3.2.2",
+    "@types/chai": "4.0.3",
+    "@types/jest": "20.0.7",
+    "@types/node": "8.0.22",
+    "awesome-typescript-loader": "3.2.3",
     "babel-core": "6.25.0",
     "babel-loader": "7.1.1",
     "babel-polyfill": "6.23.0",
@@ -53,12 +53,12 @@
     "tslint-loader": "3.5.3",
     "typescript": "2.4.2",
     "typescript-babel-jest": "1.0.5",
-    "webpack": "3.5.3",
+    "webpack": "3.5.4",
     "webpack-node-externals": "1.6.0"
   },
   "dependencies": {
     "@types/mathjs": "0.0.34",
-    "mathjs": "3.16.0"
+    "mathjs": "3.16.1"
   },
   "jest": {
     "transform": {
