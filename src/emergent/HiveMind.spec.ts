@@ -43,7 +43,6 @@ describe("HiveMind", () => {
     it("should be able to have a conversation", function () {
         const inputs: {input: string, response: string}[] = [
             {input: "wie ben je", response: "oratio.core.identity"},
-            //{input: "yo yo, alles goed? hoe is het? wie ben je", response: "oratio.core.identity"},
             {input: "hoe laat is het", response: "oratio.core.currentTime"},
             {input: "en nu", response: "oratio.core.currentTime"},
             {input: "hallo", response: "oratio.core.hello"},
