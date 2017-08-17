@@ -5,6 +5,7 @@ import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
 import { INeuronResponse } from '../../emergent/neurons/responses/SimpleResponse';
 import { RequestContext } from '../../emergent/RequestContext';
 import { knownWords } from './IdentityNeuron.words';
+import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
 
 export class IdentityNeuron implements IHiveMindNeuron {
     public process(
@@ -12,7 +13,10 @@ export class IdentityNeuron implements IHiveMindNeuron {
         locale: string,
         context: RequestContext,
     ): Promise<INeuronResponse> {
-        const localizedKnownWords: string[] = knownWords.main[locale].words;
+        const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
+            knownWords,
+            locale,
+        ).words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
         return new MultipleSequenceNeuron(

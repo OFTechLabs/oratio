@@ -8,6 +8,7 @@ import { Sequence } from '../../language/sequences/Sequence';
 import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
 import { RequestContext } from '../../emergent/RequestContext';
 import { knownWords } from './TimeNeuron.words';
+import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
 
 export class TimeNeuron implements IHiveMindNeuron {
     public process(
@@ -15,13 +16,18 @@ export class TimeNeuron implements IHiveMindNeuron {
         locale: string,
         context: RequestContext,
     ): Promise<INeuronResponse> {
-        let localizedKnownWords: string[] = knownWords.main[locale].words;
+        let localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
+            knownWords,
+            locale,
+        ).words;
         if (
             context.hasPreviousInput() &&
             context.previousNeuronHandled instanceof TimeNeuron
         ) {
-            const continuations: string[] =
-                knownWords.continuation[locale].words;
+            const continuations: string[] = LocalizedWordsForLocaleFactory.createContinuation(
+                knownWords,
+                locale,
+            ).words;
             localizedKnownWords = localizedKnownWords.concat(continuations);
         }
 

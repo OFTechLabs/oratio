@@ -9,6 +9,7 @@ import { Sequence } from '../../language/sequences/Sequence';
 import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
 import { RequestContext } from '../../emergent/RequestContext';
 import { knownWords } from './GreetingNeuron.words';
+import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
 
 export class GreetingNeuron implements IHiveMindNeuron {
     public process(
@@ -16,7 +17,10 @@ export class GreetingNeuron implements IHiveMindNeuron {
         locale: string,
         context: RequestContext,
     ): Promise<INeuronResponse> {
-        const localizedKnownWords: string[] = knownWords.main[locale].words;
+        const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
+            knownWords,
+            locale,
+        ).words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
         const initialResponsePromise: Promise<
@@ -38,8 +42,10 @@ export class GreetingNeuron implements IHiveMindNeuron {
         return initialResponsePromise.then(
             (initialResponse: INeuronResponse) => {
                 if (initialResponse instanceof SimpleResponse) {
-                    const localizedKnownParams: string[] =
-                        knownWords.params[locale].words;
+                    const localizedKnownParams: string[] = LocalizedWordsForLocaleFactory.createParams(
+                        knownWords,
+                        locale,
+                    ).words;
                     const paramSequences = SequenceParser.parse(
                         localizedKnownParams,
                     );
