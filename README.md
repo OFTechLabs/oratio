@@ -20,7 +20,7 @@ Give it user input:
     const response: Promise<IHiveResponse> = mind.process(input, "en", {})
 ```
 
-Show any applicable output the user in any desired way, the response has the following fields:
+Show any applicable output to the user in any desired way, the response has the following fields:
 
 ```typescript
 {
@@ -79,14 +79,3 @@ The Hive processes all user input, it favors neurons who succesfully process use
 ### Response
 
 The response always contains a _response_, which is a code that can be localized by other applications. The response can also include an _action_ (function: () => void)  which the neuron thought the user intended. The action ca be executed on a certain _context_, allowing the calling-party to use injected services in the action.
-
-Useful commands
----
-    npm run prebuild       - install NPM dependancies
-    npm run build          - build the library files
-    npm run test           - run the tests
-    npm run test:watch     - run the tests (watch-mode)
-    npm run coverage       - run the tests with coverage
-    npm run coverage:watch - run the tests with coverage (watch-mode)
-    npm run pack           - build the library, make sure the tests passes, and then pack the library (creates .tgz)
-    npm run release        - prepare package for next release
