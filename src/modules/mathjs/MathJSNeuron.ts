@@ -9,6 +9,7 @@ import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
 import { RequestContext } from '../../emergent/RequestContext';
 import * as math from 'mathjs';
 import { knownWords } from './MathJSNeuron.words';
+import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
 
 export class MathJSNeuron implements IHiveMindNeuron {
     public process(
@@ -16,13 +17,18 @@ export class MathJSNeuron implements IHiveMindNeuron {
         locale: string,
         context: RequestContext,
     ): Promise<INeuronResponse> {
-        let localizedKnownWords: string[] = knownWords.main[locale].words;
+        let localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
+            knownWords,
+            locale,
+        ).words;
         if (
             context.hasPreviousInput() &&
             context.previousNeuronHandled instanceof MathJSNeuron
         ) {
-            const continuations: string[] =
-                knownWords.continuation[locale].words;
+            const continuations: string[] = LocalizedWordsForLocaleFactory.createContinuation(
+                knownWords,
+                locale,
+            ).words;
             localizedKnownWords = localizedKnownWords.concat(continuations);
         }
 

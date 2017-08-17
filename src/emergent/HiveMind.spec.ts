@@ -37,6 +37,37 @@ describe('HiveMind', () => {
         return Promise.all(promises);
     });
 
+    it('should process unknown locale', function() {
+        const inputs: { input: string; response: string }[] = [
+            { input: 'who are you', response: 'oratio.did.not.understand' },
+            { input: 'what time is it', response: 'oratio.did.not.understand' },
+        ];
+
+        const promisesNullLocale = [];
+        inputs.forEach(input => {
+            const responsePromise = mind.process(input.input, null, null);
+
+            responsePromise.then((response: IHiveResponse) => {
+                expect(response.response()).toBe(input.response);
+            });
+
+            promisesNullLocale.push(responsePromise);
+        });
+
+        const promisesUnkownLocale = [];
+        inputs.forEach(input => {
+            const responsePromise = mind.process(input.input, 'xx', null);
+
+            responsePromise.then((response: IHiveResponse) => {
+                expect(response.response()).toBe(input.response);
+            });
+
+            promisesUnkownLocale.push(responsePromise);
+        });
+
+        return Promise.all(promisesNullLocale.concat(promisesUnkownLocale));
+    });
+
     it('should be able to have a conversation', function() {
         const inputs: { input: string; response: string }[] = [
             { input: 'wie ben je', response: 'oratio.core.identity' },
