@@ -1,21 +1,21 @@
-import { LocalizedWords } from "../../language/i18n/LocalizedWords";
+import { LocalizedWords } from '../../language/i18n/LocalizedWords';
 
 export const knownWords: LocalizedWords = {
-  main: {
-    en: {
-      words: ["math:", "calculate:", "evaluate:"]
+    main: {
+        en: {
+            words: ['math:', 'calculate:', 'evaluate:'],
+        },
+        nl: {
+            words: ['bereken:', 'evalueer:'],
+        },
     },
-    nl: {
-      words: ["bereken:", "evalueer:"]
-    }
-  },
-  params: {},
-  continuation: {
-    en: {
-      words: ["and"]
+    params: {},
+    continuation: {
+        en: {
+            words: ['and'],
+        },
+        nl: {
+            words: ['en'],
+        },
     },
-    nl: {
-      words: ["en"]
-    }
-  }
 };

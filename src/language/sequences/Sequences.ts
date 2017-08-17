@@ -1,37 +1,37 @@
-import { Sequence } from "./Sequence";
+import { Sequence } from './Sequence';
 
 export class Sequences {
-  constructor(sequences: Sequence[]) {
-    this._sequences = sequences;
-  }
+    constructor(sequences: Sequence[]) {
+        this._sequences = sequences;
+    }
 
-  private _sequences: Sequence[];
+    private _sequences: Sequence[];
 
-  public get sequences(): Sequence[] {
-    return this._sequences;
-  }
+    public get sequences(): Sequence[] {
+        return this._sequences;
+    }
 
-  public get singleWord(): Sequence[] {
-    return this._sequences.filter(
-      (sequence: Sequence) => sequence.length === 1
-    );
-  }
+    public get singleWord(): Sequence[] {
+        return this._sequences.filter(
+            (sequence: Sequence) => sequence.length === 1,
+        );
+    }
 
-  public get twoWords(): Sequence[] {
-    return this._sequences.filter(
-      (sequence: Sequence) => sequence.length === 2
-    );
-  }
+    public get twoWords(): Sequence[] {
+        return this._sequences.filter(
+            (sequence: Sequence) => sequence.length === 2,
+        );
+    }
 
-  public get threeWords(): Sequence[] {
-    return this._sequences.filter(
-      (sequence: Sequence) => sequence.length === 3
-    );
-  }
+    public get threeWords(): Sequence[] {
+        return this._sequences.filter(
+            (sequence: Sequence) => sequence.length === 3,
+        );
+    }
 
-  public get fourWords(): Sequence[] {
-    return this._sequences.filter(
-      (sequence: Sequence) => sequence.length === 4
-    );
-  }
+    public get fourWords(): Sequence[] {
+        return this._sequences.filter(
+            (sequence: Sequence) => sequence.length === 4,
+        );
+    }
 }

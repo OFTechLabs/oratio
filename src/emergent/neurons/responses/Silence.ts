@@ -1,11 +1,11 @@
-import { INeuronResponse } from "./SimpleResponse";
+import { INeuronResponse } from './SimpleResponse';
 
 export class Silence implements INeuronResponse {
-  public hasAnswer(): boolean {
-    return false;
-  }
+    public hasAnswer(): boolean {
+        return false;
+    }
 
-  public getCertainty(): number {
-    return 0;
-  }
+    public getCertainty(): number {
+        return 0;
+    }
 }
