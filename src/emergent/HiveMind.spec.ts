@@ -1,41 +1,41 @@
-import "jest"
-import { IHiveMind } from "./HiveMind"
-import { HiveMindBuilder } from "./HiveMindBuilder"
-import { IHiveResponse } from "./HiveResponse"
+import "jest";
+import { IHiveMind } from "./HiveMind";
+import { HiveMindBuilder } from "./HiveMindBuilder";
+import { IHiveResponse } from "./HiveResponse";
 
-var chai = require("chai")
+var chai = require("chai");
 
 describe("HiveMind", () => {
-  let mind: IHiveMind
-  const locale: string = "en"
+  let mind: IHiveMind;
+  const locale: string = "en";
 
   beforeEach(() => {
     mind = HiveMindBuilder.createEmpty()
       .registerCoreModules()
       .registerMathModules()
       .registerMathJsModules()
-      .build()
-  })
+      .build();
+  });
 
   it("should process neurons correctly", function() {
     const inputs: { input: string; response: string }[] = [
       { input: "who are you", response: "oratio.core.identity" },
       { input: "what time is it", response: "oratio.core.currentTime" }
-    ]
+    ];
 
-    const promises = []
+    const promises = [];
     inputs.forEach(input => {
-      const responsePromise = mind.process(input.input, locale, null)
+      const responsePromise = mind.process(input.input, locale, null);
 
       responsePromise.then((response: IHiveResponse) => {
-        expect(response.response()).toBe(input.response)
-      })
+        expect(response.response()).toBe(input.response);
+      });
 
-      promises.push(responsePromise)
-    })
+      promises.push(responsePromise);
+    });
 
-    return Promise.all(promises)
-  })
+    return Promise.all(promises);
+  });
 
   it("should be able to have a conversation", function() {
     const inputs: { input: string; response: string }[] = [
@@ -50,7 +50,7 @@ describe("HiveMind", () => {
       { input: "hoe laat is het", response: "oratio.core.currentTime" },
       { input: "bereken: (4 + 3) + 4", response: "oratio.mathjs.evaluated" },
       { input: "2 + 3", response: "oratio.math.addition" }
-    ]
+    ];
 
     return mind
       .process(inputs[0].input, "nl", null)
@@ -63,8 +63,8 @@ describe("HiveMind", () => {
             inputs[0].input +
             " to give " +
             inputs[0].response
-        )
-        return mind.process(inputs[1].input, "nl", null)
+        );
+        return mind.process(inputs[1].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -75,8 +75,8 @@ describe("HiveMind", () => {
             inputs[1].input +
             " to give " +
             inputs[1].response
-        )
-        return mind.process(inputs[2].input, "nl", null)
+        );
+        return mind.process(inputs[2].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -87,8 +87,8 @@ describe("HiveMind", () => {
             inputs[2].input +
             " to give " +
             inputs[2].response
-        )
-        return mind.process(inputs[3].input, "nl", null)
+        );
+        return mind.process(inputs[3].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -99,8 +99,8 @@ describe("HiveMind", () => {
             inputs[3].input +
             " to give " +
             inputs[3].response
-        )
-        return mind.process(inputs[4].input, "nl", null)
+        );
+        return mind.process(inputs[4].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -111,8 +111,8 @@ describe("HiveMind", () => {
             inputs[4].input +
             " to give " +
             inputs[4].response
-        )
-        return mind.process(inputs[5].input, "nl", null)
+        );
+        return mind.process(inputs[5].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -123,8 +123,8 @@ describe("HiveMind", () => {
             inputs[5].input +
             " to give " +
             inputs[5].response
-        )
-        return mind.process(inputs[6].input, "nl", null)
+        );
+        return mind.process(inputs[6].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -135,8 +135,8 @@ describe("HiveMind", () => {
             inputs[6].input +
             " to give " +
             inputs[6].response
-        )
-        return mind.process(inputs[7].input, "nl", null)
+        );
+        return mind.process(inputs[7].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -147,8 +147,8 @@ describe("HiveMind", () => {
             inputs[7].input +
             " to give " +
             inputs[7].response
-        )
-        return mind.process(inputs[8].input, "nl", null)
+        );
+        return mind.process(inputs[8].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -159,8 +159,8 @@ describe("HiveMind", () => {
             inputs[8].input +
             " to give " +
             inputs[8].response
-        )
-        return mind.process(inputs[9].input, "nl", null)
+        );
+        return mind.process(inputs[9].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -171,8 +171,8 @@ describe("HiveMind", () => {
             inputs[9].input +
             " to give " +
             inputs[9].response
-        )
-        return mind.process(inputs[10].input, "nl", null)
+        );
+        return mind.process(inputs[10].input, "nl", null);
       })
       .then((response: IHiveResponse) => {
         chai.assert(
@@ -183,7 +183,7 @@ describe("HiveMind", () => {
             inputs[10].input +
             " to give " +
             inputs[10].response
-        )
-      })
-  })
-})
+        );
+      });
+  });
+});

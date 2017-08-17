@@ -1,16 +1,16 @@
-import { LevenshteinDistanceMatcher } from "../../language/words/LevenshteinDistanceMatcher"
-import { Silence } from "./responses/Silence"
-import { INeuronResponse, SimpleResponse } from "./responses/SimpleResponse"
-import { IHiveMindNeuron } from "../HiveMindNeurons"
-import { NumberOfKnownWordsCertaintyCalculator } from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator"
+import { LevenshteinDistanceMatcher } from "../../language/words/LevenshteinDistanceMatcher";
+import { Silence } from "./responses/Silence";
+import { INeuronResponse, SimpleResponse } from "./responses/SimpleResponse";
+import { IHiveMindNeuron } from "../HiveMindNeurons";
+import { NumberOfKnownWordsCertaintyCalculator } from "../../language/sequences/NumberOfKnownWordsCertaintyCalculator";
 
 export class SingleWordNeuron implements IHiveMindNeuron {
-  private knownWords: string[]
-  private response: string
+  private knownWords: string[];
+  private response: string;
 
   constructor(knownWords: string[], response: string) {
-    this.knownWords = knownWords
-    this.response = response
+    this.knownWords = knownWords;
+    this.response = response;
   }
 
   public process(
@@ -27,11 +27,11 @@ export class SingleWordNeuron implements IHiveMindNeuron {
               [],
               NumberOfKnownWordsCertaintyCalculator.calculate(1, input)
             )
-          )
+          );
         }
       }
     }
 
-    return Promise.resolve(new Silence())
+    return Promise.resolve(new Silence());
   }
 }

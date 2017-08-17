@@ -1,5 +1,5 @@
 export interface IHiveResponse {
-  response(): string
+  response(): string;
 }
 
 export class UnderstoodResponse implements IHiveResponse {
@@ -12,22 +12,22 @@ export class UnderstoodResponse implements IHiveResponse {
   ) {}
 
   get params(): string[] {
-    return this._params
+    return this._params;
   }
 
   get certainty(): number {
-    return this._certainty
+    return this._certainty;
   }
 
   get action(): () => void {
-    return this._action
+    return this._action;
   }
 
   get context(): any {
-    return this._context
+    return this._context;
   }
 
   public response(): string {
-    return this._response
+    return this._response;
   }
 }

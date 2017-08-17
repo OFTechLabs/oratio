@@ -4,7 +4,6 @@
         "tslint-config-prettier"
     ],
     "rules": {
-        "member-ordering": false,
-        "semicolon": [true, "always"]
+        "member-ordering": false
     }
 }

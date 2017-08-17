@@ -3,10 +3,10 @@ export class NumberOfKnownWordsCertaintyCalculator {
     if (input.length > 0) {
       return numberOfKnownWords / input.length > 1
         ? 1
-        : numberOfKnownWords / input.length
+        : numberOfKnownWords / input.length;
     }
 
-    return 0
+    return 0;
   }
 
   public static calculateForSquence(
@@ -16,6 +16,6 @@ export class NumberOfKnownWordsCertaintyCalculator {
     return NumberOfKnownWordsCertaintyCalculator.calculate(
       sequence.length,
       input
-    )
+    );
   }
 }

@@ -1,4 +1,4 @@
-import { ActionResponse } from "./ActionResponse"
+import { ActionResponse } from "./ActionResponse";
 
 export class ActionWithContextResponse extends ActionResponse {
   constructor(
@@ -8,17 +8,17 @@ export class ActionWithContextResponse extends ActionResponse {
     action: () => void,
     context: any
   ) {
-    super(response, params, certainty, action)
-    this._context = context
+    super(response, params, certainty, action);
+    this._context = context;
   }
 
-  private _context: any
+  private _context: any;
 
   get context(): any {
-    return this._context
+    return this._context;
   }
 
   public hasAnswer(): boolean {
-    return true
+    return true;
   }
 }

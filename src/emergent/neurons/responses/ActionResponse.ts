@@ -1,4 +1,4 @@
-import { SimpleResponse } from "./SimpleResponse"
+import { SimpleResponse } from "./SimpleResponse";
 
 export class ActionResponse extends SimpleResponse {
   constructor(
@@ -7,17 +7,17 @@ export class ActionResponse extends SimpleResponse {
     certainty: number,
     action: () => void
   ) {
-    super(response, params, certainty)
-    this._action = action
+    super(response, params, certainty);
+    this._action = action;
   }
 
-  private _action: () => void
+  private _action: () => void;
 
   get action(): () => void {
-    return this._action
+    return this._action;
   }
 
   public hasAnswer(): boolean {
-    return true
+    return true;
   }
 }
