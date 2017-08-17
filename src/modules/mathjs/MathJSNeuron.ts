@@ -19,7 +19,7 @@ export class MathJSNeuron implements IHiveMindNeuron {
     let localizedKnownWords: string[] = knownWords.main[locale].words
     if (
       context.hasPreviousInput() &&
-      context.previousInput.neuronHandled instanceof MathJSNeuron
+      context.previousNeuronHandled instanceof MathJSNeuron
     ) {
       const continuations: string[] = knownWords.continuation[locale].words
       localizedKnownWords = localizedKnownWords.concat(continuations)

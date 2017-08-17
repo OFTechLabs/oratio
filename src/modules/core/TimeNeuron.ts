@@ -1,7 +1,7 @@
 import { MultipleSequenceNeuron } from "../../emergent/neurons/MultipleSequenceNeuron"
 import {
-  SimpleResponse,
-  INeuronResponse
+  INeuronResponse,
+  SimpleResponse
 } from "../../emergent/neurons/responses/SimpleResponse"
 import { SequenceParser } from "../../language/sequences/SequenceParser"
 import { Sequence } from "../../language/sequences/Sequence"
@@ -18,7 +18,7 @@ export class TimeNeuron implements IHiveMindNeuron {
     let localizedKnownWords: string[] = knownWords.main[locale].words
     if (
       context.hasPreviousInput() &&
-      context.previousInput.neuronHandled instanceof TimeNeuron
+      context.previousNeuronHandled instanceof TimeNeuron
     ) {
       const continuations: string[] = knownWords.continuation[locale].words
       localizedKnownWords = localizedKnownWords.concat(continuations)

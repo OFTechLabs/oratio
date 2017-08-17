@@ -1,4 +1,6 @@
-export const knownWords = {
+import { LocalizedWordsJson } from "../../language/i18n/LocalizedWordsJson"
+
+export const knownWords: LocalizedWordsJson = {
   main: {
     en: {
       words: ["add", "+", "plus"]
@@ -7,5 +9,6 @@ export const knownWords = {
       words: ["plus", "+"]
     }
   },
-  params: {}
+  params: {},
+  continuation: {}
 }
