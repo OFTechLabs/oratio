@@ -1,6 +1,5 @@
 import "jest"
 import { TimeNeuron } from "./TimeNeuron"
-import { SimpleResponse } from "../../emergent/neurons/responses/SimpleResponse"
 import { GeneralTestMethods } from "../generalTestMethods.spec"
 import { RequestContext } from "../../emergent/RequestContext"
 import { HiveMindInputNode } from "../../emergent/HiveMindInputNode"

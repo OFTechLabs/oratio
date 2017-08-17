@@ -1,11 +1,9 @@
-import {IHiveResponse} from "./HiveResponse";
+import { IHiveResponse } from "./HiveResponse"
 
 export class FailedResponse implements IHiveResponse {
+  constructor(private _response: string) {}
 
-    constructor(private _response: string) {
-    }
-
-    public response(): string {
-        return this._response;
-    }
+  public response(): string {
+    return this._response
+  }
 }

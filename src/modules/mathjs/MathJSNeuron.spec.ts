@@ -1,9 +1,9 @@
 import "jest"
 import { MathJSNeuron } from "./MathJSNeuron"
-import { SimpleResponse } from "../../emergent/neurons/responses/SimpleResponse"
 import { GeneralTestMethods } from "../generalTestMethods.spec"
 import { HiveMindInputNode } from "../../emergent/HiveMindInputNode"
 import { RequestContext } from "../../emergent/RequestContext"
+
 require("mathjs")
 
 describe("MathJS Neuron", () => {

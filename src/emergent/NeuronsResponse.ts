@@ -1,28 +1,26 @@
-import {IHiveMindNeuron} from "./HiveMindNeurons";
-import {INeuronResponse} from "./neurons/responses/SimpleResponse";
+import { IHiveMindNeuron } from "./HiveMindNeurons"
+import { INeuronResponse } from "./neurons/responses/SimpleResponse"
 
 export interface INeuronsResponse {
+  getFiredNeuron(): IHiveMindNeuron
 
-    getFiredNeuron(): IHiveMindNeuron;
-    getResponse(): INeuronResponse;
-
+  getResponse(): INeuronResponse
 }
 
 export class NeuronsResponse {
+  private _firedNeuron: IHiveMindNeuron
+  private _response: INeuronResponse
 
-    private _firedNeuron: IHiveMindNeuron;
-    private _response: INeuronResponse;
+  constructor(firedNeuron: IHiveMindNeuron, response: INeuronResponse) {
+    this._firedNeuron = firedNeuron
+    this._response = response
+  }
 
-    constructor(firedNeuron: IHiveMindNeuron, response: INeuronResponse) {
-        this._firedNeuron = firedNeuron;
-        this._response = response;
-    }
+  public getFiredNeuron(): IHiveMindNeuron {
+    return this._firedNeuron
+  }
 
-    public getFiredNeuron(): IHiveMindNeuron {
-        return this._firedNeuron;
-    }
-
-    public getResponse(): INeuronResponse {
-        return this._response;
-    }
+  public getResponse(): INeuronResponse {
+    return this._response
+  }
 }

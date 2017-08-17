@@ -2,7 +2,6 @@ import { IHiveMindNeuron } from "../emergent/HiveMindNeurons"
 import { SimpleResponse } from "../emergent/neurons/responses/SimpleResponse"
 import { GreetingNeuron } from "./core/GreetingNeuron"
 import { RequestContext } from "../emergent/RequestContext"
-import { HiveMindInputNode } from "../emergent/HiveMindInputNode"
 
 describe("General test methods", () => {
   it("should be able use general test methods", function() {

@@ -1,33 +1,33 @@
 export interface IHiveResponse {
-    response(): string;
+  response(): string
 }
 
 export class UnderstoodResponse implements IHiveResponse {
+  constructor(
+    private _response: string,
+    private _params: string[],
+    private _certainty: number,
+    private _action: () => void,
+    private _context: any
+  ) {}
 
-    constructor(private _response: string,
-                private _params: string[],
-                private _certainty: number,
-                private _action: () => void,
-                private _context: any) {
-    }
+  get params(): string[] {
+    return this._params
+  }
 
-    public response(): string {
-        return this._response;
-    }
+  get certainty(): number {
+    return this._certainty
+  }
 
-    get params(): string[] {
-        return this._params;
-    }
+  get action(): () => void {
+    return this._action
+  }
 
-    get certainty(): number {
-        return this._certainty;
-    }
+  get context(): any {
+    return this._context
+  }
 
-    get action(): () => void {
-        return this._action;
-    }
-
-    get context(): any {
-        return this._context;
-    }
+  public response(): string {
+    return this._response
+  }
 }

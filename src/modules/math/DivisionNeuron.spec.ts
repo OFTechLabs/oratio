@@ -1,6 +1,5 @@
 import "jest"
 import { DivisionNeuron } from "./DivisionNeuron"
-import { SimpleResponse } from "../../emergent/neurons/responses/SimpleResponse"
 import { GeneralTestMethods } from "../generalTestMethods.spec"
 
 describe("Divison neuron", () => {

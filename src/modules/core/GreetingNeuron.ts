@@ -1,7 +1,7 @@
 import { MultipleSequenceNeuron } from "../../emergent/neurons/MultipleSequenceNeuron"
 import {
-  SimpleResponse,
-  INeuronResponse
+  INeuronResponse,
+  SimpleResponse
 } from "../../emergent/neurons/responses/SimpleResponse"
 import { WordAfterSequenceParser } from "../../language/parsers/parameters/WordAfterSequenceParser"
 import { SequenceParser } from "../../language/sequences/SequenceParser"

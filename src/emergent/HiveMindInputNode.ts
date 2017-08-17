@@ -1,10 +1,6 @@
 import { IHiveMindNeuron } from "./HiveMindNeurons"
 
 export class HiveMindInputNode {
-  private _previous: HiveMindInputNode | null
-  private _neuronHandled: IHiveMindNeuron
-  private _input: string[]
-
   constructor(
     previous: HiveMindInputNode | null,
     neuronHandled: IHiveMindNeuron,
@@ -15,13 +11,19 @@ export class HiveMindInputNode {
     this._input = input
   }
 
+  private _previous: HiveMindInputNode | null
+
   get previous(): HiveMindInputNode | null {
     return this._previous
   }
 
+  private _neuronHandled: IHiveMindNeuron
+
   get neuronHandled(): IHiveMindNeuron {
     return this._neuronHandled
   }
+
+  private _input: string[]
 
   get input(): string[] {
     return this._input

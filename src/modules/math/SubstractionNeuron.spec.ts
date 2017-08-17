@@ -1,6 +1,5 @@
 import "jest"
 import { SubstractionNeuron } from "./SubstractionNeuron"
-import { SimpleResponse } from "../../emergent/neurons/responses/SimpleResponse"
 import { GeneralTestMethods } from "../generalTestMethods.spec"
 
 describe("Subtraction neuron", () => {

@@ -2,6 +2,7 @@ import "jest"
 import { IHiveMind } from "./HiveMind"
 import { HiveMindBuilder } from "./HiveMindBuilder"
 import { IHiveResponse } from "./HiveResponse"
+
 var chai = require("chai")
 
 describe("HiveMind", () => {

@@ -4,21 +4,18 @@ import { IHiveMindNeuron } from "./HiveMindNeurons"
 import { SilenceNeuron } from "./SilenceNeuron"
 
 export class RequestContext {
-  private _previousInput: HiveMindInputNode | null
-  private _clientModel: any
-
   constructor(previousInput: HiveMindInputNode | null, clientModel: any) {
     this._previousInput = previousInput
     this._clientModel = clientModel
   }
 
-  public hasPreviousInput(): boolean {
-    return LanguageUtil.isDefined(this._previousInput)
-  }
+  private _previousInput: HiveMindInputNode | null
 
   get previousInput(): HiveMindInputNode | null {
     return this._previousInput
   }
+
+  private _clientModel: any
 
   get clientModel(): any {
     return this._clientModel
@@ -30,5 +27,9 @@ export class RequestContext {
     }
 
     return SilenceNeuron.INSTANCE
+  }
+
+  public hasPreviousInput(): boolean {
+    return LanguageUtil.isDefined(this._previousInput)
   }
 }

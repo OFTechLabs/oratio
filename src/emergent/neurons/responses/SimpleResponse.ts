@@ -1,41 +1,43 @@
 export interface INeuronResponse {
-    hasAnswer(): boolean;
-    getCertainty(): number;
+  hasAnswer(): boolean
+
+  getCertainty(): number
 }
 
 export class SimpleResponse implements INeuronResponse {
+  private _certainty: number
 
-    private _response: string;
-    private _params: string[];
-    private _certainty: number;
+  constructor(response: string, params: string[], certainty: number) {
+    this._response = response
+    this._params = params
+    this._certainty = certainty
+  }
 
-    constructor(response: string, params: string[], certainty: number) {
-        this._response = response;
-        this._params = params;
-        this._certainty = certainty;
-    }
+  private _response: string
 
-    get response(): string {
-        return this._response;
-    }
+  get response(): string {
+    return this._response
+  }
 
-    get params(): string[] {
-        return this._params;
-    }
+  private _params: string[]
 
-    public getCertainty(): number {
-        return this._certainty;
-    }
+  get params(): string[] {
+    return this._params
+  }
 
-    public hasAnswer(): boolean {
-        return true;
-    }
+  public getCertainty(): number {
+    return this._certainty
+  }
 
-    public withParams(params: string[]): SimpleResponse {
-        return new SimpleResponse(this._response, params, this._certainty);
-    }
+  public hasAnswer(): boolean {
+    return true
+  }
 
-    public withCertainty(certainty: number): SimpleResponse {
-        return new SimpleResponse(this._response, this._params, certainty);
-    }
+  public withParams(params: string[]): SimpleResponse {
+    return new SimpleResponse(this._response, params, this._certainty)
+  }
+
+  public withCertainty(certainty: number): SimpleResponse {
+    return new SimpleResponse(this._response, this._params, certainty)
+  }
 }

@@ -1,7 +1,7 @@
 import { Silence } from "./neurons/responses/Silence"
 import { INeuronResponse } from "./neurons/responses/SimpleResponse"
 import { RequestContext } from "./RequestContext"
-import { NeuronsResponse, INeuronsResponse } from "./NeuronsResponse"
+import { INeuronsResponse, NeuronsResponse } from "./NeuronsResponse"
 
 export interface IHiveMindNeurons {
   findMatch(
