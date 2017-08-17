@@ -1,21 +1,21 @@
 language: node_js
-
+branches:
+  only:
+    - master
+    - /^greenkeeper/.*$/
+cache:
+  yarn: true
+  directories:
+    - node_modules
+notifications:
+  email: false
 node_js:
-  - "6.2"
-  - "6.3"
-  - "6.4"
-  - "6.5"
-  - "4.4"
-
-install:
-  - npm config set spin=false
-  - npm install -g coveralls
-  - npm install
-
+  - '7.5'
+before_script:
+  - npm prune && npm cache clean
 script:
-  - npm test
-  - npm run coverage
-  - coveralls < ./coverage/lcov.info || true # if coveralls doesn't have it covered
-
-# Allow Travis tests to run in containers.
-sudo: false
+  - npm run test:prod && npm run build
+after_success:
+  - npm run report-coverage
+  - npm run deploy-docs
+  - npm run semantic-release

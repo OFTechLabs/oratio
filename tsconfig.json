@@ -1,36 +1,31 @@
 {
-  "compilerOptions": {
-    "experimentalDecorators": true,
-    "lib": [
-      "es6",
-      "dom"
+    "compilerOptions": {
+        "moduleResolution": "node",
+        "target": "es5",
+        "module": "es2015",
+        "lib": [
+            "es2015",
+            "es2016",
+            "es2017",
+            "dom"
+        ],
+        "strict": true,
+        "sourceMap": true,
+        "declaration": true,
+        "allowSyntheticDefaultImports": true,
+        "experimentalDecorators": true,
+        "emitDecoratorMetadata": true,
+        "declarationDir": "dist/types",
+        "outDir": "compiled",
+        "typeRoots": [
+            "node_modules/@types"
+        ]
+    },
+    "include": [
+        "src"
     ],
-    "module": "commonjs",
-    "target": "es6",
-    "noImplicitAny": true,
-    "suppressImplicitAnyIndexErrors": true,
-    "moduleResolution": "node",
-    "emitDecoratorMetadata": true,
-    "sourceMap": false,
-    "declaration": true,
-    "outDir": "dist",
-    "removeComments": false,
-    "typeRoots": [
-      "node_modules/@types"
-    ],
-    "types": [
-      "@types/node"
+    "exclude": [
+        "node_modules",
+        "**/*.spec.ts"
     ]
-  },
-  "include": [
-    "src/**/*.ts"
-  ],
-  "files": [
-    "typings.d.ts",
-    "node_modules/@types/mathjs/index.d.ts"
-  ],
-  "exclude": [
-    "node_modules",
-    "**/*.spec.ts"
-  ]
 }
