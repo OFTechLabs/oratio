@@ -2,6 +2,60 @@
 
 Emergent natural language processing
 
+## Getting started
+
+Create a new _HiveMind_ with the _HiveMindBuilder_:
+
+```typescript
+    const mind = HiveMindBuilder.createEmpty()
+            .registerCoreModules()
+            .registerMathModules()
+            .build();
+```
+
+Give it user input:
+
+```typescript
+    const response: Promise<IHiveResponse> = mind.process(input, "en", {})
+```
+
+Show any applicable output to the user in any desired way, the response has the following fields:
+
+```typescript
+{
+    // message key of the response, the application can translate to any language
+    response: string,
+    // possible parameters for the output / translation
+    params: string[],
+    // the certainty, if too low handle accordingly
+    certainty: number,
+    // a possible action the user wanted to perform, this is especially useful for application specific neurons
+    action: () => void,
+    // the scope to perform the action on, to allow using injected services in the action
+    context: any
+}
+```
+
+### Adding custom neurons
+
+Create a neuron which implements the following interface:
+
+```typescript
+public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse>
+```
+
+Add the neuron in the builder:
+
+```typescript
+    const mind = HiveMindBuilder.createEmpty()
+            .registerCoreModules()
+            .registerMathModules()
+            .register([new YourNeuronHere()])
+            .build();
+```
+
+The array can obviously contain more neurons, as more custom neurons are created simply add them to the array.
+
 ## Emergent system
 
 There is no single major intelligence responsible for the system, instead every _neuron_ processes every input and determines whether it can do anything with it. All neurons are collected in the hive, the hive makes sure all neurons receive user input until a response is found. 
@@ -10,7 +64,9 @@ There is no single major intelligence responsible for the system, instead every 
 
 A neuron can easily be added to the hive, all it has to do is implement the following function:
 
-<code>process(input: string[], locale: sring, context: string) : NeuronResponse;</code>
+```typescript
+public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse>
+```
 
 then it has to be registered with the hive who manages all neurons.
 
@@ -21,14 +77,3 @@ The Hive processes all user input, it favors neurons who succesfully process use
 ### Response
 
 The response always contains a _response_, which is a code that can be localized by other applications. The response can also include an _action_ (function: () => void)  which the neuron thought the user intended. The action ca be executed on a certain _context_, allowing the calling-party to use injected services in the action.
-
-Useful commands
----
-    npm run prebuild       - install NPM dependancies
-    npm run build          - build the library files
-    npm run test           - run the tests
-    npm run test:watch     - run the tests (watch-mode)
-    npm run coverage       - run the tests with coverage
-    npm run coverage:watch - run the tests with coverage (watch-mode)
-    npm run pack           - build the library, make sure the tests passes, and then pack the library (creates .tgz)
-    npm run release        - prepare package for next release

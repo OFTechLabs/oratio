@@ -1,33 +1,45 @@
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
-import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
-import {MultipleSequenceNeuron} from "../../emergent/neurons/MultipleSequenceNeuron";
-import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
-import {SequenceParser} from "../../language/sequences/SequenceParser";
-import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
-import * as knownWords from "./TimeNeuron.words.json";
+import { MultipleSequenceNeuron } from '../../emergent/neurons/MultipleSequenceNeuron';
+import { INeuronResponse, SimpleResponse, } from '../../emergent/neurons/responses/SimpleResponse';
+import { SequenceParser } from '../../language/sequences/SequenceParser';
+import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
+import { RequestContext } from '../../emergent/RequestContext';
+import { knownWords } from './TimeNeuron.words';
+import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
 
 export class TimeNeuron implements IHiveMindNeuron {
-
-    public process(input: string[], locale: string, context: string): NeuronResponse {
-        const localizedKnownWords: string[] = (<LocalizedWordsJson> (<any> knownWords)).main[locale].words;
-        const sequences = SequenceParser.parse(localizedKnownWords);
-
-        const initialResponse = (new MultipleSequenceNeuron(
-            sequences.singleWord.map(sequence => sequence.withoutSpaces),
-            sequences.twoWords.map(sequence => sequence.withoutSpaces),
-            sequences.threeWords.map(sequence => sequence.withoutSpaces),
-            sequences.fourWords.map(sequence => sequence.withoutSpaces),
-            "oratio.core.currentTime"))
-            .process(input, locale, context);
-
-        if (initialResponse instanceof SimpleResponse) {
-            const date = new Date();
-            const time = date.getHours() + ":" + date.getMinutes();
-
-            return initialResponse.withParams([time]);
+    public process(input: string[],
+                   locale: string,
+                   context: RequestContext,): Promise<INeuronResponse> {
+        let localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
+            knownWords,
+            locale,
+        ).words;
+        if (
+            context.hasPreviousInput() &&
+            context.previousNeuronHandled instanceof TimeNeuron
+        ) {
+            const continuations: string[] = LocalizedWordsForLocaleFactory.createContinuation(
+                knownWords,
+                locale,
+            ).words;
+            localizedKnownWords = localizedKnownWords.concat(continuations);
         }
 
-        return initialResponse;
-    }
+        const sequences = SequenceParser.parse(localizedKnownWords);
+        const initialResponse: Promise<INeuronResponse> = new MultipleSequenceNeuron(
+            sequences,
+            'oratio.core.currentTime',)
+            .process(input, locale, context);
 
+        return initialResponse.then((response: INeuronResponse) => {
+            if (response instanceof SimpleResponse) {
+                const date = new Date();
+                const time = date.getHours() + ':' + date.getMinutes();
+
+                return response.withParams([time]);
+            }
+
+            return response;
+        });
+    }
 }

@@ -1,30 +1,36 @@
-import {Sequence} from "./Sequence";
+import { Sequence } from './Sequence';
+import { LanguageUtil } from '../LanguageUtil';
 
 export class Sequences {
-
-    private _sequences: Sequence[];
-
     constructor(sequences: Sequence[]) {
         this._sequences = sequences;
     }
+
+    private _sequences: Sequence[];
 
     public get sequences(): Sequence[] {
         return this._sequences;
     }
 
     public get singleWord(): Sequence[] {
-        return this._sequences.filter(sequence => sequence.length === 1);
+        return this.sequence(1);
     }
 
     public get twoWords(): Sequence[] {
-        return this._sequences.filter(sequence => sequence.length === 2);
+        return this.sequence(2);
     }
 
     public get threeWords(): Sequence[] {
-        return this._sequences.filter(sequence => sequence.length === 3);
+        return this.sequence(3);
     }
 
     public get fourWords(): Sequence[] {
-        return this._sequences.filter(sequence => sequence.length === 4);
+        return this.sequence(4);
+    }
+
+    public sequence(numberOfWords: number): Sequence[] {
+        return this._sequences.filter(
+            (sequence: Sequence) => LanguageUtil.isDefined(sequence) && sequence.length === numberOfWords,
+        );
     }
 }

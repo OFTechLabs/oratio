@@ -1,18 +1,25 @@
-import {BaseMathNeuron} from "./BaseMathNeuron";
-import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
-import * as knownWords from "./DivisionNeuron.words.json";
-import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
+import { BaseMathNeuron } from './BaseMathNeuron';
+import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
+import { INeuronResponse } from '../../emergent/neurons/responses/SimpleResponse';
+import { RequestContext } from '../../emergent/RequestContext';
+import { knownWords } from './DivisionNeuron.words';
+import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
 
 export class DivisionNeuron implements IHiveMindNeuron {
+    public process(
+        words: string[],
+        locale: string,
+        context: RequestContext,
+    ): Promise<INeuronResponse> {
+        const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
+            knownWords,
+            locale,
+        ).words;
 
-    public process(words: string[], locale: string, context: string): NeuronResponse {
-        const localizedKnownWords: string[] = (<LocalizedWordsJson> (<any> knownWords)).main[locale].words;
-
-        return (new BaseMathNeuron(
+        return new BaseMathNeuron(
             localizedKnownWords,
-            "otario.math.division",
-            (a, b) => a / b
-        )).process(words, locale, context);
+            'oratio.math.division',
+            (a, b) => a / b,
+        ).process(words, locale, context);
     }
 }

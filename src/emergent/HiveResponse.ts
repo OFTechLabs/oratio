@@ -3,19 +3,20 @@ export interface IHiveResponse {
 }
 
 export class UnderstoodResponse implements IHiveResponse {
-
-    constructor(private _response: string,
-                private _params: string[],
-                private _action: () => void,
-                private _context: any) {
-    }
-
-    public response(): string {
-        return this._response;
-    }
+    constructor(
+        private _response: string,
+        private _params: string[],
+        private _certainty: number,
+        private _action: () => void,
+        private _context: any,
+    ) {}
 
     get params(): string[] {
         return this._params;
+    }
+
+    get certainty(): number {
+        return this._certainty;
     }
 
     get action(): () => void {
@@ -24,12 +25,6 @@ export class UnderstoodResponse implements IHiveResponse {
 
     get context(): any {
         return this._context;
-    }
-}
-
-export class FailedResponse implements IHiveResponse {
-
-    constructor(private _response: string) {
     }
 
     public response(): string {

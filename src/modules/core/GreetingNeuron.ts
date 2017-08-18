@@ -1,38 +1,52 @@
-import {IHiveMindNeuron} from "../../emergent/neurons/HiveMindNeuron";
-import {NeuronResponse} from "../../emergent/neurons/responses/NeuronResponse";
-import {MultipleSequenceNeuron} from "../../emergent/neurons/MultipleSequenceNeuron";
-import {SimpleResponse} from "../../emergent/neurons/responses/SimpleResponse";
-import {WordAfterSequenceParser} from "../../language/parsers/parameters/WordAfterSequenceParser";
-import {SequenceParser} from "../../language/sequences/SequenceParser";
-import * as knownWords from "./GreetingNeuron.words.json";
-import {LocalizedWordsJson} from "../../language/i18n/LocalizedWordsJson";
+import { MultipleSequenceNeuron } from '../../emergent/neurons/MultipleSequenceNeuron';
+import { INeuronResponse, SimpleResponse, } from '../../emergent/neurons/responses/SimpleResponse';
+import { WordAfterSequenceParser } from '../../language/parsers/parameters/WordAfterSequenceParser';
+import { SequenceParser } from '../../language/sequences/SequenceParser';
+import { Sequence } from '../../language/sequences/Sequence';
+import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
+import { RequestContext } from '../../emergent/RequestContext';
+import { knownWords } from './GreetingNeuron.words';
+import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
+import { LocalizedWordsMatcherNeuron } from '../../emergent/neurons/LocalizedWordsMatcherNeuron';
 
 export class GreetingNeuron implements IHiveMindNeuron {
+    public process(words: string[],
+                   locale: string,
+                   context: RequestContext,): Promise<INeuronResponse> {
+        const initialResponsePromise: Promise<INeuronResponse> = new LocalizedWordsMatcherNeuron(
+            knownWords,
+            'oratio.core.hello',
+        ).process(words, locale, context);
 
-    public process(words: string[], locale: string, context: string): NeuronResponse {
-        const localizedKnownWords: string[] = (<LocalizedWordsJson> (<any> knownWords)).main[locale].words;
-        const sequences = SequenceParser.parse(localizedKnownWords);
+        return initialResponsePromise.then(
+            (initialResponse: INeuronResponse) => {
+                if (initialResponse instanceof SimpleResponse) {
+                    const localizedKnownParams: string[] = LocalizedWordsForLocaleFactory.createParams(
+                        knownWords,
+                        locale,
+                    ).words;
+                    const paramSequences = SequenceParser.parse(
+                        localizedKnownParams,
+                    );
+                    const newCertainty =
+                        (initialResponse.getCertainty() * words.length + 1) /
+                        words.length;
 
-        const initialResponse: NeuronResponse = (new MultipleSequenceNeuron(
-            sequences.singleWord.map(sequence => sequence.withoutSpaces),
-            sequences.twoWords.map(sequence => sequence.withoutSpaces),
-            sequences.threeWords.map(sequence => sequence.withoutSpaces),
-            [],
-            "oratio.core.hello"))
-            .process(words, locale, context);
+                    const parser = new WordAfterSequenceParser(
+                        paramSequences.sequences.map((sequence: Sequence) =>
+                            sequence.sequence.split(' '),
+                        ),
+                    );
 
-        if (initialResponse instanceof SimpleResponse) {
-            const localizedKnownParams: string[] = (<LocalizedWordsJson> (<any> knownWords)).params[locale].words;
-            const paramSequences = SequenceParser.parse(localizedKnownParams);
+                    return Promise.resolve(
+                        initialResponse
+                            .withParams(parser.parse(words))
+                            .withCertainty(newCertainty),
+                    );
+                }
 
-            const parser = new WordAfterSequenceParser(
-                paramSequences.sequences.map(sequence => sequence.sequence.split(" "))
-            );
-
-            return initialResponse.withParams(parser.parse(words));
-        }
-
-        return initialResponse;
+                return Promise.resolve(initialResponse);
+            },
+        );
     }
-
 }
