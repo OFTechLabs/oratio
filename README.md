@@ -10,7 +10,6 @@ Create a new _HiveMind_ with the _HiveMindBuilder_:
     const mind = HiveMindBuilder.createEmpty()
             .registerCoreModules()
             .registerMathModules()
-            .registerMathJsModules()
             .build();
 ```
 
@@ -51,7 +50,6 @@ Add the neuron in the builder:
     const mind = HiveMindBuilder.createEmpty()
             .registerCoreModules()
             .registerMathModules()
-            .registerMathJsModules()
             .register([new YourNeuronHere()])
             .build();
 ```

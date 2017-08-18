@@ -15,43 +15,28 @@ Some key points to remember when creating neurons:
 
 After figuring out what the neuron should do, it's important to determine what kind of inputs the neuron should match on, certain phrases, certain keywords or even certain operators. Try to determine a natural way for the user to interact with your neuron, the user-friendliness will for a large part be determined by how intuitive the required inputs are.
 
-If the inputs are words or phrases, try to add them to a JSON file which works with several languages, like so:
+If the inputs are words or phrases, try to add them to a separate file, like so:
 
-```json
-{
-  "main": {
-    "en": {
-      "words": [
-        "hello",
-        "hi",
-        "i am",
-        "my name is"
-      ]
+```typescript
+export const knownWords: LocalizedWords = {
+    main: {
+        en: {
+            words: ['hello', 'hi', 'i am', 'my name is'],
+        },
+        nl: {
+            words: ['hallo', 'hoi', 'ik ben', 'mijn naam is'],
+        },
     },
-    "nl": {
-      "words": [
-        "hallo",
-        "hoi",
-        "ik ben",
-        "mijn naam is"
-      ]
-    }
-  },
-  "params": {
-    "en": {
-      "words": [
-        "i am",
-        "my name is"
-      ]
+    params: {
+        en: {
+            words: ['i am', 'my name is'],
+        },
+        nl: {
+            words: ['ik ben', 'mijn naam is'],
+        },
     },
-    "nl": {
-      "words": [
-        "ik ben",
-        "mijn naam is"
-      ]
-    }
-  }
-}
+    continuation: {},
+};
 ```
 
 Here we have inputs that determine when the neuron should respond in `"main" ` and we have words or phrases that determine the parameters in `"params"`, where language tags determine what phrases to use. The syntax does not matter, but it is probably wise to store the phrases in a different file than the neuron itself.
@@ -82,8 +67,8 @@ This neuron returns a response with a message key `"oratio.greeting.hello"`, wit
 
 ```typescript
 public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse> {
-    // the json should be imported, it is the json from the example above
-    const matchingWords: string[] = json.main[locale].words; 
+    // the knownWords should be imported, it is the constant from the example above
+    const matchingWords: string[] = knownWords.main[locale].words; 
     
     
     for (let matchingWord in matchingWords) {
@@ -102,25 +87,18 @@ public process(words: string[], locale: string, context: RequestContext): Promis
 
 Here we only greet the user if the first word matches one of the words the neuron knows. If the input does not match we still resolve the promise, but only with a `Silence` response, which just means the neuron did not know how to handle the input and has no response for the user.
 
-This however is not very user-friendly, if the user enters a typo it does not work and it does not work well when it should match on a sequence of words rather than a single word. Fortunately Oratio provides a solution for that in the language module:
+This however is not very user-friendly, if the user enters a typo it does not work and it does not work well when it should match on a sequence of words rather than a single word. Fortunately Oratio provides a solution for that in the form of a generic Neuron:
 
 ```typescript
 public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse> {
-    // the json should be imported, it is the json from the example above
-    const matchingWords: string[] = json.main[locale].words; 
-    const sequences = SequenceParser.parse(matchingWords);
-
-    return new MultipleSequenceNeuron(
-        sequences.singleWord.map((sequence: Sequence) => sequence.withoutSpaces),
-        sequences.twoWords.map((sequence: Sequence) => sequence.withoutSpaces),
-        sequences.threeWords.map((sequence: Sequence) => sequence.withoutSpaces),
-        [],
-        "oratio.core.hello"))
-        .process(words, locale, context);      
+    return new LocalizedWordsMatcherNeuron(
+                       knownWords,
+                       'oratio.core.hello',
+                   ).process(words, locale, context);
 }
 ```
 
-At this point the words in the JSON are parsed to sequences, of a single word, two words, three words or four words. This can then be given to the `MultipleSequenceNeuron`, along with the response it should give `"oratio.core.hello"`. That's all for the basics, the neuron is ready to be used.
+To find out how it works behind the scenes, take a look at the source code. To use it though all you need to know is that the `LocalizedWords` constant will be used to match to the input, and `'oratio.core.hello'` will be returned if it matches
 
 ### Register the neuron
 
@@ -129,7 +107,6 @@ To use a new neuron, it still has to be registered, you can use the `HiveMindBui
 ```typescript
 HiveMindBuilder.createEmpty()
 .registerCoreModules()
-.registerMathJsModules()
 .registerMathModules()
 .register([new YourNeuronHere()])
 .build();
