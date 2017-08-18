@@ -2,6 +2,7 @@ import { BasicHiveMindNeurons, IHiveMindNeuron } from './HiveMindNeurons';
 import { CoreNeurons } from '../modules/core/coreNeurons';
 import { BasicHiveMind, IHiveMind } from './HiveMind';
 import { MathNeurons } from '../modules/math/mathNeurons';
+import { IHiveMindModule } from '../modules/HiveMindModule';
 
 export class HiveMindBuilder {
     private neurons: IHiveMindNeuron[];
@@ -16,17 +17,12 @@ export class HiveMindBuilder {
         return new HiveMindBuilder();
     }
 
-    public registerCoreModules(): HiveMindBuilder {
-        this.neurons = this.neurons.concat(CoreNeurons.getCoreNeurons());
+    public registerModule(module: IHiveMindModule): HiveMindBuilder {
+        this.neurons = this.neurons.concat(module.neurons);
         return this;
     }
 
-    public registerMathModules(): HiveMindBuilder {
-        this.neurons = this.neurons.concat(MathNeurons.getMathNeurons());
-        return this;
-    }
-
-    public register(neurons: IHiveMindNeuron[]): HiveMindBuilder {
+    public registerNeurons(neurons: IHiveMindNeuron[]): HiveMindBuilder {
         this.neurons = this.neurons.concat(neurons);
         return this;
     }

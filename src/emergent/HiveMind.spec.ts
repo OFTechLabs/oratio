@@ -2,6 +2,8 @@ import 'jest';
 import { IHiveMind } from './HiveMind';
 import { HiveMindBuilder } from './HiveMindBuilder';
 import { IHiveResponse } from './HiveResponse';
+import { CoreHiveMindModule } from '../modules/core/CoreHiveMindModule';
+import { MathHiveMindModule } from '../modules/math/MathHiveMindModule';
 
 var chai = require('chai');
 
@@ -11,8 +13,8 @@ describe('HiveMind', () => {
 
     beforeEach(() => {
         mind = HiveMindBuilder.createEmpty()
-            .registerCoreModules()
-            .registerMathModules()
+            .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
+            .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
             .build();
     });
 
