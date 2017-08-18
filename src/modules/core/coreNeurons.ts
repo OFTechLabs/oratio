@@ -7,6 +7,7 @@ export * from './IdentityNeuron';
 export * from './TimeNeuron';
 export * from './GreetingNeuron';
 export * from './CoreHiveMindModule';
+export * from './CoreHiveMindTranslations';
 
 export class CoreNeurons {
     public static getCoreNeurons(): IHiveMindNeuron[] {
