@@ -6,9 +6,9 @@ export * from './RequestContext';
 export * from './HiveMindInputNode';
 export * from './NeuronsResponse';
 export * from './FailedResponse';
-export * from './HiveMindInputNode';
 export * from './SilenceNeuron';
 
+export * from './neurons/LocalizedWordsMatcherNeuron';
 export * from './neurons/MultipleSequenceNeuron';
 export * from './neurons/SingleWordNeuron';
 export * from './neurons/responses/ActionResponse';

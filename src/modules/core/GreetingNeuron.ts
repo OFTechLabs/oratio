@@ -1,8 +1,5 @@
 import { MultipleSequenceNeuron } from '../../emergent/neurons/MultipleSequenceNeuron';
-import {
-    INeuronResponse,
-    SimpleResponse,
-} from '../../emergent/neurons/responses/SimpleResponse';
+import { INeuronResponse, SimpleResponse, } from '../../emergent/neurons/responses/SimpleResponse';
 import { WordAfterSequenceParser } from '../../language/parsers/parameters/WordAfterSequenceParser';
 import { SequenceParser } from '../../language/sequences/SequenceParser';
 import { Sequence } from '../../language/sequences/Sequence';
@@ -10,32 +7,14 @@ import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
 import { RequestContext } from '../../emergent/RequestContext';
 import { knownWords } from './GreetingNeuron.words';
 import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
+import { LocalizedWordsMatcherNeuron } from '../../emergent/neurons/LocalizedWordsMatcherNeuron';
 
 export class GreetingNeuron implements IHiveMindNeuron {
-    public process(
-        words: string[],
-        locale: string,
-        context: RequestContext,
-    ): Promise<INeuronResponse> {
-        const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
+    public process(words: string[],
+                   locale: string,
+                   context: RequestContext,): Promise<INeuronResponse> {
+        const initialResponsePromise: Promise<INeuronResponse> = new LocalizedWordsMatcherNeuron(
             knownWords,
-            locale,
-        ).words;
-        const sequences = SequenceParser.parse(localizedKnownWords);
-
-        const initialResponsePromise: Promise<
-            INeuronResponse
-        > = new MultipleSequenceNeuron(
-            sequences.singleWord.map(
-                (sequence: Sequence) => sequence.withoutSpaces,
-            ),
-            sequences.twoWords.map(
-                (sequence: Sequence) => sequence.withoutSpaces,
-            ),
-            sequences.threeWords.map(
-                (sequence: Sequence) => sequence.withoutSpaces,
-            ),
-            [],
             'oratio.core.hello',
         ).process(words, locale, context);
 
