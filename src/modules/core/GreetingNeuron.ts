@@ -1,8 +1,5 @@
 import { MultipleSequenceNeuron } from '../../emergent/neurons/MultipleSequenceNeuron';
-import {
-    INeuronResponse,
-    SimpleResponse,
-} from '../../emergent/neurons/responses/SimpleResponse';
+import { INeuronResponse, SimpleResponse, } from '../../emergent/neurons/responses/SimpleResponse';
 import { WordAfterSequenceParser } from '../../language/parsers/parameters/WordAfterSequenceParser';
 import { SequenceParser } from '../../language/sequences/SequenceParser';
 import { Sequence } from '../../language/sequences/Sequence';
@@ -12,30 +9,17 @@ import { knownWords } from './GreetingNeuron.words';
 import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
 
 export class GreetingNeuron implements IHiveMindNeuron {
-    public process(
-        words: string[],
-        locale: string,
-        context: RequestContext,
-    ): Promise<INeuronResponse> {
+    public process(words: string[],
+                   locale: string,
+                   context: RequestContext,): Promise<INeuronResponse> {
         const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
             knownWords,
             locale,
         ).words;
         const sequences = SequenceParser.parse(localizedKnownWords);
 
-        const initialResponsePromise: Promise<
-            INeuronResponse
-        > = new MultipleSequenceNeuron(
-            sequences.singleWord.map(
-                (sequence: Sequence) => sequence.withoutSpaces,
-            ),
-            sequences.twoWords.map(
-                (sequence: Sequence) => sequence.withoutSpaces,
-            ),
-            sequences.threeWords.map(
-                (sequence: Sequence) => sequence.withoutSpaces,
-            ),
-            [],
+        const initialResponsePromise: Promise<INeuronResponse> = new MultipleSequenceNeuron(
+            sequences,
             'oratio.core.hello',
         ).process(words, locale, context);
 
