@@ -4,12 +4,14 @@ export * from './HiveResponse';
 export * from './HiveMindBuilder';
 export * from './RequestContext';
 export * from './HiveMindInputNode';
+export * from './NeuronsResponse';
+export * from './FailedResponse';
+export * from './HiveMindInputNode';
+export * from './SilenceNeuron';
 
-export { MultipleSequenceNeuron } from './neurons/MultipleSequenceNeuron';
-export { SingleWordNeuron } from './neurons/SingleWordNeuron';
-export { ActionResponse } from './neurons/responses/ActionResponse';
-export {
-    ActionWithContextResponse,
-} from './neurons/responses/ActionWithContextResponse';
-export { Silence } from './neurons/responses/Silence';
-export { SimpleResponse } from './neurons/responses/SimpleResponse';
+export * from './neurons/MultipleSequenceNeuron';
+export * from './neurons/SingleWordNeuron';
+export * from './neurons/responses/ActionResponse';
+export * from './neurons/responses/ActionWithContextResponse';
+export * from './neurons/responses/Silence';
+export * from './neurons/responses/SimpleResponse';
