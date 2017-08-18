@@ -1,4 +1,3 @@
-///<reference path="../../../node_modules/@types/mathjs/index.d.ts"/>
 import {
     INeuronResponse,
     SimpleResponse,
