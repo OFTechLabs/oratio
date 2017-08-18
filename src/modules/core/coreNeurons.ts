@@ -6,6 +6,7 @@ import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
 export * from './IdentityNeuron';
 export * from './TimeNeuron';
 export * from './GreetingNeuron';
+export * from './CoreHiveMindModule';
 
 export class CoreNeurons {
     public static getCoreNeurons(): IHiveMindNeuron[] {
