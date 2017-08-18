@@ -13,13 +13,7 @@ describe('HiveMind', () => {
 
     beforeEach(() => {
         mind = HiveMindBuilder.createEmpty()
-            .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE.withTranslations(
-                {
-                    'oratio.core.currentTime': 'hello',
-                    'oratio.core.identity': 'hello2',
-                    'oratio.core.hello': 'hello3'
-                }
-            ))
+            .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
             .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
             .build();
     });
