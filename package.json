@@ -1,8 +1,11 @@
 {
     "name": "@oratio/oratio",
-    "version": "0.0.0",
+    "version": "0.0.1",
     "description": "conversational interface framework",
-    "keywords": [],
+    "keywords": [
+        "nlp",
+        "conversational"
+    ],
     "main": "dist/oratio.umd.js",
     "module": "dist/oratio.es5.js",
     "typings": "dist/types/oratio.d.ts",
@@ -12,7 +15,7 @@
     "author": "OF Tech Labs <techlabs@ortec-finance.com>",
     "repository": {
         "type": "git",
-        "url": ""
+        "url": "https://github.com/OFTechLabs/oratio.git"
     },
     "license": "MIT",
     "engines": {
@@ -20,8 +23,8 @@
     },
     "scripts": {
         "lint": "tslint -t codeFrame 'src/**/*.ts' -e 'src/**/*.spec.ts'",
-        "prebuild": "rimraf dist",
-        "build": "tsc && rollup -c && rimraf compiled && typedoc --out dist/docs --target es6 --theme minimal src",
+        "prebuild": "rimraf dist && rimraf generated",
+        "build": "tsc && rollup -c && rimraf compiled && typedoc --out generated/docs --target es6 --theme minimal src",
         "start": "tsc-watch --onSuccess \"rollup -c\"",
         "test": "jest",
         "test:watch": "jest --watch",

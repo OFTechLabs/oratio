@@ -6,5 +6,6 @@ coverage
 .vscode
 .idea
 dist
+generated
 compiled
 .awcache
