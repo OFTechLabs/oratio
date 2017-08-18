@@ -13,7 +13,6 @@ describe('HiveMind', () => {
         mind = HiveMindBuilder.createEmpty()
             .registerCoreModules()
             .registerMathModules()
-            .registerMathJsModules()
             .build();
     });
 
@@ -76,15 +75,15 @@ describe('HiveMind', () => {
             { input: 'hallo', response: 'oratio.core.hello' },
             { input: '2 + 3', response: 'oratio.math.addition' },
             {
-                input: 'bereken: (4 + 3) / 2',
-                response: 'oratio.mathjs.evaluated',
+                input: '3 / 2',
+                response: 'oratio.math.division',
             },
             { input: '9 * 3', response: 'oratio.math.multiplication' },
             { input: 'hallo', response: 'oratio.core.hello' },
             { input: 'hoe laat is het', response: 'oratio.core.currentTime' },
             {
-                input: 'bereken: (4 + 3) + 4',
-                response: 'oratio.mathjs.evaluated',
+                input: '2 - 3',
+                response: 'oratio.math.subtraction',
             },
             { input: '2 + 3', response: 'oratio.math.addition' },
         ];

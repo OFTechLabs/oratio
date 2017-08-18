@@ -2,7 +2,6 @@ import { BasicHiveMindNeurons, IHiveMindNeuron } from './HiveMindNeurons';
 import { CoreNeurons } from '../modules/core/coreNeurons';
 import { BasicHiveMind, IHiveMind } from './HiveMind';
 import { MathNeurons } from '../modules/math/mathNeurons';
-import { MathJSNeurons } from '../modules/mathjs/mathJSNeurons';
 
 export class HiveMindBuilder {
     private neurons: IHiveMindNeuron[];
@@ -24,11 +23,6 @@ export class HiveMindBuilder {
 
     public registerMathModules(): HiveMindBuilder {
         this.neurons = this.neurons.concat(MathNeurons.getMathNeurons());
-        return this;
-    }
-
-    public registerMathJsModules(): HiveMindBuilder {
-        this.neurons = this.neurons.concat(MathJSNeurons.getMathJSNeurons());
         return this;
     }
 

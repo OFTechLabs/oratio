@@ -1,7 +1,6 @@
 import { BasicHiveMindNeurons } from './HiveMindNeurons';
 import { GreetingNeuron } from '../modules/core/GreetingNeuron';
 import { TimeNeuron } from '../modules/core/TimeNeuron';
-import { MathJSNeuron } from '../modules/mathjs/MathJSNeuron';
 import { SimpleResponse } from './neurons/responses/SimpleResponse';
 import { RequestContext } from './RequestContext';
 
@@ -10,11 +9,10 @@ describe('BasicHiveMindNeurons', () => {
     const locale: string = 'en';
     let greetingNeuron = new GreetingNeuron();
     let timeNeuron = new TimeNeuron();
-    let mathjsNeuron = new MathJSNeuron();
 
     beforeEach(() => {
         neurons = new BasicHiveMindNeurons(
-            [greetingNeuron, timeNeuron, mathjsNeuron],
+            [greetingNeuron, timeNeuron],
             0.75,
         );
     });

@@ -1,6 +1,6 @@
 {
     "name": "@oratio/oratio",
-    "version": "0.0.5",
+    "version": "0.0.6",
     "description": "conversational interface framework",
     "keywords": [
         "nlp",
@@ -76,7 +76,6 @@
     },
     "devDependencies": {
         "@types/jest": "^20.0.0",
-        "@types/mathjs": "0.0.34",
         "@types/node": "^8.0.0",
         "chai": "^4.1.1",
         "colors": "^1.1.2",
@@ -106,8 +105,5 @@
         "typedoc": "^0.7.1",
         "typescript": "^2.3.4",
         "validate-commit-msg": "^2.12.2"
-    },
-    "dependencies": {
-        "mathjs": "^3.16.1"
     }
 }
