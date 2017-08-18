@@ -7,19 +7,14 @@ import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
 import { RequestContext } from '../../emergent/RequestContext';
 import { knownWords } from './GreetingNeuron.words';
 import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
+import { LocalizedWordsMatcherNeuron } from '../../emergent/neurons/LocalizedWordsMatcherNeuron';
 
 export class GreetingNeuron implements IHiveMindNeuron {
     public process(words: string[],
                    locale: string,
                    context: RequestContext,): Promise<INeuronResponse> {
-        const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
+        const initialResponsePromise: Promise<INeuronResponse> = new LocalizedWordsMatcherNeuron(
             knownWords,
-            locale,
-        ).words;
-        const sequences = SequenceParser.parse(localizedKnownWords);
-
-        const initialResponsePromise: Promise<INeuronResponse> = new MultipleSequenceNeuron(
-            sequences,
             'oratio.core.hello',
         ).process(words, locale, context);
 
