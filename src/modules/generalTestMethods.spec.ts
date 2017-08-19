@@ -62,7 +62,7 @@ export class GeneralTestMethods {
             .then(neuronResponse => {
                 expect(neuronResponse.hasAnswer()).toBeTruthy();
 
-                const simpleResponse = <SimpleResponse>neuronResponse;
+                const simpleResponse = neuronResponse as SimpleResponse;
 
                 expect(simpleResponse.response).toBe(response);
                 expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(

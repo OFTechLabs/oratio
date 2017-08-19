@@ -1,21 +1,14 @@
 import {LocalizedWords} from '../../language/i18n/LocalizedWords';
 
 export const knownWords: LocalizedWords = {
-    main: {
-        en: {
-            words: ['current time', 'what time is it', 'what time it is'],
-        },
-        nl: {
-            words: ['hoe laat is het', 'hoe laat is het nu'],
-        },
+    en: {
+        main: ['current time', 'what time is it', 'what time it is'],
+        params: [],
+        continuation: ['and now']
     },
-    params: {},
-    continuation: {
-        en: {
-            words: ['and now'],
-        },
-        nl: {
-            words: ['en nu'],
-        },
-    },
+    nl: {
+        main: ['hoe laat is het', 'hoe laat is het nu', 'wat is de tijd'],
+        params: [],
+        continuation: ['en nu']
+    }
 };

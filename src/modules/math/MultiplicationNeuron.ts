@@ -12,7 +12,7 @@ export class MultiplicationNeuron implements IHiveMindNeuron {
         const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
             knownWords,
             locale,
-        ).words;
+        );
 
         return new BaseMathNeuron(
             localizedKnownWords,

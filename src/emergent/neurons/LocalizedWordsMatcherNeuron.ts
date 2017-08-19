@@ -16,7 +16,7 @@ export class LocalizedWordsMatcherNeuron {
         const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
             this.knownWords,
             locale,
-        ).words;
+        );
         const sequences = SequenceParser.parse(localizedKnownWords);
 
         return new MultipleSequenceNeuron(

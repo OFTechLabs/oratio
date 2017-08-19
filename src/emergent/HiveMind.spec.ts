@@ -5,7 +5,7 @@ import {IHiveResponse} from './HiveResponse';
 import {CoreHiveMindModule} from '../modules/core/CoreHiveMindModule';
 import {MathHiveMindModule} from '../modules/math/MathHiveMindModule';
 
-var chai = require('chai');
+const chai = require('chai');
 
 describe('HiveMind', () => {
     let mind: IHiveMind;
