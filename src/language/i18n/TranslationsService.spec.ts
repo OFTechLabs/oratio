@@ -2,7 +2,7 @@ import {TranslationService} from "./TranslationService";
 
 describe('Translation service', () => {
 
-    let translations: {[key: string]: string} = {};
+    let translations: { [key: string]: string } = {};
 
     beforeEach(function () {
         translations['oratio.greeting'] = 'Hello!';

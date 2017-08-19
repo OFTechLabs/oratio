@@ -1,8 +1,8 @@
-import { LevenshteinDistanceMatcher } from '../../language/words/LevenshteinDistanceMatcher';
-import { Silence } from './responses/Silence';
-import { INeuronResponse, SimpleResponse } from './responses/SimpleResponse';
-import { IHiveMindNeuron } from '../HiveMindNeurons';
-import { NumberOfKnownWordsCertaintyCalculator } from '../../language/sequences/NumberOfKnownWordsCertaintyCalculator';
+import {LevenshteinDistanceMatcher} from '../../language/words/LevenshteinDistanceMatcher';
+import {Silence} from './responses/Silence';
+import {INeuronResponse, SimpleResponse} from './responses/SimpleResponse';
+import {IHiveMindNeuron} from '../HiveMindNeurons';
+import {NumberOfKnownWordsCertaintyCalculator} from '../../language/sequences/NumberOfKnownWordsCertaintyCalculator';
 
 export class SingleWordNeuron implements IHiveMindNeuron {
     private knownWords: string[];
@@ -13,11 +13,9 @@ export class SingleWordNeuron implements IHiveMindNeuron {
         this.response = response;
     }
 
-    public process(
-        input: string[],
-        locale: string,
-        context: any,
-    ): Promise<INeuronResponse> {
+    public process(input: string[],
+                   locale: string,
+                   context: any,): Promise<INeuronResponse> {
         for (const knownWord of this.knownWords) {
             for (const inputWord of input) {
                 if (

@@ -1,5 +1,3 @@
-import {LanguageUtil} from "../LanguageUtil";
-
 const placeholderRegExp: RegExp = /\{[^}]*}/g;
 
 export class TranslationService {

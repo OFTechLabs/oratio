@@ -1,13 +1,13 @@
 import 'jest';
-import { MultiplicationNeuron } from './MultiplicationNeuron';
-import { GeneralTestMethods } from '../generalTestMethods.spec';
+import {MultiplicationNeuron} from './MultiplicationNeuron';
+import {GeneralTestMethods} from '../generalTestMethods.spec';
 
 describe('Multiplication neuron', () => {
     let generalTestMethods: GeneralTestMethods;
     let generalTestMethodsNL: GeneralTestMethods;
     const expectedResponse: string = 'oratio.math.multiplication';
 
-    beforeEach(function() {
+    beforeEach(function () {
         generalTestMethods = GeneralTestMethods.create(
             new MultiplicationNeuron(),
         );
@@ -16,7 +16,7 @@ describe('Multiplication neuron', () => {
         ).withLocale('nl');
     });
 
-    it('should be able to handle 9 * 3', function() {
+    it('should be able to handle 9 * 3', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             '9 * 3',
             expectedResponse,
@@ -24,7 +24,7 @@ describe('Multiplication neuron', () => {
         );
     });
 
-    it('should be able to handle 100 * 22', function() {
+    it('should be able to handle 100 * 22', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             '100 * 22',
             expectedResponse,
@@ -32,7 +32,7 @@ describe('Multiplication neuron', () => {
         );
     });
 
-    it('should be able to handle 0.5 * 2000', function() {
+    it('should be able to handle 0.5 * 2000', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             '0.5 * 2000',
             expectedResponse,
@@ -40,7 +40,7 @@ describe('Multiplication neuron', () => {
         );
     });
 
-    it('should be able to handle multiply 3 and 3', function() {
+    it('should be able to handle multiply 3 and 3', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             'multiply 3 and 3',
             expectedResponse,
@@ -48,7 +48,7 @@ describe('Multiplication neuron', () => {
         );
     });
 
-    it('should be able to handle multiply * 3 1', function() {
+    it('should be able to handle multiply * 3 1', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             '* 3 1',
             expectedResponse,

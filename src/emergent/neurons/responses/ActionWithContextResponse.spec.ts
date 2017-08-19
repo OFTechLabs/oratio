@@ -28,7 +28,7 @@ describe('ActionResponseWithContext', () => {
 
 });
 
-var action = function(){
+var action = function () {
     this._called = true;
 };
 

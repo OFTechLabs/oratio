@@ -1,7 +1,5 @@
 import {BasicHiveMindNeurons, IHiveMindNeuron} from './HiveMindNeurons';
-import {CoreNeurons} from '../modules/core/coreNeurons';
 import {BasicHiveMind, IHiveMind} from './HiveMind';
-import {MathNeurons} from '../modules/math/mathNeurons';
 import {IHiveMindModule, ILocalizedHiveMindModule} from '../modules/HiveMindModule';
 import {LanguageUtil} from "../language/LanguageUtil";
 

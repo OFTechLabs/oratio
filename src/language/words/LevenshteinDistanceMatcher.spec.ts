@@ -1,7 +1,7 @@
 'use strict';
 
 import 'jest';
-import { LevenshteinDistanceMatcher } from './LevenshteinDistanceMatcher';
+import {LevenshteinDistanceMatcher} from './LevenshteinDistanceMatcher';
 
 describe('Levenshtein distance matcher', () => {
     it('should correctly detect the same words', () => {
@@ -24,8 +24,8 @@ describe('Levenshtein distance matcher', () => {
 
     it('should match even if there are small typo´s', () => {
         const words: { one: string; two: string }[] = [
-            { one: 'shouldmatch', two: 'shoulmdatch' },
-            { one: 'shouldmatchlarger', two: 'shoulmdathclarger' },
+            {one: 'shouldmatch', two: 'shoulmdatch'},
+            {one: 'shouldmatchlarger', two: 'shoulmdathclarger'},
         ];
 
         const matcher = new LevenshteinDistanceMatcher();
@@ -37,9 +37,9 @@ describe('Levenshtein distance matcher', () => {
 
     it('should not match even if there are too many typo´s', () => {
         const words: { one: string; two: string }[] = [
-            { one: 'one', two: 'oen' }, // words this small should just not contain any typś
-            { one: 'shouldnotmatch', two: 'sohudltnomacth' },
-            { one: 'shouldnotmatchlarger', two: 'sohudlnutmctchlaffer' },
+            {one: 'one', two: 'oen'}, // words this small should just not contain any typś
+            {one: 'shouldnotmatch', two: 'sohudltnomacth'},
+            {one: 'shouldnotmatchlarger', two: 'sohudlnutmctchlaffer'},
         ];
 
         const matcher = new LevenshteinDistanceMatcher();

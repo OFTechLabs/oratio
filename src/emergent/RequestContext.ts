@@ -1,7 +1,7 @@
-import { HiveMindInputNode } from './HiveMindInputNode';
-import { LanguageUtil } from '../language/LanguageUtil';
-import { IHiveMindNeuron } from './HiveMindNeurons';
-import { SilenceNeuron } from './SilenceNeuron';
+import {HiveMindInputNode} from './HiveMindInputNode';
+import {LanguageUtil} from '../language/LanguageUtil';
+import {IHiveMindNeuron} from './HiveMindNeurons';
+import {SilenceNeuron} from './SilenceNeuron';
 
 export class RequestContext {
     constructor(previousInput: HiveMindInputNode | null, clientModel: any) {

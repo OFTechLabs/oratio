@@ -22,7 +22,7 @@
         "node": ">=6.0.0"
     },
     "scripts": {
-        "lint": "tslint -t codeFrame 'src/**/*.ts' -e 'src/**/*.spec.ts'",
+        "lint": "tslint -t codeFrame --type-check --project tsconfig.json 'src/**/*.ts' -e 'src/**/*.spec.ts'",
         "prebuild": "rimraf dist && rimraf generated",
         "build": "tsc && rollup -c && rimraf compiled && typedoc --out generated/docs --target es6 --theme minimal src",
         "start": "tsc-watch --onSuccess \"rollup -c\"",

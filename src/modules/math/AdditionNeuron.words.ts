@@ -1,4 +1,4 @@
-import { LocalizedWords } from '../../language/i18n/LocalizedWords';
+import {LocalizedWords} from '../../language/i18n/LocalizedWords';
 
 export const knownWords: LocalizedWords = {
     main: {

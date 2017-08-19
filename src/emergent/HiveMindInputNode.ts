@@ -1,11 +1,9 @@
-import { IHiveMindNeuron } from './HiveMindNeurons';
+import {IHiveMindNeuron} from './HiveMindNeurons';
 
 export class HiveMindInputNode {
-    constructor(
-        previous: HiveMindInputNode | null,
-        neuronHandled: IHiveMindNeuron,
-        input: string[],
-    ) {
+    constructor(previous: HiveMindInputNode | null,
+                neuronHandled: IHiveMindNeuron,
+                input: string[],) {
         this._previous = previous;
         this._neuronHandled = neuronHandled;
         this._input = input;

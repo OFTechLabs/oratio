@@ -1,10 +1,10 @@
-import { MultipleSequenceNeuron } from '../../emergent/neurons/MultipleSequenceNeuron';
-import { INeuronResponse, SimpleResponse, } from '../../emergent/neurons/responses/SimpleResponse';
-import { SequenceParser } from '../../language/sequences/SequenceParser';
-import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
-import { RequestContext } from '../../emergent/RequestContext';
-import { knownWords } from './TimeNeuron.words';
-import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
+import {MultipleSequenceNeuron} from '../../emergent/neurons/MultipleSequenceNeuron';
+import {INeuronResponse, SimpleResponse,} from '../../emergent/neurons/responses/SimpleResponse';
+import {SequenceParser} from '../../language/sequences/SequenceParser';
+import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
+import {RequestContext} from '../../emergent/RequestContext';
+import {knownWords} from './TimeNeuron.words';
+import {LocalizedWordsForLocaleFactory} from '../../language/i18n/LocalizedWordsForLocaleFactory';
 
 export class TimeNeuron implements IHiveMindNeuron {
     public process(input: string[],

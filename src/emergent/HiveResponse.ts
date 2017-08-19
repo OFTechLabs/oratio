@@ -3,13 +3,12 @@ export interface IHiveResponse {
 }
 
 export class UnderstoodResponse implements IHiveResponse {
-    constructor(
-        private _response: string,
-        private _params: string[],
-        private _certainty: number,
-        private _action: () => void,
-        private _context: any,
-    ) {}
+    constructor(private _response: string,
+                private _params: string[],
+                private _certainty: number,
+                private _action: () => void,
+                private _context: any,) {
+    }
 
     get params(): string[] {
         return this._params;

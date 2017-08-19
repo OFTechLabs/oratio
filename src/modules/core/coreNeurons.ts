@@ -1,7 +1,7 @@
-import { GreetingNeuron } from './GreetingNeuron';
-import { IdentityNeuron } from './IdentityNeuron';
-import { TimeNeuron } from './TimeNeuron';
-import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
+import {GreetingNeuron} from './GreetingNeuron';
+import {IdentityNeuron} from './IdentityNeuron';
+import {TimeNeuron} from './TimeNeuron';
+import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 
 export * from './IdentityNeuron';
 export * from './TimeNeuron';

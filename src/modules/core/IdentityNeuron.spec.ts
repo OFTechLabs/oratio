@@ -1,13 +1,13 @@
 import 'jest';
-import { IdentityNeuron } from './IdentityNeuron';
-import { GeneralTestMethods } from '../generalTestMethods.spec';
+import {IdentityNeuron} from './IdentityNeuron';
+import {GeneralTestMethods} from '../generalTestMethods.spec';
 
 describe('Identity neuron', () => {
     let generalTestMethods: GeneralTestMethods;
     let generalTestMethodsNL: GeneralTestMethods;
     const expectedResponse: string = 'oratio.core.identity';
 
-    beforeEach(function() {
+    beforeEach(function () {
         generalTestMethods = GeneralTestMethods.create(new IdentityNeuron());
         generalTestMethodsNL = GeneralTestMethods.create(
             new IdentityNeuron(),
@@ -42,7 +42,7 @@ describe('Identity neuron', () => {
         );
     });
 
-    it('should not match wrong input', function() {
+    it('should not match wrong input', function () {
         return generalTestMethodsNL.expectInputToGiveSilence('hoe laat is het');
     });
 

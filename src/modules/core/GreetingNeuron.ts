@@ -1,13 +1,12 @@
-import { MultipleSequenceNeuron } from '../../emergent/neurons/MultipleSequenceNeuron';
-import { INeuronResponse, SimpleResponse, } from '../../emergent/neurons/responses/SimpleResponse';
-import { WordAfterSequenceParser } from '../../language/parsers/parameters/WordAfterSequenceParser';
-import { SequenceParser } from '../../language/sequences/SequenceParser';
-import { Sequence } from '../../language/sequences/Sequence';
-import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
-import { RequestContext } from '../../emergent/RequestContext';
-import { knownWords } from './GreetingNeuron.words';
-import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
-import { LocalizedWordsMatcherNeuron } from '../../emergent/neurons/LocalizedWordsMatcherNeuron';
+import {INeuronResponse, SimpleResponse,} from '../../emergent/neurons/responses/SimpleResponse';
+import {WordAfterSequenceParser} from '../../language/parsers/parameters/WordAfterSequenceParser';
+import {SequenceParser} from '../../language/sequences/SequenceParser';
+import {Sequence} from '../../language/sequences/Sequence';
+import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
+import {RequestContext} from '../../emergent/RequestContext';
+import {knownWords} from './GreetingNeuron.words';
+import {LocalizedWordsForLocaleFactory} from '../../language/i18n/LocalizedWordsForLocaleFactory';
+import {LocalizedWordsMatcherNeuron} from '../../emergent/neurons/LocalizedWordsMatcherNeuron';
 
 export class GreetingNeuron implements IHiveMindNeuron {
     public process(words: string[],

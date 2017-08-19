@@ -1,5 +1,5 @@
-import { Sequence } from './Sequence';
-import { LanguageUtil } from '../LanguageUtil';
+import {Sequence} from './Sequence';
+import {LanguageUtil} from '../LanguageUtil';
 
 export class Sequences {
     constructor(sequences: Sequence[]) {

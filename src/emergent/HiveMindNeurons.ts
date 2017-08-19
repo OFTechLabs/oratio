@@ -1,22 +1,18 @@
-import { Silence } from './neurons/responses/Silence';
-import { INeuronResponse } from './neurons/responses/SimpleResponse';
-import { RequestContext } from './RequestContext';
-import { INeuronsResponse, NeuronsResponse } from './NeuronsResponse';
+import {Silence} from './neurons/responses/Silence';
+import {INeuronResponse} from './neurons/responses/SimpleResponse';
+import {RequestContext} from './RequestContext';
+import {INeuronsResponse, NeuronsResponse} from './NeuronsResponse';
 
 export interface IHiveMindNeurons {
-    findMatch(
-        input: string[],
-        locale: string,
-        context: RequestContext,
-    ): Promise<INeuronsResponse>;
+    findMatch(input: string[],
+              locale: string,
+              context: RequestContext,): Promise<INeuronsResponse>;
 }
 
 export interface IHiveMindNeuron {
-    process(
-        words: string[],
-        locale: string,
-        context: RequestContext,
-    ): Promise<INeuronResponse>;
+    process(words: string[],
+            locale: string,
+            context: RequestContext,): Promise<INeuronResponse>;
 }
 
 export class BasicHiveMindNeurons implements IHiveMindNeurons {
@@ -28,11 +24,9 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
         this.certaintyThreshold = certaintyThreshold;
     }
 
-    public findMatch(
-        input: string[],
-        locale: string,
-        context: RequestContext,
-    ): Promise<INeuronsResponse> {
+    public findMatch(input: string[],
+                     locale: string,
+                     context: RequestContext,): Promise<INeuronsResponse> {
         return new Promise((resolve, reject) => {
             let potentialResponse: INeuronsResponse = new NeuronsResponse(
                 this.neurons[0],
@@ -66,6 +60,8 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
                             maxCertainty = response.getCertainty();
                         }
                     }
+                }).catch(error => {
+                    console.error("Neuron: " + neuron + " rejected..." + error);
                 });
             }
 
@@ -74,7 +70,14 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
             ).then((allResolved: INeuronResponse[]) => {
                 this.placeNeuronToTop(potentialResponseIndex);
                 resolve(potentialResponse);
+            }).catch(error => {
+                console.error("A neuron rejected instead of resolved, " +
+                    "neurons are never allowed to reject. If this happens " +
+                    "the neuron either needs to be fixed with error handling to " +
+                    "make it resolve a Silence() response or the neuron should " +
+                    "be removed. Error: " + error);
             });
+            ;
         });
     }
 

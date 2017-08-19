@@ -1,8 +1,8 @@
 import 'jest';
-import { NumberOfKnownWordsCertaintyCalculator } from './NumberOfKnownWordsCertaintyCalculator';
+import {NumberOfKnownWordsCertaintyCalculator} from './NumberOfKnownWordsCertaintyCalculator';
 
 describe('Number of known words certainty calculator', () => {
-    it('should be able to determine certainty', function() {
+    it('should be able to determine certainty', function () {
         expect(
             NumberOfKnownWordsCertaintyCalculator.calculate(2, [
                 'a',
@@ -56,7 +56,7 @@ describe('Number of known words certainty calculator', () => {
         ).toBe(0);
     });
 
-    it('should never be larger than 1', function() {
+    it('should never be larger than 1', function () {
         expect(
             NumberOfKnownWordsCertaintyCalculator.calculate(6, [
                 'a',
