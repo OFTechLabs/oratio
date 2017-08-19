@@ -106,10 +106,10 @@ To use a new neuron, it still has to be registered, you can use the `HiveMindBui
 
 ```typescript
 HiveMindBuilder.createEmpty()
-.registerCoreModules()
-.registerMathModules()
-.register([new YourNeuronHere()])
-.build();
+    .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
+    .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
+    .register([new YourNeuronHere()])
+    .build();
 ```
 
 And that's it, Oratio can now be used with the newly implemented Neuron.
