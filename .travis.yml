@@ -1,8 +1,4 @@
 language: node_js
-branches:
-  only:
-    - master
-    - /^greenkeeper/.*$/
 cache:
   directories:
     - node_modules
@@ -16,5 +12,12 @@ script:
   - npm run test:prod && npm run build
 after_success:
   - npm run report-coverage
-  - npm run deploy-docs
-  - npm run semantic-release
+#  - npm run semantic-release
+
+deploy:
+  provider: pages
+  skip_cleanup: true
+  local_dir: generated/docs
+  github_token: $GITHUB_TOKEN
+  on:
+    branch: master
