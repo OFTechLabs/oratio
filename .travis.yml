@@ -1,28 +1,36 @@
 language: node_js
 node_js:
-- '6'
-- '7'
-- '8'
+- "7"
+- "8"
 - node
 script:
 - npm run test:prod && npm run build
 after_success:
 - npm run report-coverage
-deploy:
-- provider: pages
-  skip_cleanup: true
-  local_dir: generated/docs
-  github_token: "$GITHUB_TOKEN"
-  on:
-    branch: master
-- provider: npm
-  email: techlabs@ortec-finance.com
-  skip_cleanup: true
-  tag: next
-  api_key:
-    secure: OdXtUz0ayjx873Van/PsUyctx7wFhWzPV1k3tbcRWANW+ZkwsvMs/MzcwVhWNd7sn6hmjICUPyzr4PsyWgeOG+K5Dw2nJNvxIxnf0cthKlQWkwGU0In6pRl2qjFuOLT4CbHlxMSfnCF3oSGdj6vK8OsD6c+0dteOqWevOLifnN/CAY7cIsgMQHRBOORMCNQ0Tp4UawgPH0yxIbvY9hfasNA7VBm+eeH0ttAaVOKZqpW7R4uJmq4KqRl+MeqWKQ0cTW4XoQIG2s0pfTVhGhyb852CU5l1jY8u2XcNcZRnRKepfVJQf7e+gfyBpkwhSIjQXcBpzG025fQdY0dAByu3znt4l7tuL0Rm8/sNx4ZmfvCSXuO3t6ND+82HCJjqqKoPIO6fzfh2kyrTmPE5da86T+gPJxt+H7wT3xBwAdjMHOVf86q7FPfdHuaP0SakYKwOF4cUHOwaPIAhjVRAPJFeWaHq7Je6ZrpffSgr8dFh0Ah9hZqc/bul7XRtlQBBXaHo8LpAfUD9sphxpG9jIRCmpEiqNOcn8u4bCBawypcHUPjX3j9EK8C53UkBUJQNgHM6fsnPoOysKnlth6mdenbnF/2O6neAooBunGckoB6uvRtGP1YItFsZeXwN/Ez9KKLsZLKYdrS2UemvN0tk0cbrkSHotKsIyOOel8IXk5QAn5M=
-  on:
-    branch: master
+jobs:
+  include:
+    - stage: npm release
+      node_js: "7"
+      script: echo "Deploying to npm ..."
+      deploy:
+        provider: npm
+        email: techlabs@ortec-finance.com
+        skip_cleanup: true
+        tag: latest
+        api_key:
+          secure: OdXtUz0ayjx873Van/PsUyctx7wFhWzPV1k3tbcRWANW+ZkwsvMs/MzcwVhWNd7sn6hmjICUPyzr4PsyWgeOG+K5Dw2nJNvxIxnf0cthKlQWkwGU0In6pRl2qjFuOLT4CbHlxMSfnCF3oSGdj6vK8OsD6c+0dteOqWevOLifnN/CAY7cIsgMQHRBOORMCNQ0Tp4UawgPH0yxIbvY9hfasNA7VBm+eeH0ttAaVOKZqpW7R4uJmq4KqRl+MeqWKQ0cTW4XoQIG2s0pfTVhGhyb852CU5l1jY8u2XcNcZRnRKepfVJQf7e+gfyBpkwhSIjQXcBpzG025fQdY0dAByu3znt4l7tuL0Rm8/sNx4ZmfvCSXuO3t6ND+82HCJjqqKoPIO6fzfh2kyrTmPE5da86T+gPJxt+H7wT3xBwAdjMHOVf86q7FPfdHuaP0SakYKwOF4cUHOwaPIAhjVRAPJFeWaHq7Je6ZrpffSgr8dFh0Ah9hZqc/bul7XRtlQBBXaHo8LpAfUD9sphxpG9jIRCmpEiqNOcn8u4bCBawypcHUPjX3j9EK8C53UkBUJQNgHM6fsnPoOysKnlth6mdenbnF/2O6neAooBunGckoB6uvRtGP1YItFsZeXwN/Ez9KKLsZLKYdrS2UemvN0tk0cbrkSHotKsIyOOel8IXk5QAn5M=
+        on:
+          branch: master
+    - stage: github pages
+      node_js: "7"
+      script: echo "Pushing github pages ..."
+      deploy:
+        provider: pages
+        skip_cleanup: true
+        local_dir: generated/docs
+        github_token: "$GITHUB_TOKEN"
+        on:
+          branch: master
 notifications:
   slack:
     secure: AwSK4mreOX/FcFf5RlROosKbM0J5OYP7YD1BpZoFBCtZS7Hdjw5zMgW5tskKuWGL+Mm8/0WaFJqA7gagzKgENybAtPxtiRwZQ9f3N/BTNpTH8rHCGNLfo1SCVt3fssyEhtuJ4Ws/5pr/bd2MuGd0VVHZtMooOgEhHMtcTH35x6V8xHsGel7zj+qP0wv5dhq8xa+5Uk1OfQmkQ9njv2KDlfQVaNKnFYqsH2QN/qn82cqdMHMymidzYOrqzgWeyXLQpzN96yA3ENb1lFFPSNnSOToldi2Osm9HpcphPehpvJsNImMoATTwaO0VX6TshOWUm7VeSBmgUajzBiXvx8FBk3o3qRnDOvfd+anqGkSwixM36K6Rqshktxda846F+aiZnZVVC19HHWp5U1Yqeaqy4Qb4iEEafzYMEc+DfSAwFCisQzn5gyONOP49nj+lkcpiXm8LNRShyaDUC2gIfmDzYbnkx12yr/1BAYbsepWkM7kbyDyGdAb8beKPUXNkt/e/r+b/hRfso/1swVTfp4fzpHiw3wIkiJauno0OXE5T1831GQ6EOb9BklrEuZSccTlCIZ2Z/n1tsdfHRlcV3htm9DHrHT+YH426F7pi5MXUmINnakyB3sf3UtAtBwdBcGBMjCpe6JDpKbtEhDPFU4qLFHMS34gKH4Ck5vkG3ZuTKTg=
