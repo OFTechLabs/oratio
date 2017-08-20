@@ -13,7 +13,7 @@ export class TimeNeuron implements IHiveMindNeuron {
         let localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
             knownWords,
             locale,
-        ).words;
+        );
         if (
             context.hasPreviousInput() &&
             context.previousNeuronHandled instanceof TimeNeuron
@@ -21,7 +21,7 @@ export class TimeNeuron implements IHiveMindNeuron {
             const continuations: string[] = LocalizedWordsForLocaleFactory.createContinuation(
                 knownWords,
                 locale,
-            ).words;
+            );
             localizedKnownWords = localizedKnownWords.concat(continuations);
         }
 
