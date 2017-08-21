@@ -6,6 +6,9 @@
         "nlp",
         "conversational"
     ],
+    "publishConfig": {
+        "access": "public"
+    },
     "main": "dist/oratio.umd.js",
     "module": "dist/oratio.es5.js",
     "typings": "dist/types/oratio.d.ts",
