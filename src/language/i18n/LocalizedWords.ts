@@ -1,7 +1,7 @@
 export class LocalizedWords {
-    [language: string]: {
+    [language: string]: ({
         main: string[];
         params: string[];
         continuation: string[];
-    }
+    } | undefined)
 }

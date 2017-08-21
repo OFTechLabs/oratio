@@ -3,17 +3,20 @@ import { LocalizedWords } from './LocalizedWords';
 export class LocalizedWordsForLocaleFactory {
     public static createMain(localizedWords: LocalizedWords,
                              locale: string,): string[] {
-        return localizedWords[locale] !== undefined ? localizedWords[locale].main : [];
+        const forLocale = localizedWords[locale];
+        return forLocale !== undefined ? forLocale.main : [];
     }
 
     public static createParams(localizedWords: LocalizedWords,
                                locale: string,): string[] {
-        return localizedWords[locale] !== undefined ? localizedWords[locale].params : [];
+        const forLocale = localizedWords[locale];
+        return forLocale !== undefined ? forLocale.params : [];
 
     }
 
     public static createContinuation(localizedWords: LocalizedWords,
                                      locale: string,): string[] {
-        return localizedWords[locale] !== undefined ? localizedWords[locale].continuation : [];
+        const forLocale = localizedWords[locale];
+        return forLocale !== undefined ? forLocale.continuation : [];
     }
 }
