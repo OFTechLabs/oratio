@@ -1,0 +1,12 @@
+.idea
+coverage
+generated
+compiled
+src
+tools
+.editorconfig
+.gitignore
+.travix.yml
+rollup.config.js
+tsconfig.json
+tslint.json

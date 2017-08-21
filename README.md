@@ -1,4 +1,4 @@
-# Oratio
+# Oratio [![Build Status](https://travis-ci.org/OFTechLabs/oratio.svg?branch=master)](https://travis-ci.org/OFTechLabs/oratio)
 
 Emergent natural language processing
 
