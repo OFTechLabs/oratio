@@ -1,8 +1,8 @@
-import { INeuronResponse } from './responses/SimpleResponse';
-import { LocalizedWords } from '../../language/i18n/LocalizedWords';
-import { LocalizedWordsForLocaleFactory } from '../../language/i18n/LocalizedWordsForLocaleFactory';
-import { SequenceParser } from '../../language/sequences/SequenceParser';
-import { MultipleSequenceNeuron } from './MultipleSequenceNeuron';
+import {INeuronResponse} from './responses/SimpleResponse';
+import {LocalizedWords} from '../../language/i18n/LocalizedWords';
+import {LocalizedWordsForLocaleFactory} from '../../language/i18n/LocalizedWordsForLocaleFactory';
+import {SequenceParser} from '../../language/sequences/SequenceParser';
+import {MultipleSequenceNeuron} from './MultipleSequenceNeuron';
 
 export class LocalizedWordsMatcherNeuron {
 
@@ -16,7 +16,7 @@ export class LocalizedWordsMatcherNeuron {
         const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
             this.knownWords,
             locale,
-        ).words;
+        );
         const sequences = SequenceParser.parse(localizedKnownWords);
 
         return new MultipleSequenceNeuron(

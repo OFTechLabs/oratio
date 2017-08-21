@@ -1,12 +1,10 @@
-import { SimpleResponse } from './SimpleResponse';
+import {SimpleResponse} from './SimpleResponse';
 
 export class ActionResponse extends SimpleResponse {
-    constructor(
-        response: string,
-        params: string[],
-        certainty: number,
-        action: () => void,
-    ) {
+    constructor(response: string,
+                params: string[],
+                certainty: number,
+                action: () => void,) {
         super(response, params, certainty);
         this._action = action;
     }

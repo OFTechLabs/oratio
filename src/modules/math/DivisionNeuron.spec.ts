@@ -1,20 +1,20 @@
 import 'jest';
-import { DivisionNeuron } from './DivisionNeuron';
-import { GeneralTestMethods } from '../generalTestMethods.spec';
+import {DivisionNeuron} from './DivisionNeuron';
+import {GeneralTestMethods} from '../generalTestMethods.spec';
 
 describe('Divison neuron', () => {
     let generalTestMethods: GeneralTestMethods;
     let generalTestMethodsNL: GeneralTestMethods;
     const expectedResponse: string = 'oratio.math.division';
 
-    beforeEach(function() {
+    beforeEach(function () {
         generalTestMethods = GeneralTestMethods.create(new DivisionNeuron());
         generalTestMethodsNL = GeneralTestMethods.create(
             new DivisionNeuron(),
         ).withLocale('nl');
     });
 
-    it('should be able to handle 9 / 3', function() {
+    it('should be able to handle 9 / 3', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             '9 / 3',
             expectedResponse,
@@ -22,7 +22,7 @@ describe('Divison neuron', () => {
         );
     });
 
-    it('should be able to handle 100 / 22', function() {
+    it('should be able to handle 100 / 22', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             '100 / 22',
             expectedResponse,
@@ -30,7 +30,7 @@ describe('Divison neuron', () => {
         );
     });
 
-    it('should be able to handle 1000 / 2000', function() {
+    it('should be able to handle 1000 / 2000', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             '1000 / 2000',
             expectedResponse,
@@ -38,7 +38,7 @@ describe('Divison neuron', () => {
         );
     });
 
-    it('should be able to handle divide 3 by 3', function() {
+    it('should be able to handle divide 3 by 3', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             'divide 3 by 3',
             expectedResponse,
@@ -46,7 +46,7 @@ describe('Divison neuron', () => {
         );
     });
 
-    it('should be able to handle / 3 1', function() {
+    it('should be able to handle / 3 1', function () {
         return generalTestMethods.expectInputToGiveResponseAndParam(
             '/ 3 1',
             expectedResponse,

@@ -1,6 +1,6 @@
-import { Sequences } from './Sequences';
-import { Sequence } from './Sequence';
-import { LanguageUtil } from '../LanguageUtil';
+import {Sequences} from './Sequences';
+import {Sequence} from './Sequence';
+import {LanguageUtil} from '../LanguageUtil';
 
 export class SequenceParser {
     public static parse(sequences: string[]): Sequences {

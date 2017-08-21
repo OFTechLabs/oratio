@@ -17,11 +17,9 @@ export class LevenshteinDistanceMatcher implements IWordMatcher {
         return Math.floor(toMatchWith.length / 4);
     }
 
-    private levenshtein(
-        word: string,
-        toMatchWith: string,
-        requiredDistance: number,
-    ): boolean {
+    private levenshtein(word: string,
+                        toMatchWith: string,
+                        requiredDistance: number,): boolean {
         const lengthOfWord = word ? word.length : 0;
         const lengthOfMatchCandidate = toMatchWith ? toMatchWith.length : 0;
 
@@ -39,12 +37,10 @@ export class LevenshteinDistanceMatcher implements IWordMatcher {
         return distance <= requiredDistance;
     }
 
-    private calculateDistance(
-        word: string,
-        toMatchWith: string,
-        lengthOfWord: number,
-        lengthOfMatchCandidate: number,
-    ): number {
+    private calculateDistance(word: string,
+                              toMatchWith: string,
+                              lengthOfWord: number,
+                              lengthOfMatchCandidate: number,): number {
         const matrix = new Array<number[]>(lengthOfMatchCandidate + 1);
         for (let i = 0; i <= lengthOfMatchCandidate; ++i) {
             const row = (matrix[i] = new Array<number>(lengthOfWord + 1));

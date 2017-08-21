@@ -1,4 +1,4 @@
-import { LevenshteinDistanceMatcher } from '../../words/LevenshteinDistanceMatcher';
+import {LevenshteinDistanceMatcher} from '../../words/LevenshteinDistanceMatcher';
 
 export interface IParameterParser {
     parse(words: string[]): string[];

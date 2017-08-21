@@ -1,33 +1,26 @@
-import { Silence } from '../../emergent/neurons/responses/Silence';
-import { LevenshteinDistanceMatcher } from '../../language/words/LevenshteinDistanceMatcher';
-import {
-    INeuronResponse,
-    SimpleResponse,
-} from '../../emergent/neurons/responses/SimpleResponse';
-import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
-import { NumberOfKnownWordsCertaintyCalculator } from '../../language/sequences/NumberOfKnownWordsCertaintyCalculator';
-import { RequestContext } from '../../emergent/RequestContext';
+import {Silence} from '../../emergent/neurons/responses/Silence';
+import {LevenshteinDistanceMatcher} from '../../language/words/LevenshteinDistanceMatcher';
+import {INeuronResponse, SimpleResponse,} from '../../emergent/neurons/responses/SimpleResponse';
+import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
+import {NumberOfKnownWordsCertaintyCalculator} from '../../language/sequences/NumberOfKnownWordsCertaintyCalculator';
+import {RequestContext} from '../../emergent/RequestContext';
 
 export class BaseMathNeuron implements IHiveMindNeuron {
     private knownOperators: string[];
     private response: string;
     private apply: (a: number, b: number) => number;
 
-    constructor(
-        knownOperators: string[],
-        response: string,
-        apply: (a: number, b: number) => number,
-    ) {
+    constructor(knownOperators: string[],
+                response: string,
+                apply: (a: number, b: number) => number,) {
         this.knownOperators = knownOperators;
         this.response = response;
         this.apply = apply;
     }
 
-    public process(
-        words: string[],
-        locale: string,
-        context: RequestContext,
-    ): Promise<INeuronResponse> {
+    public process(words: string[],
+                   locale: string,
+                   context: RequestContext,): Promise<INeuronResponse> {
         let index = 0;
         for (const word of words) {
             for (const knownOperator of this.knownOperators) {
@@ -51,12 +44,12 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                                 this.response,
                                 [
                                     '' +
-                                        this.roundToTwo(
-                                            this.apply(
-                                                possibleNumberOne,
-                                                possibleNumberTwo,
-                                            ),
+                                    this.roundToTwo(
+                                        this.apply(
+                                            possibleNumberOne,
+                                            possibleNumberTwo,
                                         ),
+                                    ),
                                 ],
                                 NumberOfKnownWordsCertaintyCalculator.calculate(
                                     3,
@@ -73,12 +66,12 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                                 this.response,
                                 [
                                     '' +
-                                        this.roundToTwo(
-                                            this.apply(
-                                                possibleNumberTwo,
-                                                possibleNumberThree,
-                                            ),
+                                    this.roundToTwo(
+                                        this.apply(
+                                            possibleNumberTwo,
+                                            possibleNumberThree,
                                         ),
+                                    ),
                                 ],
                                 NumberOfKnownWordsCertaintyCalculator.calculate(
                                     3,
@@ -95,12 +88,12 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                                 this.response,
                                 [
                                     '' +
-                                        this.roundToTwo(
-                                            this.apply(
-                                                possibleNumberTwo,
-                                                possibleNumberFour,
-                                            ),
+                                    this.roundToTwo(
+                                        this.apply(
+                                            possibleNumberTwo,
+                                            possibleNumberFour,
                                         ),
+                                    ),
                                 ],
                                 NumberOfKnownWordsCertaintyCalculator.calculate(
                                     3,

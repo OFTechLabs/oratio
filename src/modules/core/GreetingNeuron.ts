@@ -1,4 +1,3 @@
-import { MultipleSequenceNeuron } from '../../emergent/neurons/MultipleSequenceNeuron';
 import { INeuronResponse, SimpleResponse, } from '../../emergent/neurons/responses/SimpleResponse';
 import { WordAfterSequenceParser } from '../../language/parsers/parameters/WordAfterSequenceParser';
 import { SequenceParser } from '../../language/sequences/SequenceParser';
@@ -24,7 +23,7 @@ export class GreetingNeuron implements IHiveMindNeuron {
                     const localizedKnownParams: string[] = LocalizedWordsForLocaleFactory.createParams(
                         knownWords,
                         locale,
-                    ).words;
+                    );
                     const paramSequences = SequenceParser.parse(
                         localizedKnownParams,
                     );

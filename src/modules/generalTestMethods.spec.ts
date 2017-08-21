@@ -1,10 +1,10 @@
-import { IHiveMindNeuron } from '../emergent/HiveMindNeurons';
-import { SimpleResponse } from '../emergent/neurons/responses/SimpleResponse';
-import { GreetingNeuron } from './core/GreetingNeuron';
-import { RequestContext } from '../emergent/RequestContext';
+import {IHiveMindNeuron} from '../emergent/HiveMindNeurons';
+import {SimpleResponse} from '../emergent/neurons/responses/SimpleResponse';
+import {GreetingNeuron} from './core/GreetingNeuron';
+import {RequestContext} from '../emergent/RequestContext';
 
 describe('General test methods', () => {
-    it('should be able use general test methods', function() {
+    it('should be able use general test methods', function () {
         const testMethods = GeneralTestMethods.create(new GreetingNeuron());
 
         return testMethods.expectInputToGiveResponse('hi', 'oratio.core.hello');
@@ -54,17 +54,15 @@ export class GeneralTestMethods {
             });
     }
 
-    expectInputAndContextToGiveResponse(
-        input: string,
-        context: RequestContext,
-        response: string,
-    ): Promise<void> {
+    expectInputAndContextToGiveResponse(input: string,
+                                        context: RequestContext,
+                                        response: string,): Promise<void> {
         return this.neuron
             .process(input.split(' '), this.locale, context)
             .then(neuronResponse => {
                 expect(neuronResponse.hasAnswer()).toBeTruthy();
 
-                const simpleResponse = <SimpleResponse>neuronResponse;
+                const simpleResponse = neuronResponse as SimpleResponse;
 
                 expect(simpleResponse.response).toBe(response);
                 expect(simpleResponse.getCertainty()).toBeGreaterThanOrEqual(
@@ -73,12 +71,10 @@ export class GeneralTestMethods {
             });
     }
 
-    expectInputAndContextToGiveResponseWithParam(
-        input: string,
-        context: RequestContext,
-        response: string,
-        param: string,
-    ): Promise<void> {
+    expectInputAndContextToGiveResponseWithParam(input: string,
+                                                 context: RequestContext,
+                                                 response: string,
+                                                 param: string,): Promise<void> {
         return this.neuron
             .process(input.split(' '), this.locale, context)
             .then(neuronResponse => {
@@ -95,10 +91,8 @@ export class GeneralTestMethods {
             });
     }
 
-    expectInputToGiveResponseAndHaveParam(
-        input: string,
-        response: string,
-    ): Promise<void> {
+    expectInputToGiveResponseAndHaveParam(input: string,
+                                          response: string,): Promise<void> {
         return this.neuron
             .process(input.split(' '), this.locale, this.emptyContext)
             .then(neuronResponse => {
@@ -115,11 +109,9 @@ export class GeneralTestMethods {
             });
     }
 
-    expectInputToGiveResponseAndParam(
-        input: string,
-        response: string,
-        param: string,
-    ): Promise<void> {
+    expectInputToGiveResponseAndParam(input: string,
+                                      response: string,
+                                      param: string,): Promise<void> {
         return this.neuron
             .process(input.split(' '), this.locale, this.emptyContext)
             .then(neuronResponse => {

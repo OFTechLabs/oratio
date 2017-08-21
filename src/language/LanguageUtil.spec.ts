@@ -1,8 +1,8 @@
 import 'jest';
-import { LanguageUtil } from './LanguageUtil';
+import {LanguageUtil} from './LanguageUtil';
 
 describe('language util', () => {
-    it('should be able to determine if object is defined', function() {
+    it('should be able to determine if object is defined', function () {
         expect(LanguageUtil.isDefined(null)).toBe(false);
         expect(LanguageUtil.isDefined(undefined)).toBe(false);
         expect(LanguageUtil.isDefined({})).toBe(true);
@@ -10,7 +10,7 @@ describe('language util', () => {
         expect(LanguageUtil.isDefined('')).toBe(true);
     });
 
-    it('should be able to determine if it is a word', function() {
+    it('should be able to determine if it is a word', function () {
         expect(LanguageUtil.isWord(null)).toBe(false);
         expect(LanguageUtil.isWord(undefined)).toBe(false);
         expect(LanguageUtil.isWord('')).toBe(false);
@@ -18,7 +18,7 @@ describe('language util', () => {
         expect(LanguageUtil.isWord('hello')).toBe(true);
     });
 
-    it('should be able to determine if it is a sequence', function() {
+    it('should be able to determine if it is a sequence', function () {
         expect(LanguageUtil.isSequence(null)).toBe(false);
         expect(LanguageUtil.isSequence(undefined)).toBe(false);
         expect(LanguageUtil.isSequence([])).toBe(false);

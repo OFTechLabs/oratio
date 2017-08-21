@@ -1,14 +1,14 @@
-import { LocalizedWords } from '../../language/i18n/LocalizedWords';
+import {LocalizedWords} from '../../language/i18n/LocalizedWords';
 
 export const knownWords: LocalizedWords = {
-    main: {
-        en: {
-            words: ['identity', 'who are you', 'what are you'],
-        },
-        nl: {
-            words: ['identiteit', 'wie ben je', 'wat ben je'],
-        },
+    en: {
+        main: ['identity', 'who are you', 'what are you'],
+        params: [],
+        continuation: []
     },
-    params: {},
-    continuation: {},
+    nl: {
+        main: ['identiteit', 'wie ben je', 'wat ben je'],
+        params: [],
+        continuation: []
+    }
 };

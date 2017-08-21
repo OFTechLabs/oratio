@@ -1,8 +1,8 @@
-import { BasicHiveMindNeurons } from './HiveMindNeurons';
-import { GreetingNeuron } from '../modules/core/GreetingNeuron';
-import { TimeNeuron } from '../modules/core/TimeNeuron';
-import { SimpleResponse } from './neurons/responses/SimpleResponse';
-import { RequestContext } from './RequestContext';
+import {BasicHiveMindNeurons} from './HiveMindNeurons';
+import {GreetingNeuron} from '../modules/core/GreetingNeuron';
+import {TimeNeuron} from '../modules/core/TimeNeuron';
+import {SimpleResponse} from './neurons/responses/SimpleResponse';
+import {RequestContext} from './RequestContext';
 
 describe('BasicHiveMindNeurons', () => {
     let neurons: BasicHiveMindNeurons;
@@ -17,7 +17,7 @@ describe('BasicHiveMindNeurons', () => {
         );
     });
 
-    it('should detect fired neuron', function() {
+    it('should detect fired neuron', function () {
         return neurons
             .findMatch(
                 'What is the current time?'.split(' '),
@@ -43,7 +43,7 @@ describe('BasicHiveMindNeurons', () => {
             });
     });
 
-    it('should place fired neuron to the top', function() {
+    it('should place fired neuron to the top', function () {
         return neurons
             .findMatch(
                 'What is the current time?'.split(' '),

@@ -1,4 +1,4 @@
-# Oratio
+# Oratio [![Build Status](https://travis-ci.org/OFTechLabs/oratio.svg?branch=master)](https://travis-ci.org/OFTechLabs/oratio)
 
 Emergent natural language processing
 
@@ -8,9 +8,9 @@ Create a new _HiveMind_ with the _HiveMindBuilder_:
 
 ```typescript
     const mind = HiveMindBuilder.createEmpty()
-            .registerCoreModules()
-            .registerMathModules()
-            .build();
+                      .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
+                      .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
+                      .build();
 ```
 
 Give it user input:
@@ -48,8 +48,8 @@ Add the neuron in the builder:
 
 ```typescript
     const mind = HiveMindBuilder.createEmpty()
-            .registerCoreModules()
-            .registerMathModules()
+            .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
+            .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
             .register([new YourNeuronHere()])
             .build();
 ```

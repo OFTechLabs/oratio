@@ -1,8 +1,8 @@
 import 'jest';
-import { SequenceParser } from './SequenceParser';
+import {SequenceParser} from './SequenceParser';
 
 describe('Sequence Parser', () => {
-    it('should be able to parse sequences', function() {
+    it('should be able to parse sequences', function () {
         const sequence = [
             'hello',
             'this is the zodiac speaking',
@@ -29,7 +29,7 @@ describe('Sequence Parser', () => {
         });
     });
 
-    it('should be able to handle empty sequences', function() {
+    it('should be able to handle empty sequences', function () {
         const values = [null, undefined, []];
 
         values.forEach(value => {
