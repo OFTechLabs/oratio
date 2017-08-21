@@ -16,7 +16,6 @@ jobs:
         provider: npm
         email: techlabs@ortec-finance.com
         skip_cleanup: true
-        tag: latest
         api_key:
           secure: OdXtUz0ayjx873Van/PsUyctx7wFhWzPV1k3tbcRWANW+ZkwsvMs/MzcwVhWNd7sn6hmjICUPyzr4PsyWgeOG+K5Dw2nJNvxIxnf0cthKlQWkwGU0In6pRl2qjFuOLT4CbHlxMSfnCF3oSGdj6vK8OsD6c+0dteOqWevOLifnN/CAY7cIsgMQHRBOORMCNQ0Tp4UawgPH0yxIbvY9hfasNA7VBm+eeH0ttAaVOKZqpW7R4uJmq4KqRl+MeqWKQ0cTW4XoQIG2s0pfTVhGhyb852CU5l1jY8u2XcNcZRnRKepfVJQf7e+gfyBpkwhSIjQXcBpzG025fQdY0dAByu3znt4l7tuL0Rm8/sNx4ZmfvCSXuO3t6ND+82HCJjqqKoPIO6fzfh2kyrTmPE5da86T+gPJxt+H7wT3xBwAdjMHOVf86q7FPfdHuaP0SakYKwOF4cUHOwaPIAhjVRAPJFeWaHq7Je6ZrpffSgr8dFh0Ah9hZqc/bul7XRtlQBBXaHo8LpAfUD9sphxpG9jIRCmpEiqNOcn8u4bCBawypcHUPjX3j9EK8C53UkBUJQNgHM6fsnPoOysKnlth6mdenbnF/2O6neAooBunGckoB6uvRtGP1YItFsZeXwN/Ez9KKLsZLKYdrS2UemvN0tk0cbrkSHotKsIyOOel8IXk5QAn5M=
         on:
