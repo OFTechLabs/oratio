@@ -1,7 +1,7 @@
 {
     "name": "@oratio/oratio",
-    "version": "0.0.7",
-    "description": "conversational interface framework",
+    "version": "0.0.8",
+    "description": "Conversational interface framework",
     "keywords": [
         "nlp",
         "conversational"
