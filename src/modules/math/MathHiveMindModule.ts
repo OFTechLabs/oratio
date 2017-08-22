@@ -1,12 +1,24 @@
-import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
-import {ILocalizedHiveMindModule} from '../HiveMindModule';
-import {MathHiveMindTranslations} from "./MathHiveMindTranslations";
-import {MathNeurons} from "./mathNeurons";
+import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
+import { ILocalizedHiveMindModule } from '../HiveMindModule';
+import { MathHiveMindTranslations } from './MathHiveMindTranslations';
+import { AdditionNeuron } from './AdditionNeuron';
+import { DivisionNeuron } from './DivisionNeuron';
+import { MultiplicationNeuron } from './MultiplicationNeuron';
+import { SubstractionNeuron } from './SubstractionNeuron';
+
+export const getMathNeurons: () => IHiveMindNeuron[] = () => {
+    return [
+        new AdditionNeuron(),
+        new DivisionNeuron(),
+        new MultiplicationNeuron(),
+        new SubstractionNeuron(),
+    ];
+};
 
 export class MathHiveMindModule implements ILocalizedHiveMindModule {
 
     public static MATH_HIVE_MIND_MODULE: MathHiveMindModule = new MathHiveMindModule(
-        MathNeurons.getMathNeurons(),
+        getMathNeurons(),
         {});
 
     private constructor(private _neurons: IHiveMindNeuron[],
