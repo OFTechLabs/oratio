@@ -1,11 +1,17 @@
 import {ILocalizedHiveMindModule} from '../HiveMindModule';
 import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 import {CoreHiveMindTranslations} from './CoreHiveMindTranslations';
-import {CoreNeurons} from "./coreNeurons";
+import { IdentityNeuron } from './IdentityNeuron';
+import { TimeNeuron } from './TimeNeuron';
+import { GreetingNeuron } from './GreetingNeuron';
+
+export const getCoreNeurons: () => IHiveMindNeuron[] = () => {
+    return [new GreetingNeuron(), new IdentityNeuron(), new TimeNeuron()];
+}
 
 export class CoreHiveMindModule implements ILocalizedHiveMindModule {
     public static CORE_HIVE_MIND_MODULE: CoreHiveMindModule = new CoreHiveMindModule(
-        CoreNeurons.getCoreNeurons(),
+        getCoreNeurons(),
         {}
     );
 
