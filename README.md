@@ -7,16 +7,16 @@ Emergent natural language processing
 Create a new _HiveMind_ with the _HiveMindBuilder_:
 
 ```typescript
-    const mind = HiveMindBuilder.createEmpty()
-                      .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
-                      .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
-                      .build();
+const mind = HiveMindBuilder.createEmpty()
+                  .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
+                  .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
+                  .build();
 ```
 
 Give it user input:
 
 ```typescript
-    const response: Promise<IHiveResponse> = mind.process(input, "en", {})
+const response: Promise<IHiveResponse> = mind.process(input, "en", {})
 ```
 
 Show any applicable output to the user in any desired way, the response has the following fields:
@@ -47,11 +47,11 @@ public process(words: string[], locale: string, context: RequestContext): Promis
 Add the neuron in the builder:
 
 ```typescript
-    const mind = HiveMindBuilder.createEmpty()
-            .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
-            .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
-            .register([new YourNeuronHere()])
-            .build();
+const mind = HiveMindBuilder.createEmpty()
+        .registerModule(CoreHiveMindModule.CORE_HIVE_MIND_MODULE)
+        .registerModule(MathHiveMindModule.MATH_HIVE_MIND_MODULE)
+        .registerNeurons([new YourNeuronHere()])
+        .build();
 ```
 
 The array can obviously contain more neurons, as more custom neurons are created simply add them to the array.
@@ -76,4 +76,4 @@ The Hive processes all user input, it favors neurons who succesfully process use
 
 ### Response
 
-The response always contains a _response_, which is a code that can be localized by other applications. The response can also include an _action_ (function: () => void)  which the neuron thought the user intended. The action ca be executed on a certain _context_, allowing the calling-party to use injected services in the action.
+The response always contains a _response_, which is a code that can be localized by other applications. The response can also include an _action_ (function: () => void)  which the neuron thought the user intended. The action can be executed on a certain _context_, allowing the calling-party to use injected services in the action.
