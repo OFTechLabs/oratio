@@ -1,6 +1,7 @@
 import 'jest';
 import {MultiplicationNeuron} from './MultiplicationNeuron';
 import {GeneralTestMethods} from '../generalTestMethods.spec';
+import {BasicLocale} from "../../language/i18n/BasicLocale";
 
 describe('Multiplication neuron', () => {
     let generalTestMethods: GeneralTestMethods;
@@ -13,7 +14,7 @@ describe('Multiplication neuron', () => {
         );
         generalTestMethodsNL = GeneralTestMethods.create(
             new MultiplicationNeuron(),
-        ).withLocale('nl');
+        ).withLocale(new BasicLocale('nl', 'nl'));
     });
 
     it('should be able to handle 9 * 3', function () {

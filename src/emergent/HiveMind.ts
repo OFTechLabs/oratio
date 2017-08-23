@@ -4,15 +4,18 @@ import {SimpleResponse} from './neurons/responses/SimpleResponse';
 import {ActionResponse} from './neurons/responses/ActionResponse';
 import {ActionWithContextResponse} from './neurons/responses/ActionWithContextResponse';
 import {FailedResponse} from './FailedResponse';
-import {RequestContext} from './RequestContext';
 import {HiveMindInputNode} from './HiveMindInputNode';
 import {INeuronsResponse} from './NeuronsResponse';
 import {SilenceNeuron} from './SilenceNeuron';
 import {TranslationService} from "../language/i18n/TranslationService";
+import {BasicLocale, Locale} from "../language/i18n/BasicLocale";
+import {BasicUserInput} from "./BasicUserInput";
+import {BasicRequestContext} from "./BasicRequestContext";
+import {LanguageUtil} from "../language/LanguageUtil";
 
 export interface IHiveMind {
     process(input: string,
-            locale: string,
+            locale: Locale,
             clientModel: any,): Promise<IHiveResponse>;
 }
 
@@ -30,14 +33,14 @@ export class BasicHiveMind implements IHiveMind {
     }
 
     public process(input: string,
-                   locale: string,
+                   locale: Locale,
                    clientModel: any,): Promise<IHiveResponse> {
-        const words = input.split(' ');
 
-        const context = new RequestContext(this.previousInput, clientModel);
+        const basicInput = new BasicUserInput(input)
+        const nullSafeLocale = LanguageUtil.isDefined(locale) ? locale : new BasicLocale("", "");
+        const context = new BasicRequestContext(this.previousInput, clientModel, nullSafeLocale,);
         const neuronsResponsePromise = this.neurons.findMatch(
-            words,
-            locale,
+            basicInput,
             context,
         );
 
@@ -49,7 +52,7 @@ export class BasicHiveMind implements IHiveMind {
                     this.previousInput = new HiveMindInputNode(
                         this.previousInput,
                         neuronsResponse.getFiredNeuron(),
-                        words,
+                        basicInput,
                     );
 
                     const translatedResponse = TranslationService.translate(this.translations, response.response, response.params);
@@ -83,7 +86,7 @@ export class BasicHiveMind implements IHiveMind {
                 this.previousInput = new HiveMindInputNode(
                     this.previousInput,
                     SilenceNeuron.INSTANCE,
-                    words,
+                    basicInput,
                 );
                 return new FailedResponse('oratio.did.not.understand');
             },

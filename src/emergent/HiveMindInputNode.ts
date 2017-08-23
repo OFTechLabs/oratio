@@ -1,29 +1,21 @@
 import {IHiveMindNeuron} from './HiveMindNeurons';
+import {UserInput} from "./BasicUserInput";
 
 export class HiveMindInputNode {
-    constructor(previous: HiveMindInputNode | null,
-                neuronHandled: IHiveMindNeuron,
-                input: string[],) {
-        this._previous = previous;
-        this._neuronHandled = neuronHandled;
-        this._input = input;
+    constructor(private _previous: HiveMindInputNode | null,
+                private _neuronHandled: IHiveMindNeuron,
+                private _input: UserInput,) {
     }
-
-    private _previous: HiveMindInputNode | null;
 
     get previous(): HiveMindInputNode | null {
         return this._previous;
     }
 
-    private _neuronHandled: IHiveMindNeuron;
-
     get neuronHandled(): IHiveMindNeuron {
         return this._neuronHandled;
     }
 
-    private _input: string[];
-
-    get input(): string[] {
+    get input(): UserInput {
         return this._input;
     }
 }

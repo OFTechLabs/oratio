@@ -4,12 +4,13 @@ import {HiveMindBuilder} from './HiveMindBuilder';
 import {IHiveResponse} from './HiveResponse';
 import {CoreHiveMindModule} from '../modules/core/CoreHiveMindModule';
 import {MathHiveMindModule} from '../modules/math/MathHiveMindModule';
+import {BasicLocale, Locale} from "../language/i18n/BasicLocale";
 
 const chai = require('chai');
 
 describe('HiveMind', () => {
     let mind: IHiveMind;
-    const locale: string = 'en';
+    const locale: Locale = new BasicLocale('en', 'uk');
 
     beforeEach(() => {
         mind = HiveMindBuilder.createEmpty()
@@ -57,7 +58,7 @@ describe('HiveMind', () => {
 
         const promisesUnkownLocale = [];
         inputs.forEach(input => {
-            const responsePromise = mind.process(input.input, 'xx', null);
+            const responsePromise = mind.process(input.input, new BasicLocale('xx', 'yy'), null);
 
             responsePromise.then((response: IHiveResponse) => {
                 expect(response.response()).toBe(input.response);
@@ -91,7 +92,7 @@ describe('HiveMind', () => {
         ];
 
         return mind
-            .process(inputs[0].input, 'nl', null)
+            .process(inputs[0].input, new BasicLocale('nl', 'nl'), null)
             .then((response: IHiveResponse) => {
                 chai.assert(
                     response.response() === inputs[0].response,
@@ -102,7 +103,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[0].response,
                 );
-                return mind.process(inputs[1].input, 'nl', null);
+                return mind.process(inputs[1].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -114,7 +115,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[1].response,
                 );
-                return mind.process(inputs[2].input, 'nl', null);
+                return mind.process(inputs[2].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -126,7 +127,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[2].response,
                 );
-                return mind.process(inputs[3].input, 'nl', null);
+                return mind.process(inputs[3].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -138,7 +139,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[3].response,
                 );
-                return mind.process(inputs[4].input, 'nl', null);
+                return mind.process(inputs[4].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -150,7 +151,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[4].response,
                 );
-                return mind.process(inputs[5].input, 'nl', null);
+                return mind.process(inputs[5].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -162,7 +163,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[5].response,
                 );
-                return mind.process(inputs[6].input, 'nl', null);
+                return mind.process(inputs[6].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -174,7 +175,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[6].response,
                 );
-                return mind.process(inputs[7].input, 'nl', null);
+                return mind.process(inputs[7].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -186,7 +187,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[7].response,
                 );
-                return mind.process(inputs[8].input, 'nl', null);
+                return mind.process(inputs[8].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -198,7 +199,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[8].response,
                 );
-                return mind.process(inputs[9].input, 'nl', null);
+                return mind.process(inputs[9].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
@@ -210,7 +211,7 @@ describe('HiveMind', () => {
                     ' to give ' +
                     inputs[9].response,
                 );
-                return mind.process(inputs[10].input, 'nl', null);
+                return mind.process(inputs[10].input, new BasicLocale('nl', 'nl'), null);
             })
             .then((response: IHiveResponse) => {
                 chai.assert(
