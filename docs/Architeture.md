@@ -7,12 +7,15 @@ Brief description of the architecture of Oratio, it all works through an emergen
 The basic building blocks are the _neurons_ and all knowledge is contained within the _neurons_. A Neuron implements the following interface:
 
 ```typescript
-process(words: string[], locale: string, context: RequestContext): NeuronResponse
+export interface IHiveMindNeuron {
+    process(userInput: UserInput,
+            context: RequestContext,): Promise<INeuronResponse>;
+}
 ```
 
 The _locale_ might be used by the neuron or it might be ignored, it depends entirely on the neuron.
 
-Where a NeuronResponse contains nothing (a Silence response) or:
+If a neuron does not know how to handle a certain input, an empty response should be returend (a `SilenceResponse`). If a neuron does know how to handle it, the following fields must be returned:
 
 ```typescript
     response: string;
@@ -30,12 +33,12 @@ The response can be used to respond to the user along with some parameters, wher
 
 The _HiveMind_ contains all _neurons_ and gives user input to _neurons_ until an appropriate response is found. It implements the following interface:
 ```typescript
-public process(input: string, locale: string, clientModel: any): IHiveResponse
+public process(input: string, locale: {language: string, region: string}, clientModel: any): Promsie<IHiveResponse>
 ```
 
 The _input_ is from the user, the locale is from the user but it is important to note that it's entirely up to the neurons whether to use it or not. They might not be used by the neuron. 
 
-Where the IHiveResponse always contains a response and if the _neurons_ in the _HiveMind_ figured out what to do with the user input it contains:
+Where the IHiveResponse always contains a response and if the _neurons_ in the _HiveMind_ figured out what to do with the user input it contains at least one:
  
  ```typescript
     response: string,
@@ -44,7 +47,7 @@ Where the IHiveResponse always contains a response and if the _neurons_ in the _
     context: any
  ```
  
- Not all responses contain an action to execute, so usually the action will be a function which does nothing. The response however will always contain a message that can be localized along with parameters if necessary.
+Not all responses contain an action to execute, so usually the action will be a function which does nothing. The response however will always contain a message that can be localized along with parameters if necessary. If Multiple neurons knew how to handle the input, multiple responses might be returned.
  
 ### Recently fired preference
 

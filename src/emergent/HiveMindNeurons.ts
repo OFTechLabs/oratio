@@ -5,7 +5,7 @@ import {UserInput} from "./BasicUserInput";
 import {RequestContext} from "./BasicRequestContext";
 
 export interface IHiveMindNeurons {
-    findMatch(userInput: UserInput,
+    findMatch(input: UserInput,
               context: RequestContext,): Promise<INeuronsResponse>;
 }
 
