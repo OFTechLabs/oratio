@@ -1,6 +1,7 @@
 import 'jest';
 import {AdditionNeuron} from './AdditionNeuron';
 import {GeneralTestMethods} from '../generalTestMethods.spec';
+import {BasicLocale} from "../../language/i18n/BasicLocale";
 
 describe('Addition neuron', () => {
     let generalTestMethods: GeneralTestMethods;
@@ -11,7 +12,7 @@ describe('Addition neuron', () => {
         generalTestMethods = GeneralTestMethods.create(new AdditionNeuron());
         generalTestMethodsNL = GeneralTestMethods.create(
             new AdditionNeuron(),
-        ).withLocale('nl');
+        ).withLocale(new BasicLocale('nl', 'nl'));
     });
 
     it('should be able to handle 2 + 3', function () {

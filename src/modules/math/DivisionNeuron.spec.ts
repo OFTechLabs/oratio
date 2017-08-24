@@ -1,6 +1,7 @@
 import 'jest';
 import {DivisionNeuron} from './DivisionNeuron';
 import {GeneralTestMethods} from '../generalTestMethods.spec';
+import {BasicLocale} from "../../language/i18n/BasicLocale";
 
 describe('Divison neuron', () => {
     let generalTestMethods: GeneralTestMethods;
@@ -11,7 +12,7 @@ describe('Divison neuron', () => {
         generalTestMethods = GeneralTestMethods.create(new DivisionNeuron());
         generalTestMethodsNL = GeneralTestMethods.create(
             new DivisionNeuron(),
-        ).withLocale('nl');
+        ).withLocale(new BasicLocale('nl', 'nl'));
     });
 
     it('should be able to handle 9 / 3', function () {
