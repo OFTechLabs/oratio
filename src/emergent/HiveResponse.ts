@@ -1,8 +1,16 @@
 export interface IHiveResponse {
+    responses(): ISingleResponse[];
+
+    single(): ISingleResponse;
+
     response(): string;
 }
 
-export class UnderstoodResponse implements IHiveResponse {
+export interface ISingleResponse {
+    response(): string;
+}
+
+export class UnderstoodResponse implements ISingleResponse {
     constructor(private _response: string,
                 private _params: string[],
                 private _certainty: number,
@@ -29,4 +37,23 @@ export class UnderstoodResponse implements IHiveResponse {
     public response(): string {
         return this._response;
     }
+}
+
+export class UnderstoodResponses implements IHiveResponse {
+
+    constructor(private _responses: UnderstoodResponse[]) {
+    }
+
+    public response(): string {
+        return this.single().response();
+    }
+
+    public responses(): ISingleResponse[] {
+        return this._responses;
+    }
+
+    public single(): ISingleResponse {
+        return this._responses[0];
+    }
+
 }

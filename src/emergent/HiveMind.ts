@@ -1,9 +1,9 @@
-import {IHiveResponse, UnderstoodResponse} from './HiveResponse';
+import {IHiveResponse, UnderstoodResponse, UnderstoodResponses} from './HiveResponse';
 import {IHiveMindNeurons} from './HiveMindNeurons';
 import {SimpleResponse} from './neurons/responses/SimpleResponse';
 import {ActionResponse} from './neurons/responses/ActionResponse';
 import {ActionWithContextResponse} from './neurons/responses/ActionWithContextResponse';
-import {FailedResponse} from './FailedResponse';
+import {FailedResponses} from './FailedResponse';
 import {HiveMindInputNode} from './HiveMindInputNode';
 import {INeuronsResponse} from './NeuronsResponse';
 import {SilenceNeuron} from './SilenceNeuron';
@@ -57,29 +57,29 @@ export class BasicHiveMind implements IHiveMind {
 
                     const translatedResponse = TranslationService.translate(this.translations, response.response, response.params);
                     if (response instanceof ActionWithContextResponse) {
-                        return new UnderstoodResponse(
+                        return new UnderstoodResponses([new UnderstoodResponse(
                             translatedResponse,
                             response.params,
                             response.getCertainty(),
                             response.action,
                             response.context,
-                        );
+                        )]);
                     } else if (response instanceof ActionResponse) {
-                        return new UnderstoodResponse(
+                        return new UnderstoodResponses([new UnderstoodResponse(
                             translatedResponse,
                             response.params,
                             response.getCertainty(),
                             response.action,
                             BasicHiveMind.EMPTY_CONTEXT,
-                        );
+                        )]);
                     } else if (response instanceof SimpleResponse) {
-                        return new UnderstoodResponse(
+                        return new UnderstoodResponses([new UnderstoodResponse(
                             translatedResponse,
                             response.params,
                             response.getCertainty(),
                             BasicHiveMind.EMPTY_ACTION,
                             BasicHiveMind.EMPTY_CONTEXT,
-                        );
+                        )]);
                     }
                 }
 
@@ -88,7 +88,7 @@ export class BasicHiveMind implements IHiveMind {
                     SilenceNeuron.INSTANCE,
                     basicInput,
                 );
-                return new FailedResponse('oratio.did.not.understand');
+                return new FailedResponses('oratio.did.not.understand');
             },
         );
     }
