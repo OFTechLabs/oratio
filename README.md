@@ -16,10 +16,21 @@ const mind = HiveMindBuilder.createEmpty()
 Give it user input:
 
 ```typescript
-const response: Promise<IHiveResponse> = mind.process(input, "en", {})
+const response: Promise<IHiveResponse> = mind.process(input, locale, clientModel)
 ```
 
 Show any applicable output to the user in any desired way, the response has the following fields:
+
+```typescript
+{
+   responses(): SingleResponse[],
+   single(): ISingleResponse,
+   response(): string
+    
+}
+```
+
+Where a `SingleResponse` contains the following:
 
 ```typescript
 {
@@ -65,10 +76,13 @@ There is no single major intelligence responsible for the system, instead every 
 A neuron can easily be added to the hive, all it has to do is implement the following function:
 
 ```typescript
-public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse>
+export interface IHiveMindNeuron {
+    process(userInput: UserInput,
+            context: RequestContext): Promise<INeuronResponse>;
+}
 ```
 
-then it has to be registered with the hive who manages all neurons.
+then it has to be registered with the hive that manages all neurons.
 
 ### Hive
 

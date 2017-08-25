@@ -1,6 +1,7 @@
 import 'jest';
 import {GreetingNeuron} from './GreetingNeuron';
 import {GeneralTestMethods} from '../generalTestMethods.spec';
+import {BasicLocale} from "../../language/i18n/BasicLocale";
 
 describe('Greeting neuron', () => {
     let generalTestMethods: GeneralTestMethods;
@@ -11,7 +12,7 @@ describe('Greeting neuron', () => {
         generalTestMethods = GeneralTestMethods.create(new GreetingNeuron());
         generalTestMethodsNL = GeneralTestMethods.create(
             new GreetingNeuron(),
-        ).withLocale('nl');
+        ).withLocale(new BasicLocale('nl', 'nl'));
     });
 
     it('should be able to handle hello', function () {

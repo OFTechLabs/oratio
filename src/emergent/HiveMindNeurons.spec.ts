@@ -2,7 +2,9 @@ import {BasicHiveMindNeurons} from './HiveMindNeurons';
 import {GreetingNeuron} from '../modules/core/GreetingNeuron';
 import {TimeNeuron} from '../modules/core/TimeNeuron';
 import {SimpleResponse} from './neurons/responses/SimpleResponse';
-import {RequestContext} from './RequestContext';
+import {BasicLocale} from "../language/i18n/BasicLocale";
+import {BasicUserInput} from "./BasicUserInput";
+import {BasicRequestContext} from "./BasicRequestContext";
 
 describe('BasicHiveMindNeurons', () => {
     let neurons: BasicHiveMindNeurons;
@@ -20,9 +22,8 @@ describe('BasicHiveMindNeurons', () => {
     it('should detect fired neuron', function () {
         return neurons
             .findMatch(
-                'What is the current time?'.split(' '),
-                locale,
-                new RequestContext(null, null),
+                new BasicUserInput('What is the current time?'),
+                new BasicRequestContext(null, null, new BasicLocale('en', 'us')),
             )
             .then(response => {
                 expect((<SimpleResponse>response.getResponse()).response).toBe(
@@ -30,9 +31,8 @@ describe('BasicHiveMindNeurons', () => {
                 );
                 expect(response.getFiredNeuron()).toBe(timeNeuron);
                 return neurons.findMatch(
-                    ['hello'],
-                    locale,
-                    new RequestContext(null, null),
+                    new BasicUserInput('hello'),
+                    new BasicRequestContext(null, null, new BasicLocale('en', 'us')),
                 );
             })
             .then(response => {
@@ -46,9 +46,8 @@ describe('BasicHiveMindNeurons', () => {
     it('should place fired neuron to the top', function () {
         return neurons
             .findMatch(
-                'What is the current time?'.split(' '),
-                locale,
-                new RequestContext(null, null),
+                new BasicUserInput('What is the current time?'),
+                new BasicRequestContext(null, null, new BasicLocale('en', 'us')),
             )
             .then(response => {
                 expect((<SimpleResponse>response.getResponse()).response).toBe(
