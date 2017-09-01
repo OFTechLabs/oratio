@@ -1,9 +1,9 @@
-import { INeuronResponse, SimpleResponse } from './neurons/responses/SimpleResponse';
 import { UnderstoodResponse, UnderstoodResponses } from './HiveResponse';
 import { EMPTY_ACTION, EMPTY_CONTEXT } from './HiveMind';
-import { ActionResponse } from './neurons/responses/ActionResponse';
-import { ActionWithContextResponse } from './neurons/responses/ActionWithContextResponse';
-import { TranslationService } from '../language/i18n/TranslationService';
+import { INeuronResponse, SimpleResponse } from '../neurons/responses/SimpleResponse';
+import { TranslationService } from '../../language/i18n/TranslationService';
+import { ActionWithContextResponse } from '../neurons/responses/ActionWithContextResponse';
+import { ActionResponse } from '../neurons/responses/ActionResponse';
 
 export class UnderstoodResponseFactory {
 

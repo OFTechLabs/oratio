@@ -1,6 +1,6 @@
 import { NeuronsResponse, SingleNeuronsResponse } from './NeuronsResponse';
-import { INeuronResponse } from './neurons/responses/SimpleResponse';
 import { IHiveMindNeuron } from './HiveMindNeurons';
+import { INeuronResponse } from '../../emergentModule';
 
 export class NeuronsResponseFactory {
 
@@ -9,7 +9,7 @@ export class NeuronsResponseFactory {
 
         return new NeuronsResponse(
             [singleResponse],
-            singleResponse
+            singleResponse,
         );
     }
 }

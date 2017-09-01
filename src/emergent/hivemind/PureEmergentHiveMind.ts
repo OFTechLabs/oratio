@@ -1,15 +1,15 @@
 import { IHiveMind } from './HiveMind';
-import { BasicLocale, Locale } from '../language/i18n/BasicLocale';
 import { IHiveResponse } from './HiveResponse';
 import { HiveMindInputNode } from './HiveMindInputNode';
-import { BasicUserInput } from './BasicUserInput';
-import { LanguageUtil } from '../language/LanguageUtil';
-import { BasicRequestContext } from './BasicRequestContext';
-import { INeuronsResponse } from './NeuronsResponse';
-import { SilenceNeuron } from './SilenceNeuron';
-import { FailedResponses } from './FailedResponse';
-import { IHiveMindNeurons } from './HiveMindNeurons';
 import { UnderstoodResponseFactory } from './UnderstoodResponseFactory';
+import { IHiveMindNeurons } from './neurons/HiveMindNeurons';
+import { BasicLocale, Locale } from '../../language/i18n/BasicLocale';
+import { BasicUserInput } from '../BasicUserInput';
+import { LanguageUtil } from '../../language/LanguageUtil';
+import { BasicRequestContext } from '../BasicRequestContext';
+import { INeuronsResponse } from './neurons/NeuronsResponse';
+import { SilenceNeuron } from '../SilenceNeuron';
+import { FailedResponses } from '../FailedResponse';
 
 export class PureEmergentHiveMind implements IHiveMind {
 

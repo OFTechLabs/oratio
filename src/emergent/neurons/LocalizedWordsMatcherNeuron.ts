@@ -4,8 +4,8 @@ import {LocalizedWordsForLocaleFactory} from '../../language/i18n/LocalizedWords
 import {SequenceParser} from '../../language/sequences/SequenceParser';
 import {MultipleSequenceNeuron} from './MultipleSequenceNeuron';
 import {UserInput} from "../BasicUserInput";
-import {IHiveMindNeuron} from "../HiveMindNeurons";
 import {RequestContext} from "../BasicRequestContext";
+import { IHiveMindNeuron } from '../hivemind/neurons/HiveMindNeurons';
 
 export class LocalizedWordsMatcherNeuron implements IHiveMindNeuron {
 

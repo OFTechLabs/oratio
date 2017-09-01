@@ -1,11 +1,11 @@
 import {LevenshteinDistanceMatcher} from '../../language/words/LevenshteinDistanceMatcher';
 import {Silence} from './responses/Silence';
 import {INeuronResponse, SimpleResponse} from './responses/SimpleResponse';
-import {IHiveMindNeuron} from '../HiveMindNeurons';
 import {NumberOfKnownWordsCertaintyCalculator} from '../../language/sequences/NumberOfKnownWordsCertaintyCalculator';
 import {Sequences} from '../../language/sequences/Sequences';
 import {RequestContext} from "../BasicRequestContext";
 import {UserInput} from "../BasicUserInput";
+import { IHiveMindNeuron } from '../hivemind/neurons/HiveMindNeurons';
 
 export class MultipleSequenceNeuron implements IHiveMindNeuron {
 

@@ -1,8 +1,8 @@
-import { SimpleResponse } from './neurons/responses/SimpleResponse';
 import { UnderstoodResponseFactory } from './UnderstoodResponseFactory';
 import { UnderstoodResponse } from './HiveResponse';
-import { ActionResponse } from './neurons/responses/ActionResponse';
-import { ActionWithContextResponse } from './neurons/responses/ActionWithContextResponse';
+import { SimpleResponse } from '../neurons/responses/SimpleResponse';
+import { ActionResponse } from '../neurons/responses/ActionResponse';
+import { ActionWithContextResponse } from '../neurons/responses/ActionWithContextResponse';
 
 describe('UnderstoodResponseFactory', () => {
 

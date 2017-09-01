@@ -1,5 +1,6 @@
-import {IHiveMindNeuron} from './HiveMindNeurons';
-import {UserInput} from "./BasicUserInput";
+
+import { IHiveMindNeuron } from './neurons/HiveMindNeurons';
+import { UserInput } from '../BasicUserInput';
 
 export class HiveMindInputNode {
     constructor(private _previous: HiveMindInputNode | null,

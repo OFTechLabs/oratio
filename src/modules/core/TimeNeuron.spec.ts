@@ -1,10 +1,10 @@
 import 'jest';
 import {TimeNeuron} from './TimeNeuron';
 import {GeneralTestMethods} from '../generalTestMethods.spec';
-import {HiveMindInputNode} from '../../emergent/HiveMindInputNode';
 import {BasicLocale} from "../../language/i18n/BasicLocale";
 import {BasicUserInput, UserInput} from "../../emergent/BasicUserInput";
 import {BasicRequestContext} from "../../emergent/BasicRequestContext";
+import { HiveMindInputNode } from '../../emergent/hivemind/HiveMindInputNode';
 
 describe('Time neuron', () => {
     let generalTestMethods: GeneralTestMethods;

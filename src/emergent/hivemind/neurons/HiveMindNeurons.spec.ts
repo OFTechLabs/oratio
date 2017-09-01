@@ -1,10 +1,10 @@
 import {BasicHiveMindNeurons} from './HiveMindNeurons';
-import {GreetingNeuron} from '../modules/core/GreetingNeuron';
-import {TimeNeuron} from '../modules/core/TimeNeuron';
-import {SimpleResponse} from './neurons/responses/SimpleResponse';
-import {BasicLocale} from "../language/i18n/BasicLocale";
-import {BasicUserInput} from "./BasicUserInput";
-import {BasicRequestContext} from "./BasicRequestContext";
+import { GreetingNeuron } from '../../../modules/core/GreetingNeuron';
+import { TimeNeuron } from '../../../modules/core/TimeNeuron';
+import { BasicUserInput } from '../../BasicUserInput';
+import { BasicRequestContext } from '../../BasicRequestContext';
+import { BasicLocale } from '../../../language/i18n/BasicLocale';
+import { SimpleResponse } from '../../neurons/responses/SimpleResponse';
 
 describe('BasicHiveMindNeurons', () => {
     let neurons: BasicHiveMindNeurons;

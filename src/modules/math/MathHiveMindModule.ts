@@ -1,10 +1,10 @@
-import { IHiveMindNeuron } from '../../emergent/HiveMindNeurons';
 import { ILocalizedHiveMindModule } from '../HiveMindModule';
 import { MathHiveMindTranslations } from './MathHiveMindTranslations';
 import { AdditionNeuron } from './AdditionNeuron';
 import { DivisionNeuron } from './DivisionNeuron';
 import { MultiplicationNeuron } from './MultiplicationNeuron';
 import { SubstractionNeuron } from './SubstractionNeuron';
+import { IHiveMindNeuron } from '../../emergent/hivemind/neurons/HiveMindNeurons';
 
 export const getMathNeurons: () => IHiveMindNeuron[] = () => {
     return [

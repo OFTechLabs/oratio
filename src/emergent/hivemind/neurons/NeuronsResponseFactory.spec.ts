@@ -1,6 +1,6 @@
-import { TimeNeuron } from '../modules/core/TimeNeuron';
+import { TimeNeuron } from '../../../modules/core/TimeNeuron';
+import { SimpleResponse } from '../../neurons/responses/SimpleResponse';
 import { NeuronsResponseFactory } from './NeuronsResponseFactory';
-import { SimpleResponse } from './neurons/responses/SimpleResponse';
 
 describe('NeuronsResponseFactory', () => {
 

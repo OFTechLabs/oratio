@@ -1,5 +1,5 @@
 import { IHiveMindNeuron } from './HiveMindNeurons';
-import { INeuronResponse } from './neurons/responses/SimpleResponse';
+import { INeuronResponse } from '../../neurons/responses/SimpleResponse';
 
 export interface ISingleNeuronsResponse {
     getFiredNeuron(): IHiveMindNeuron;

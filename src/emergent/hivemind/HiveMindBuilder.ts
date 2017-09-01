@@ -1,7 +1,7 @@
-import {BasicHiveMindNeurons, IHiveMindNeuron} from './HiveMindNeurons';
 import {BasicHiveMind, IHiveMind} from './HiveMind';
-import {IHiveMindModule, ILocalizedHiveMindModule} from '../modules/HiveMindModule';
-import {LanguageUtil} from "../language/LanguageUtil";
+import { BasicHiveMindNeurons, IHiveMindNeuron } from './neurons/HiveMindNeurons';
+import { IHiveMindModule, ILocalizedHiveMindModule } from '../../modules/HiveMindModule';
+import { LanguageUtil } from '../../language/LanguageUtil';
 
 export class HiveMindBuilder {
     private neurons: IHiveMindNeuron[];

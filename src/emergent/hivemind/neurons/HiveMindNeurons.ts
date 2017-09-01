@@ -1,10 +1,10 @@
-import { Silence } from './neurons/responses/Silence';
-import { INeuronResponse } from './neurons/responses/SimpleResponse';
 import { INeuronsResponse, NeuronsResponse, SingleNeuronsResponse } from './NeuronsResponse';
-import { UserInput } from './BasicUserInput';
-import { RequestContext } from './BasicRequestContext';
-import { SilenceNeuron } from './SilenceNeuron';
 import { NeuronsResponseFactory } from './NeuronsResponseFactory';
+import { UserInput } from '../../BasicUserInput';
+import { RequestContext } from '../../BasicRequestContext';
+import { INeuronResponse } from '../../neurons/responses/SimpleResponse';
+import { SilenceNeuron } from '../../SilenceNeuron';
+import { Silence } from '../../neurons/responses/Silence';
 
 export interface IHiveMindNeurons {
     findMatch(input: UserInput,

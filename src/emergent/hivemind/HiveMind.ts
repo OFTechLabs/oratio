@@ -1,15 +1,15 @@
 import { IHiveResponse } from './HiveResponse';
-import { IHiveMindNeurons } from './HiveMindNeurons';
-import { SimpleResponse } from './neurons/responses/SimpleResponse';
-import { FailedResponses } from './FailedResponse';
-import { HiveMindInputNode } from './HiveMindInputNode';
-import { INeuronsResponse } from './NeuronsResponse';
-import { SilenceNeuron } from './SilenceNeuron';
-import { BasicLocale, Locale } from '../language/i18n/BasicLocale';
-import { BasicUserInput } from './BasicUserInput';
-import { BasicRequestContext } from './BasicRequestContext';
-import { LanguageUtil } from '../language/LanguageUtil';
 import { UnderstoodResponseFactory } from './UnderstoodResponseFactory';
+import { BasicLocale, Locale } from '../../language/i18n/BasicLocale';
+import { HiveMindInputNode } from './HiveMindInputNode';
+import { IHiveMindNeurons } from './neurons/HiveMindNeurons';
+import { BasicUserInput } from '../BasicUserInput';
+import { LanguageUtil } from '../../language/LanguageUtil';
+import { BasicRequestContext } from '../BasicRequestContext';
+import { INeuronsResponse } from './neurons/NeuronsResponse';
+import { SimpleResponse } from '../neurons/responses/SimpleResponse';
+import { SilenceNeuron } from '../SilenceNeuron';
+import { FailedResponses } from '../FailedResponse';
 
 export interface IHiveMind {
     process(input: string,

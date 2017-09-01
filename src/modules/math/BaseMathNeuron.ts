@@ -1,10 +1,10 @@
 import {Silence} from '../../emergent/neurons/responses/Silence';
 import {LevenshteinDistanceMatcher} from '../../language/words/LevenshteinDistanceMatcher';
 import {INeuronResponse, SimpleResponse,} from '../../emergent/neurons/responses/SimpleResponse';
-import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 import {NumberOfKnownWordsCertaintyCalculator} from '../../language/sequences/NumberOfKnownWordsCertaintyCalculator';
 import {RequestContext} from "../../emergent/BasicRequestContext";
 import {UserInput} from "../../emergent/BasicUserInput";
+import { IHiveMindNeuron } from '../../emergent/hivemind/neurons/HiveMindNeurons';
 
 export class BaseMathNeuron implements IHiveMindNeuron {
 

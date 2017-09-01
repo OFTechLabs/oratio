@@ -1,8 +1,8 @@
-import {HiveMindInputNode} from './HiveMindInputNode';
 import {LanguageUtil} from '../language/LanguageUtil';
-import {IHiveMindNeuron} from './HiveMindNeurons';
 import {SilenceNeuron} from './SilenceNeuron';
 import {Locale} from "../language/i18n/BasicLocale";
+import { HiveMindInputNode } from './hivemind/HiveMindInputNode';
+import { IHiveMindNeuron } from './hivemind/neurons/HiveMindNeurons';
 
 export interface RequestContext {
     previousInput(): HiveMindInputNode | null;
