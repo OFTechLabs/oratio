@@ -36,7 +36,6 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
                      context: RequestContext,): Promise<INeuronsResponse> {
         return new Promise((resolve, reject) => {
             let potentialResponse: INeuronsResponse = getEmptyNeuronsResponse();
-            let potentialResponseIndex: number;
             let maxCertainty = 0;
 
             const neuronResponses: Array<Promise<INeuronResponse>> = [];
@@ -51,13 +50,12 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
                         if (
                             response.getCertainty() >= this.certaintyThreshold
                         ) {
-                            this.placeNeuronToTop(i);
+                            this.placeNeuronToTop(neuron);
                             resolve(NeuronsResponseFactory.create(neuron, response));
                         }
 
                         if (response.getCertainty() > maxCertainty) {
                             potentialResponse = NeuronsResponseFactory.create(neuron, response);
-                            potentialResponseIndex = i;
                             maxCertainty = response.getCertainty();
                         }
                     }
@@ -69,7 +67,7 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
             Promise.all(
                 neuronResponses,
             ).then((allResolved: INeuronResponse[]) => {
-                this.placeNeuronToTop(potentialResponseIndex);
+                this.placeNeuronToTop(potentialResponse.getMostCertainResponse().getFiredNeuron());
                 resolve(potentialResponse);
             }).catch(error => {
                 console.error('A neuron rejected instead of resolved, ' +
@@ -82,11 +80,10 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
         });
     }
 
-    private placeNeuronToTop(i: number) {
-        if (i > 0) {
-            const swap = this.neurons[0];
-            this.neurons[0] = this.neurons[i];
-            this.neurons[i] = swap;
+    private placeNeuronToTop(toTop: IHiveMindNeuron) {
+        if (this.neurons.indexOf(toTop) > 0) {
+            this.neurons = this.neurons.filter(neuron => neuron !== toTop);
+            this.neurons = [toTop].concat(this.neurons);
         }
     }
 }

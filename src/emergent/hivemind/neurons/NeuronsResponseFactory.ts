@@ -1,6 +1,9 @@
-import { NeuronsResponse, SingleNeuronsResponse } from './NeuronsResponse';
+import { ISingleNeuronsResponse, NeuronsResponse, SingleNeuronsResponse } from './NeuronsResponse';
 import { IHiveMindNeuron } from './HiveMindNeurons';
 import { INeuronResponse } from '../../emergentModule';
+import { SilenceNeuron } from '../../SilenceNeuron';
+import { Silence } from '../../neurons/responses/Silence';
+import { LanguageUtil } from '../../../language/LanguageUtil';
 
 export class NeuronsResponseFactory {
 
@@ -10,6 +13,23 @@ export class NeuronsResponseFactory {
         return new NeuronsResponse(
             [singleResponse],
             singleResponse,
+        );
+    }
+
+    public static createMultiple(neurons: ISingleNeuronsResponse[]): NeuronsResponse {
+        if (LanguageUtil.isDefined(neurons) && neurons.length > 0) {
+
+            neurons.sort((neuronA, neuronB) => neuronB.getResponse().getCertainty() - neuronA.getResponse().getCertainty());
+
+            return new NeuronsResponse(
+                neurons,
+                neurons[0],
+            );
+        }
+
+        return new NeuronsResponse(
+            [],
+            new SingleNeuronsResponse(SilenceNeuron.INSTANCE, new Silence())
         );
     }
 }
