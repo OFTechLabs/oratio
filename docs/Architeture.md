@@ -33,7 +33,9 @@ The response can be used to respond to the user along with some parameters, wher
 
 The _HiveMind_ contains all _neurons_ and gives user input to _neurons_ until an appropriate response is found. It implements the following interface:
 ```typescript
-public process(input: string, locale: {language: string, region: string}, clientModel: any): Promsie<IHiveResponse>
+ process(input: string,
+         locale: Locale,
+         clientModel: any,): Promise<IHiveResponse>;
 ```
 
 The _input_ is from the user, the locale is from the user but it is important to note that it's entirely up to the neurons whether to use it or not. They might not be used by the neuron. 

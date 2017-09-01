@@ -24,7 +24,7 @@ Show any applicable output to the user in any desired way, the response has the 
 ```typescript
 {
    responses(): SingleResponse[],
-   single(): ISingleResponse,
+   single(): SingleResponse,
    response(): string
     
 }
