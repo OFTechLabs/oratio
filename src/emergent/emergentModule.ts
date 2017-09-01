@@ -2,6 +2,8 @@ export * from './BasicRequestContext';
 export * from './FailedResponse';
 export * from './SilenceNeuron';
 export * from './BasicUserInput';
+export * from './NeuronHints';
+export * from './NeuronHintsBuilder';
 
 export * from './neurons/LocalizedWordsMatcherNeuron';
 export * from './neurons/MultipleSequenceNeuron';

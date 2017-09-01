@@ -10,6 +10,7 @@ import { INeuronsResponse } from './neurons/NeuronsResponse';
 import { SimpleResponse } from '../neurons/responses/SimpleResponse';
 import { SilenceNeuron } from '../SilenceNeuron';
 import { FailedResponses } from '../FailedResponse';
+import { INeuronHints } from '../NeuronHints';
 
 export interface IHiveMind {
     process(input: string,
@@ -27,6 +28,7 @@ export class BasicHiveMind implements IHiveMind {
     private previousInput: HiveMindInputNode | null;
 
     constructor(private neurons: IHiveMindNeurons,
+                private neuronHints: INeuronHints,
                 private translations: { [key: string]: string }) {
         this.previousInput = null;
     }
@@ -37,7 +39,7 @@ export class BasicHiveMind implements IHiveMind {
 
         const basicInput = new BasicUserInput(input);
         const nullSafeLocale = LanguageUtil.isDefined(locale) ? locale : new BasicLocale('', '');
-        const context = new BasicRequestContext(this.previousInput, clientModel, nullSafeLocale,);
+        const context = new BasicRequestContext(this.previousInput,  clientModel, nullSafeLocale, this.neuronHints);
         const neuronsResponsePromise = this.neurons.findMatch(
             basicInput,
             context,
