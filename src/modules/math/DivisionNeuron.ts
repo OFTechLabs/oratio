@@ -1,10 +1,10 @@
 import {BaseMathNeuron} from './BaseMathNeuron';
-import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 import {INeuronResponse} from '../../emergent/neurons/responses/SimpleResponse';
 import {knownWords} from './DivisionNeuron.words';
 import {LocalizedWordsForLocaleFactory} from '../../language/i18n/LocalizedWordsForLocaleFactory';
 import {RequestContext} from "../../emergent/BasicRequestContext";
 import {UserInput} from "../../emergent/BasicUserInput";
+import { IHiveMindNeuron } from '../../emergent/hivemind/neurons/HiveMindNeurons';
 
 export class DivisionNeuron implements IHiveMindNeuron {
     public process(input: UserInput,

@@ -1,11 +1,11 @@
 import {MultipleSequenceNeuron} from '../../emergent/neurons/MultipleSequenceNeuron';
 import {INeuronResponse, SimpleResponse,} from '../../emergent/neurons/responses/SimpleResponse';
 import {SequenceParser} from '../../language/sequences/SequenceParser';
-import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 import {knownWords} from './TimeNeuron.words';
 import {LocalizedWordsForLocaleFactory} from '../../language/i18n/LocalizedWordsForLocaleFactory';
 import {RequestContext} from "../../emergent/BasicRequestContext";
 import {UserInput} from "../../emergent/BasicUserInput";
+import { IHiveMindNeuron } from '../../emergent/hivemind/neurons/HiveMindNeurons';
 
 export class TimeNeuron implements IHiveMindNeuron {
     public process(input: UserInput,
@@ -16,7 +16,7 @@ export class TimeNeuron implements IHiveMindNeuron {
         );
         if (
             context.hasPreviousInput() &&
-            context.previousNeuronHandled() instanceof TimeNeuron
+            context.mostCertainNeuronHandled() instanceof TimeNeuron
         ) {
             const continuations: string[] = LocalizedWordsForLocaleFactory.createContinuation(
                 knownWords,

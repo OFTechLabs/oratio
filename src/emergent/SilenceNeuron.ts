@@ -1,7 +1,7 @@
-import {IHiveMindNeuron} from './HiveMindNeurons';
 import {INeuronResponse} from './neurons/responses/SimpleResponse';
 import {UserInput} from "./BasicUserInput";
 import {RequestContext} from "./BasicRequestContext";
+import { IHiveMindNeuron } from './hivemind/neurons/HiveMindNeurons';
 
 export class SilenceNeuron implements IHiveMindNeuron {
     public static INSTANCE = new SilenceNeuron();

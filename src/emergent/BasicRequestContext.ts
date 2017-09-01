@@ -1,15 +1,17 @@
-import {HiveMindInputNode} from './HiveMindInputNode';
 import {LanguageUtil} from '../language/LanguageUtil';
-import {IHiveMindNeuron} from './HiveMindNeurons';
 import {SilenceNeuron} from './SilenceNeuron';
 import {Locale} from "../language/i18n/BasicLocale";
+import { HiveMindInputNode } from './hivemind/HiveMindInputNode';
+import { IHiveMindNeuron } from './hivemind/neurons/HiveMindNeurons';
 
 export interface RequestContext {
     previousInput(): HiveMindInputNode | null;
 
     clientModel(): any;
 
-    previousNeuronHandled(): IHiveMindNeuron;
+    previousNeuronsHandled(): IHiveMindNeuron[];
+
+    mostCertainNeuronHandled(): IHiveMindNeuron;
 
     hasPreviousInput(): boolean;
 
@@ -32,9 +34,17 @@ export class BasicRequestContext implements RequestContext {
         return this._clientModel;
     }
 
-    public previousNeuronHandled(): IHiveMindNeuron {
+    public previousNeuronsHandled(): IHiveMindNeuron[] {
         if (this.hasPreviousInput() && this._previousInput !== null) {
-            return this._previousInput.neuronHandled;
+            return this._previousInput.neuronsHandled;
+        }
+
+        return [];
+    }
+
+    public mostCertainNeuronHandled(): IHiveMindNeuron {
+        if (this.hasPreviousInput() && this._previousInput !== null) {
+            return this._previousInput.mostCertainNeuron;
         }
 
         return SilenceNeuron.INSTANCE;

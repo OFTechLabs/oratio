@@ -1,5 +1,4 @@
-import {IHiveResponse, ISingleResponse} from './HiveResponse';
-
+import { IHiveResponse, ISingleResponse } from './hivemind/HiveResponse';
 
 export class FailedResponse implements ISingleResponse {
     constructor(private _response: string) {

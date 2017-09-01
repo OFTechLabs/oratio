@@ -1,9 +1,9 @@
 import {ILocalizedHiveMindModule} from '../HiveMindModule';
-import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 import {CoreHiveMindTranslations} from './CoreHiveMindTranslations';
 import { IdentityNeuron } from './IdentityNeuron';
 import { TimeNeuron } from './TimeNeuron';
 import { GreetingNeuron } from './GreetingNeuron';
+import { IHiveMindNeuron } from '../../emergent/hivemind/neurons/HiveMindNeurons';
 
 export const getCoreNeurons: () => IHiveMindNeuron[] = () => {
     return [new GreetingNeuron(), new IdentityNeuron(), new TimeNeuron()];
