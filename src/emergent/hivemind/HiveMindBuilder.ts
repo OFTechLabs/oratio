@@ -1,17 +1,21 @@
-import {BasicHiveMind, IHiveMind} from './HiveMind';
+import { BasicHiveMind, IHiveMind } from './HiveMind';
 import { BasicHiveMindNeurons, IHiveMindNeuron } from './neurons/HiveMindNeurons';
 import { IHiveMindModule, ILocalizedHiveMindModule } from '../../modules/HiveMindModule';
 import { LanguageUtil } from '../../language/LanguageUtil';
+import { PureEmergentHiveMind } from './PureEmergentHiveMind';
+import { PureEmergentHiveMindNeurons } from './neurons/PureEmergentHiveMindNeurons';
 
 export class HiveMindBuilder {
     private neurons: IHiveMindNeuron[];
     private certaintyThreshold: number;
-    private translations: { [key: string]: string }
+    private translations: { [key: string]: string };
+    private pureEmergence: boolean;
 
     private constructor() {
         this.neurons = [];
         this.certaintyThreshold = 0.8;
         this.translations = {};
+        this.pureEmergence = false;
     }
 
     public static createEmpty(): HiveMindBuilder {
@@ -36,10 +40,22 @@ export class HiveMindBuilder {
         return this;
     }
 
+    public withPureEmergence(pureEmergence: boolean): HiveMindBuilder {
+        this.pureEmergence = true;
+        return this;
+    }
+
     public build(): IHiveMind {
-        return new BasicHiveMind(
-            new BasicHiveMindNeurons(this.neurons, this.certaintyThreshold),
-            this.translations
-        );
+        if (this.pureEmergence) {
+            return new PureEmergentHiveMind(
+                new PureEmergentHiveMindNeurons(this.neurons),
+                this.translations,
+            );
+        } else {
+            return new BasicHiveMind(
+                new BasicHiveMindNeurons(this.neurons, this.certaintyThreshold),
+                this.translations,
+            );
+        }
     }
 }

@@ -1,10 +1,10 @@
 import 'jest';
-import {IHiveMind} from './HiveMind';
-import {HiveMindBuilder} from './HiveMindBuilder';
-import {IHiveResponse} from './HiveResponse';
+import { IHiveMind } from './HiveMind';
+import { HiveMindBuilder } from './HiveMindBuilder';
 import { BasicLocale, Locale } from '../../language/i18n/BasicLocale';
 import { CoreHiveMindModule } from '../../modules/core/CoreHiveMindModule';
 import { MathHiveMindModule } from '../../modules/math/MathHiveMindModule';
+import { HiveMindGenericTest } from './HiveMindGenericTest.spec';
 
 const chai = require('chai');
 
@@ -25,16 +25,7 @@ describe('HiveMind', () => {
             {input: 'what time is it', response: 'oratio.core.currentTime'},
         ];
 
-        const promises = [];
-        inputs.forEach(input => {
-            const responsePromise = mind.process(input.input, locale, null);
-
-            responsePromise.then((response: IHiveResponse) => {
-                expect(response.response()).toBe(input.response);
-            });
-
-            promises.push(responsePromise);
-        });
+        const promises = HiveMindGenericTest.testForInputWithResponse(mind, inputs);
 
         return Promise.all(promises);
     });
@@ -45,27 +36,8 @@ describe('HiveMind', () => {
             {input: 'what time is it', response: 'oratio.did.not.understand'},
         ];
 
-        const promisesNullLocale = [];
-        inputs.forEach(input => {
-            const responsePromise = mind.process(input.input, null, null);
-
-            responsePromise.then((response: IHiveResponse) => {
-                expect(response.response()).toBe(input.response);
-            });
-
-            promisesNullLocale.push(responsePromise);
-        });
-
-        const promisesUnkownLocale = [];
-        inputs.forEach(input => {
-            const responsePromise = mind.process(input.input, new BasicLocale('xx', 'yy'), null);
-
-            responsePromise.then((response: IHiveResponse) => {
-                expect(response.response()).toBe(input.response);
-            });
-
-            promisesUnkownLocale.push(responsePromise);
-        });
+        const promisesNullLocale = HiveMindGenericTest.testForInputWithLocale(mind, inputs, null);
+        const promisesUnkownLocale = HiveMindGenericTest.testForInputWithLocale(mind, inputs, new BasicLocale('xx', 'yy'));
 
         return Promise.all(promisesNullLocale.concat(promisesUnkownLocale));
     });
@@ -91,138 +63,6 @@ describe('HiveMind', () => {
             {input: '2 + 3', response: 'oratio.math.addition'},
         ];
 
-        return mind
-            .process(inputs[0].input, new BasicLocale('nl', 'nl'), null)
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[0].response,
-                    '[' +
-                    0 +
-                    '] expect input ' +
-                    inputs[0].input +
-                    ' to give ' +
-                    inputs[0].response,
-                );
-                return mind.process(inputs[1].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[1].response,
-                    '[' +
-                    1 +
-                    '] expect input ' +
-                    inputs[1].input +
-                    ' to give ' +
-                    inputs[1].response,
-                );
-                return mind.process(inputs[2].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[2].response,
-                    '[' +
-                    2 +
-                    '] expect input ' +
-                    inputs[2].input +
-                    ' to give ' +
-                    inputs[2].response,
-                );
-                return mind.process(inputs[3].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[3].response,
-                    '[' +
-                    3 +
-                    '] expect input ' +
-                    inputs[3].input +
-                    ' to give ' +
-                    inputs[3].response,
-                );
-                return mind.process(inputs[4].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[4].response,
-                    '[' +
-                    4 +
-                    '] expect input ' +
-                    inputs[4].input +
-                    ' to give ' +
-                    inputs[4].response,
-                );
-                return mind.process(inputs[5].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[5].response,
-                    '[' +
-                    5 +
-                    '] expect input ' +
-                    inputs[5].input +
-                    ' to give ' +
-                    inputs[5].response,
-                );
-                return mind.process(inputs[6].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[6].response,
-                    '[' +
-                    6 +
-                    '] expect input ' +
-                    inputs[6].input +
-                    ' to give ' +
-                    inputs[6].response,
-                );
-                return mind.process(inputs[7].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[7].response,
-                    '[' +
-                    7 +
-                    '] expect input ' +
-                    inputs[7].input +
-                    ' to give ' +
-                    inputs[7].response,
-                );
-                return mind.process(inputs[8].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[8].response,
-                    '[' +
-                    8 +
-                    '] expect input ' +
-                    inputs[8].input +
-                    ' to give ' +
-                    inputs[8].response,
-                );
-                return mind.process(inputs[9].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[9].response,
-                    '[' +
-                    9 +
-                    '] expect input ' +
-                    inputs[9].input +
-                    ' to give ' +
-                    inputs[9].response,
-                );
-                return mind.process(inputs[10].input, new BasicLocale('nl', 'nl'), null);
-            })
-            .then((response: IHiveResponse) => {
-                chai.assert(
-                    response.response() === inputs[10].response,
-                    '[' +
-                    10 +
-                    '] expect input ' +
-                    inputs[10].input +
-                    ' to give ' +
-                    inputs[10].response,
-                );
-            });
+        return HiveMindGenericTest.testConversation(mind, inputs, new BasicLocale('nl', 'nl'));
     });
 });

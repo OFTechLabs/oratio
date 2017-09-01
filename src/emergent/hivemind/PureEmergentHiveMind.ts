@@ -2,7 +2,6 @@ import { IHiveMind } from './HiveMind';
 import { IHiveResponse } from './HiveResponse';
 import { HiveMindInputNode } from './HiveMindInputNode';
 import { UnderstoodResponseFactory } from './UnderstoodResponseFactory';
-import { IHiveMindNeurons } from './neurons/HiveMindNeurons';
 import { BasicLocale, Locale } from '../../language/i18n/BasicLocale';
 import { BasicUserInput } from '../BasicUserInput';
 import { LanguageUtil } from '../../language/LanguageUtil';
@@ -10,12 +9,13 @@ import { BasicRequestContext } from '../BasicRequestContext';
 import { INeuronsResponse } from './neurons/NeuronsResponse';
 import { SilenceNeuron } from '../SilenceNeuron';
 import { FailedResponses } from '../FailedResponse';
+import { PureEmergentHiveMindNeurons } from './neurons/PureEmergentHiveMindNeurons';
 
 export class PureEmergentHiveMind implements IHiveMind {
 
     private previousInput: HiveMindInputNode | null;
 
-    constructor(private neurons: IHiveMindNeurons,
+    constructor(private neurons: PureEmergentHiveMindNeurons,
                 private translations: { [key: string]: string }) {
         this.previousInput = null;
     }
@@ -40,6 +40,14 @@ export class PureEmergentHiveMind implements IHiveMind {
 
                 if (neuronResponses.length > 0) {
                     const responses = neuronResponses.map(response => response.getResponse());
+
+                    this.previousInput = new HiveMindInputNode(
+                        this.previousInput,
+                        neuronsResponse.getResponses().map(response => response.getFiredNeuron()),
+                        neuronsResponse.getMostCertainResponse().getFiredNeuron(),
+                        basicInput,
+                    );
+
                     return UnderstoodResponseFactory.createMultiple(responses, this.translations);
                 }
 
