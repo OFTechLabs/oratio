@@ -1,7 +1,9 @@
-import {IHiveMindNeuron} from '../emergent/HiveMindNeurons';
 import {SimpleResponse} from '../emergent/neurons/responses/SimpleResponse';
 import {GreetingNeuron} from './core/GreetingNeuron';
-import {RequestContext} from '../emergent/RequestContext';
+import {BasicRequestContext, RequestContext} from "../emergent/BasicRequestContext";
+import {BasicLocale, Locale} from "../language/i18n/BasicLocale";
+import {BasicUserInput} from "../emergent/BasicUserInput";
+import { IHiveMindNeuron } from '../emergent/hivemind/neurons/HiveMindNeurons';
 
 describe('General test methods', () => {
     it('should be able use general test methods', function () {
@@ -13,21 +15,22 @@ describe('General test methods', () => {
 
 export class GeneralTestMethods {
     private neuron: IHiveMindNeuron;
-    private locale: string;
+    private locale: Locale;
     private minimumCertainty: number;
-    private emptyContext = new RequestContext(null, null);
+    private context;
 
-    constructor(neuron: IHiveMindNeuron, locale: string, certainty: number) {
+    constructor(neuron: IHiveMindNeuron, locale: Locale, certainty: number) {
         this.neuron = neuron;
         this.locale = locale;
         this.minimumCertainty = certainty;
+        this.context = new BasicRequestContext(null, null, locale);
     }
 
     static create(neuron: IHiveMindNeuron): GeneralTestMethods {
-        return new GeneralTestMethods(neuron, 'en', 0.75);
+        return new GeneralTestMethods(neuron, new BasicLocale('en', 'uk'), 0.75);
     }
 
-    withLocale(locale: string): GeneralTestMethods {
+    withLocale(locale: Locale): GeneralTestMethods {
         return new GeneralTestMethods(
             this.neuron,
             locale,
@@ -41,7 +44,7 @@ export class GeneralTestMethods {
 
     expectInputToGiveResponse(input: string, response: string): Promise<void> {
         return this.neuron
-            .process(input.split(' '), this.locale, this.emptyContext)
+            .process(new BasicUserInput(input), this.context)
             .then(neuronResponse => {
                 expect(neuronResponse.hasAnswer()).toBeTruthy();
 
@@ -58,7 +61,7 @@ export class GeneralTestMethods {
                                         context: RequestContext,
                                         response: string,): Promise<void> {
         return this.neuron
-            .process(input.split(' '), this.locale, context)
+            .process(new BasicUserInput(input), context)
             .then(neuronResponse => {
                 expect(neuronResponse.hasAnswer()).toBeTruthy();
 
@@ -76,7 +79,7 @@ export class GeneralTestMethods {
                                                  response: string,
                                                  param: string,): Promise<void> {
         return this.neuron
-            .process(input.split(' '), this.locale, context)
+            .process(new BasicUserInput(input), context)
             .then(neuronResponse => {
                 expect(neuronResponse.hasAnswer()).toBeTruthy();
 
@@ -94,7 +97,7 @@ export class GeneralTestMethods {
     expectInputToGiveResponseAndHaveParam(input: string,
                                           response: string,): Promise<void> {
         return this.neuron
-            .process(input.split(' '), this.locale, this.emptyContext)
+            .process(new BasicUserInput(input), this.context)
             .then(neuronResponse => {
                 expect(neuronResponse.hasAnswer()).toBeTruthy();
 
@@ -113,7 +116,7 @@ export class GeneralTestMethods {
                                       response: string,
                                       param: string,): Promise<void> {
         return this.neuron
-            .process(input.split(' '), this.locale, this.emptyContext)
+            .process(new BasicUserInput(input), this.context)
             .then(neuronResponse => {
                 expect(neuronResponse.hasAnswer()).toBeTruthy();
 
@@ -130,7 +133,7 @@ export class GeneralTestMethods {
 
     expectInputToGiveSilence(input: string): Promise<void> {
         return this.neuron
-            .process(input.split(' '), this.locale, this.emptyContext)
+            .process(new BasicUserInput(input), this.context)
             .then(response => {
                 expect(response.hasAnswer()).toBeFalsy();
 

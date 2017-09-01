@@ -1,16 +1,16 @@
-import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 import {INeuronResponse} from '../../emergent/neurons/responses/SimpleResponse';
-import {RequestContext} from '../../emergent/RequestContext';
 import {knownWords} from './IdentityNeuron.words';
 import {LocalizedWordsMatcherNeuron} from '../../emergent/neurons/LocalizedWordsMatcherNeuron';
+import {UserInput} from "../../emergent/BasicUserInput";
+import {RequestContext} from "../../emergent/BasicRequestContext";
+import { IHiveMindNeuron } from '../../emergent/hivemind/neurons/HiveMindNeurons';
 
 export class IdentityNeuron implements IHiveMindNeuron {
-    public process(words: string[],
-                   locale: string,
+    public process(input: UserInput,
                    context: RequestContext,): Promise<INeuronResponse> {
         return new LocalizedWordsMatcherNeuron(
             knownWords,
             'oratio.core.identity',
-        ).process(words, locale, context);
+        ).process(input, context);
     }
 }

@@ -1,15 +1,16 @@
 import 'jest';
 import {IHiveMind} from './HiveMind';
 import {HiveMindBuilder} from './HiveMindBuilder';
-import {IHiveResponse} from './HiveResponse';
-import {CoreHiveMindModule} from '../modules/core/CoreHiveMindModule';
-import {MathHiveMindModule} from '../modules/math/MathHiveMindModule';
+import { BasicLocale, Locale } from '../../language/i18n/BasicLocale';
+import { CoreHiveMindModule } from '../../modules/core/CoreHiveMindModule';
+import { MathHiveMindModule } from '../../modules/math/MathHiveMindModule';
+import { IHiveResponse } from './HiveResponse';
 
 var chai = require('chai');
 
 describe('HiveMind localization', () => {
     let mind: IHiveMind;
-    const locale: string = 'en';
+    const locale: Locale = new BasicLocale('en', 'us');
 
     beforeEach(() => {
         mind = HiveMindBuilder.createEmpty()

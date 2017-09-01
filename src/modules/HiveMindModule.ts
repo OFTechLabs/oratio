@@ -1,4 +1,5 @@
-import {IHiveMindNeuron} from '../emergent/HiveMindNeurons';
+
+import { IHiveMindNeuron } from '../emergent/hivemind/neurons/HiveMindNeurons';
 
 export interface IHiveMindModule {
 

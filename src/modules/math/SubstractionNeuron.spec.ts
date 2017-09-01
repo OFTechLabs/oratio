@@ -1,6 +1,7 @@
 import 'jest';
 import {SubstractionNeuron} from './SubstractionNeuron';
 import {GeneralTestMethods} from '../generalTestMethods.spec';
+import {BasicLocale} from "../../language/i18n/BasicLocale";
 
 describe('Subtraction neuron', () => {
     let generalTestMethods: GeneralTestMethods;
@@ -13,7 +14,7 @@ describe('Subtraction neuron', () => {
         );
         generalTestMethodsNL = GeneralTestMethods.create(
             new SubstractionNeuron(),
-        ).withLocale('nl');
+        ).withLocale(new BasicLocale('nl', 'nl'));
     });
 
     it('should be able to handle 2 - 3', function () {

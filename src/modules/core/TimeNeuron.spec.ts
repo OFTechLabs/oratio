@@ -1,8 +1,10 @@
 import 'jest';
 import {TimeNeuron} from './TimeNeuron';
 import {GeneralTestMethods} from '../generalTestMethods.spec';
-import {RequestContext} from '../../emergent/RequestContext';
-import {HiveMindInputNode} from '../../emergent/HiveMindInputNode';
+import {BasicLocale} from "../../language/i18n/BasicLocale";
+import {BasicUserInput, UserInput} from "../../emergent/BasicUserInput";
+import {BasicRequestContext} from "../../emergent/BasicRequestContext";
+import { HiveMindInputNode } from '../../emergent/hivemind/HiveMindInputNode';
 
 describe('Time neuron', () => {
     let generalTestMethods: GeneralTestMethods;
@@ -13,7 +15,7 @@ describe('Time neuron', () => {
         generalTestMethods = GeneralTestMethods.create(new TimeNeuron());
         generalTestMethodsNL = GeneralTestMethods.create(
             new TimeNeuron(),
-        ).withLocale('nl');
+        ).withLocale(new BasicLocale('nl', 'nl'));
     });
 
     it('should be able to handle current time', function () {
@@ -49,14 +51,15 @@ describe('Time neuron', () => {
     });
 
     it('should be able to use history', function () {
-        const previousInput: string[] = 'hoe laat is het nu?'.split(' ');
+        const previousInput: UserInput = new BasicUserInput('hoe laat is het nu?');
 
         const previous = new HiveMindInputNode(
             null,
+            [new TimeNeuron()],
             new TimeNeuron(),
             previousInput,
         );
-        const context = new RequestContext(previous, null);
+        const context = new BasicRequestContext(previous, null, new BasicLocale('nl', 'nl'));
 
         return generalTestMethodsNL.expectInputAndContextToGiveResponse(
             'en nu',

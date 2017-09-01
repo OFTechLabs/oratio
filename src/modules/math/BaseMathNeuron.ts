@@ -1,28 +1,22 @@
 import {Silence} from '../../emergent/neurons/responses/Silence';
 import {LevenshteinDistanceMatcher} from '../../language/words/LevenshteinDistanceMatcher';
 import {INeuronResponse, SimpleResponse,} from '../../emergent/neurons/responses/SimpleResponse';
-import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 import {NumberOfKnownWordsCertaintyCalculator} from '../../language/sequences/NumberOfKnownWordsCertaintyCalculator';
-import {RequestContext} from '../../emergent/RequestContext';
+import {RequestContext} from "../../emergent/BasicRequestContext";
+import {UserInput} from "../../emergent/BasicUserInput";
+import { IHiveMindNeuron } from '../../emergent/hivemind/neurons/HiveMindNeurons';
 
 export class BaseMathNeuron implements IHiveMindNeuron {
-    private knownOperators: string[];
-    private response: string;
-    private apply: (a: number, b: number) => number;
 
-    constructor(knownOperators: string[],
-                response: string,
-                apply: (a: number, b: number) => number,) {
-        this.knownOperators = knownOperators;
-        this.response = response;
-        this.apply = apply;
+    constructor(private knownOperators: string[],
+                private response: string,
+                private apply: (a: number, b: number) => number,) {
     }
 
-    public process(words: string[],
-                   locale: string,
+    public process(input: UserInput,
                    context: RequestContext,): Promise<INeuronResponse> {
         let index = 0;
-        for (const word of words) {
+        for (const word of input.words()) {
             for (const knownOperator of this.knownOperators) {
                 if (
                     LevenshteinDistanceMatcher.MATCHER.matches(
@@ -30,10 +24,10 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                         knownOperator,
                     )
                 ) {
-                    const possibleNumberOne = parseFloat(words[index - 1]);
-                    const possibleNumberTwo = parseFloat(words[index + 1]);
-                    const possibleNumberThree = parseFloat(words[index + 2]);
-                    const possibleNumberFour = parseFloat(words[index + 3]);
+                    const possibleNumberOne = parseFloat(input.words()[index - 1]);
+                    const possibleNumberTwo = parseFloat(input.words()[index + 1]);
+                    const possibleNumberThree = parseFloat(input.words()[index + 2]);
+                    const possibleNumberFour = parseFloat(input.words()[index + 3]);
 
                     if (
                         this.isNumeric(possibleNumberOne) &&
@@ -53,7 +47,7 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                                 ],
                                 NumberOfKnownWordsCertaintyCalculator.calculate(
                                     3,
-                                    words,
+                                    input.words(),
                                 ),
                             ),
                         );
@@ -75,7 +69,7 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                                 ],
                                 NumberOfKnownWordsCertaintyCalculator.calculate(
                                     3,
-                                    words,
+                                    input.words(),
                                 ),
                             ),
                         );
@@ -97,7 +91,7 @@ export class BaseMathNeuron implements IHiveMindNeuron {
                                 ],
                                 NumberOfKnownWordsCertaintyCalculator.calculate(
                                     3,
-                                    words,
+                                    input.words(),
                                 ),
                             ),
                         );

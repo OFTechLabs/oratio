@@ -1,23 +1,23 @@
 import {BaseMathNeuron} from './BaseMathNeuron';
-import {IHiveMindNeuron} from '../../emergent/HiveMindNeurons';
 import {INeuronResponse} from '../../emergent/neurons/responses/SimpleResponse';
-import {RequestContext} from '../../emergent/RequestContext';
 import {knownWords} from './DivisionNeuron.words';
 import {LocalizedWordsForLocaleFactory} from '../../language/i18n/LocalizedWordsForLocaleFactory';
+import {RequestContext} from "../../emergent/BasicRequestContext";
+import {UserInput} from "../../emergent/BasicUserInput";
+import { IHiveMindNeuron } from '../../emergent/hivemind/neurons/HiveMindNeurons';
 
 export class DivisionNeuron implements IHiveMindNeuron {
-    public process(words: string[],
-                   locale: string,
+    public process(input: UserInput,
                    context: RequestContext,): Promise<INeuronResponse> {
         const localizedKnownWords: string[] = LocalizedWordsForLocaleFactory.createMain(
             knownWords,
-            locale,
+            context.locale(),
         );
 
         return new BaseMathNeuron(
             localizedKnownWords,
             'oratio.math.division',
             (a, b) => a / b,
-        ).process(words, locale, context);
+        ).process(input, context);
     }
 }

@@ -19,23 +19,16 @@ If the inputs are words or phrases, try to add them to a separate file, like so:
 
 ```typescript
 export const knownWords: LocalizedWords = {
-    main: {
-        en: {
-            words: ['hello', 'hi', 'i am', 'my name is'],
-        },
-        nl: {
-            words: ['hallo', 'hoi', 'ik ben', 'mijn naam is'],
-        },
-    },
-    params: {
-        en: {
-            words: ['i am', 'my name is'],
-        },
-        nl: {
-            words: ['ik ben', 'mijn naam is'],
-        },
-    },
-    continuation: {},
+    en: {
+        main: {
+            
+                words: ['hello', 'hi', 'i am', 'my name is'],
+            },
+        params: {
+                words: ['i am', 'my name is'],
+            }
+        continuation: {},
+    }
 };
 ```
 
@@ -46,8 +39,9 @@ Here we have inputs that determine when the neuron should respond in `"main" ` a
 The neuron should simple implement the `IHiveMindNeuron` interface:
 
 ```typescript
-public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse> {
-    
+export interface IHiveMindNeuron {
+    process(userInput: UserInput,
+            context: RequestContext): Promise<INeuronResponse>;
 }
 ```
 
@@ -55,7 +49,7 @@ It's important to note that any neuron is required to return a promise, this all
 
 An example implementation for a neuron which can greet the user:
 ```typescript
-public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse> {
+public process(input: UserInput, context: RequestContext): Promise<INeuronResponse> {
     return Promise.resolve(new SimpleResponse(
         "oratio.greeting.hello",
         [],
@@ -66,13 +60,13 @@ public process(words: string[], locale: string, context: RequestContext): Promis
 This neuron returns a response with a message key `"oratio.greeting.hello"`, with zero arguments (the empty array) and a certainty of 1.0. This should work just fine,the only problem is that no matter what the user input is oratio will return a response with the greeting message key. We could change this to make sure we only return the greeting response if the user greeted oratio:
 
 ```typescript
-public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse> {
+public process(input: UserInput, context: RequestContext): Promise<INeuronResponse> {
     // the knownWords should be imported, it is the constant from the example above
-    const matchingWords: string[] = knownWords.main[locale].words; 
+    const matchingWords: string[] = knownWords.main[context.locale().language()].words; 
     
     
     for (let matchingWord in matchingWords) {
-        if (words[0] === matchingWord) {
+        if (input.words()[0] === matchingWord) {
             return Promise.resolve(new SimpleResponse(
                     "oratio.greeting.hello",
                     [],
@@ -90,11 +84,11 @@ Here we only greet the user if the first word matches one of the words the neuro
 This however is not very user-friendly, if the user enters a typo it does not work and it does not work well when it should match on a sequence of words rather than a single word. Fortunately Oratio provides a solution for that in the form of a generic Neuron:
 
 ```typescript
-public process(words: string[], locale: string, context: RequestContext): Promise<INeuronResponse> {
+public process(input: UserInput, context: RequestContext): Promise<INeuronResponse> {
     return new LocalizedWordsMatcherNeuron(
                        knownWords,
                        'oratio.core.hello',
-                   ).process(words, locale, context);
+                   ).process(input, context);
 }
 ```
 

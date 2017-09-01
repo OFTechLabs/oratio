@@ -1,9 +1,11 @@
 import {LevenshteinDistanceMatcher} from '../../language/words/LevenshteinDistanceMatcher';
 import {Silence} from './responses/Silence';
 import {INeuronResponse, SimpleResponse} from './responses/SimpleResponse';
-import {IHiveMindNeuron} from '../HiveMindNeurons';
 import {NumberOfKnownWordsCertaintyCalculator} from '../../language/sequences/NumberOfKnownWordsCertaintyCalculator';
 import {Sequences} from '../../language/sequences/Sequences';
+import {RequestContext} from "../BasicRequestContext";
+import {UserInput} from "../BasicUserInput";
+import { IHiveMindNeuron } from '../hivemind/neurons/HiveMindNeurons';
 
 export class MultipleSequenceNeuron implements IHiveMindNeuron {
 
@@ -11,15 +13,14 @@ export class MultipleSequenceNeuron implements IHiveMindNeuron {
                 private response: string) {
     }
 
-    public process(input: string[],
-                   locale: string,
-                   context: any,): Promise<INeuronResponse> {
+    public process(input: UserInput,
+                   context: RequestContext,): Promise<INeuronResponse> {
         let maxCertainties: number[] = [];
 
 
-        for (let numberOfWords = 1; numberOfWords <= input.length; numberOfWords++) {
+        for (let numberOfWords = 1; numberOfWords <= input.numberOfWords(); numberOfWords++) {
             maxCertainties.push(this.processSequence(
-                input,
+                input.words(),
                 numberOfWords,
             ));
         }

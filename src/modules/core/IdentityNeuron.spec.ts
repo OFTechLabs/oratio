@@ -1,6 +1,7 @@
 import 'jest';
 import {IdentityNeuron} from './IdentityNeuron';
 import {GeneralTestMethods} from '../generalTestMethods.spec';
+import {BasicLocale} from "../../language/i18n/BasicLocale";
 
 describe('Identity neuron', () => {
     let generalTestMethods: GeneralTestMethods;
@@ -11,7 +12,7 @@ describe('Identity neuron', () => {
         generalTestMethods = GeneralTestMethods.create(new IdentityNeuron());
         generalTestMethodsNL = GeneralTestMethods.create(
             new IdentityNeuron(),
-        ).withLocale('nl');
+        ).withLocale(new BasicLocale('nl', 'nl'));
     });
 
     it('should know what to do with identity', () => {
