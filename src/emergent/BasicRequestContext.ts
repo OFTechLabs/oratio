@@ -3,6 +3,7 @@ import {SilenceNeuron} from './SilenceNeuron';
 import {Locale} from "../language/i18n/BasicLocale";
 import { HiveMindInputNode } from './hivemind/HiveMindInputNode';
 import { IHiveMindNeuron } from './hivemind/neurons/HiveMindNeurons';
+import { INeuronHints } from './NeuronHints';
 
 export interface RequestContext {
     previousInput(): HiveMindInputNode | null;
@@ -13,6 +14,8 @@ export interface RequestContext {
 
     mostCertainNeuronHandled(): IHiveMindNeuron;
 
+    hints(): INeuronHints;
+
     hasPreviousInput(): boolean;
 
     locale(): Locale;
@@ -20,10 +23,10 @@ export interface RequestContext {
 
 export class BasicRequestContext implements RequestContext {
 
-
     constructor(private _previousInput: HiveMindInputNode | null,
                 private _clientModel: any,
-                private _locale: Locale) {
+                private _locale: Locale,
+                private _neuronHints: INeuronHints) {
     }
 
     public previousInput(): HiveMindInputNode | null {
@@ -56,5 +59,9 @@ export class BasicRequestContext implements RequestContext {
 
     public locale(): Locale {
         return this._locale;
+    }
+
+    public hints(): INeuronHints {
+        return this._neuronHints;
     }
 }
