@@ -3,7 +3,8 @@ import {UserInput} from "./BasicUserInput";
 
 export class HiveMindInputNode {
     constructor(private _previous: HiveMindInputNode | null,
-                private _neuronHandled: IHiveMindNeuron,
+                private _neuronsHandled: IHiveMindNeuron[],
+                private _mostCertainNeuron: IHiveMindNeuron,
                 private _input: UserInput,) {
     }
 
@@ -11,8 +12,12 @@ export class HiveMindInputNode {
         return this._previous;
     }
 
-    get neuronHandled(): IHiveMindNeuron {
-        return this._neuronHandled;
+    get neuronsHandled(): IHiveMindNeuron[] {
+        return this._neuronsHandled;
+    }
+
+    get mostCertainNeuron(): IHiveMindNeuron {
+        return this._mostCertainNeuron;
     }
 
     get input(): UserInput {

@@ -19,11 +19,12 @@ export interface IHiveMind {
             clientModel: any,): Promise<IHiveResponse>;
 }
 
+export const EMPTY_CONTEXT = {};
+export const EMPTY_ACTION = () => {
+    return;
+};
+
 export class BasicHiveMind implements IHiveMind {
-    private static EMPTY_CONTEXT = {};
-    private static EMPTY_ACTION = () => {
-        return;
-    };
 
     private previousInput: HiveMindInputNode | null;
 
@@ -51,6 +52,7 @@ export class BasicHiveMind implements IHiveMind {
                 if (response.hasAnswer() && response instanceof SimpleResponse) {
                     this.previousInput = new HiveMindInputNode(
                         this.previousInput,
+                        [neuronsResponse.getFiredNeuron()],
                         neuronsResponse.getFiredNeuron(),
                         basicInput,
                     );
@@ -70,21 +72,22 @@ export class BasicHiveMind implements IHiveMind {
                             response.params,
                             response.getCertainty(),
                             response.action,
-                            BasicHiveMind.EMPTY_CONTEXT,
+                            EMPTY_CONTEXT,
                         )]);
                     } else if (response instanceof SimpleResponse) {
                         return new UnderstoodResponses([new UnderstoodResponse(
                             translatedResponse,
                             response.params,
                             response.getCertainty(),
-                            BasicHiveMind.EMPTY_ACTION,
-                            BasicHiveMind.EMPTY_CONTEXT,
+                            EMPTY_ACTION,
+                            EMPTY_CONTEXT,
                         )]);
                     }
                 }
 
                 this.previousInput = new HiveMindInputNode(
                     this.previousInput,
+                    [],
                     SilenceNeuron.INSTANCE,
                     basicInput,
                 );

@@ -9,7 +9,9 @@ export interface RequestContext {
 
     clientModel(): any;
 
-    previousNeuronHandled(): IHiveMindNeuron;
+    previousNeuronsHandled(): IHiveMindNeuron[];
+
+    mostCertainNeuronHandled(): IHiveMindNeuron;
 
     hasPreviousInput(): boolean;
 
@@ -32,9 +34,17 @@ export class BasicRequestContext implements RequestContext {
         return this._clientModel;
     }
 
-    public previousNeuronHandled(): IHiveMindNeuron {
+    public previousNeuronsHandled(): IHiveMindNeuron[] {
         if (this.hasPreviousInput() && this._previousInput !== null) {
-            return this._previousInput.neuronHandled;
+            return this._previousInput.neuronsHandled;
+        }
+
+        return [];
+    }
+
+    public mostCertainNeuronHandled(): IHiveMindNeuron {
+        if (this.hasPreviousInput() && this._previousInput !== null) {
+            return this._previousInput.mostCertainNeuron;
         }
 
         return SilenceNeuron.INSTANCE;

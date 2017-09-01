@@ -16,7 +16,7 @@ export class TimeNeuron implements IHiveMindNeuron {
         );
         if (
             context.hasPreviousInput() &&
-            context.previousNeuronHandled() instanceof TimeNeuron
+            context.mostCertainNeuronHandled() instanceof TimeNeuron
         ) {
             const continuations: string[] = LocalizedWordsForLocaleFactory.createContinuation(
                 knownWords,

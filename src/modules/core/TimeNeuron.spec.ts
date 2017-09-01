@@ -55,6 +55,7 @@ describe('Time neuron', () => {
 
         const previous = new HiveMindInputNode(
             null,
+            [new TimeNeuron()],
             new TimeNeuron(),
             previousInput,
         );
