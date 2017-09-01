@@ -1,8 +1,10 @@
-import {Silence} from './neurons/responses/Silence';
-import {INeuronResponse} from './neurons/responses/SimpleResponse';
-import {INeuronsResponse, NeuronsResponse} from './NeuronsResponse';
-import {UserInput} from "./BasicUserInput";
-import {RequestContext} from "./BasicRequestContext";
+import { Silence } from './neurons/responses/Silence';
+import { INeuronResponse } from './neurons/responses/SimpleResponse';
+import { INeuronsResponse, NeuronsResponse, SingleNeuronsResponse } from './NeuronsResponse';
+import { UserInput } from './BasicUserInput';
+import { RequestContext } from './BasicRequestContext';
+import { SilenceNeuron } from './SilenceNeuron';
+import { NeuronsResponseFactory } from './NeuronsResponseFactory';
 
 export interface IHiveMindNeurons {
     findMatch(input: UserInput,
@@ -13,6 +15,13 @@ export interface IHiveMindNeuron {
     process(userInput: UserInput,
             context: RequestContext,): Promise<INeuronResponse>;
 }
+
+export const getEmptyNeuronsResponse: () => INeuronsResponse = () => {
+    return new NeuronsResponse(
+        [],
+        new SingleNeuronsResponse(SilenceNeuron.INSTANCE, new Silence()),
+    );
+};
 
 export class BasicHiveMindNeurons implements IHiveMindNeurons {
     private neurons: IHiveMindNeuron[];
@@ -26,10 +35,7 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
     public findMatch(userInput: UserInput,
                      context: RequestContext,): Promise<INeuronsResponse> {
         return new Promise((resolve, reject) => {
-            let potentialResponse: INeuronsResponse = new NeuronsResponse(
-                this.neurons[0],
-                new Silence(),
-            );
+            let potentialResponse: INeuronsResponse = getEmptyNeuronsResponse();
             let potentialResponseIndex: number;
             let maxCertainty = 0;
 
@@ -46,20 +52,17 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
                             response.getCertainty() >= this.certaintyThreshold
                         ) {
                             this.placeNeuronToTop(i);
-                            resolve(new NeuronsResponse(neuron, response));
+                            resolve(NeuronsResponseFactory.create(neuron, response));
                         }
 
                         if (response.getCertainty() > maxCertainty) {
-                            potentialResponse = new NeuronsResponse(
-                                neuron,
-                                response,
-                            );
+                            potentialResponse = NeuronsResponseFactory.create(neuron, response);
                             potentialResponseIndex = i;
                             maxCertainty = response.getCertainty();
                         }
                     }
                 }).catch(error => {
-                    console.error("Neuron: " + neuron + " rejected..." + error);
+                    console.error('Neuron: ' + neuron + ' rejected...' + error);
                 });
             }
 
@@ -69,11 +72,11 @@ export class BasicHiveMindNeurons implements IHiveMindNeurons {
                 this.placeNeuronToTop(potentialResponseIndex);
                 resolve(potentialResponse);
             }).catch(error => {
-                console.error("A neuron rejected instead of resolved, " +
-                    "neurons are never allowed to reject. If this happens " +
-                    "the neuron either needs to be fixed with error handling to " +
-                    "make it resolve a Silence() response or the neuron should " +
-                    "be removed. Error: " + error);
+                console.error('A neuron rejected instead of resolved, ' +
+                    'neurons are never allowed to reject. If this happens ' +
+                    'the neuron either needs to be fixed with error handling to ' +
+                    'make it resolve a Silence() response or the neuron should ' +
+                    'be removed. Error: ' + error);
             });
             ;
         });

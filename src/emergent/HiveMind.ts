@@ -1,17 +1,15 @@
-import {IHiveResponse, UnderstoodResponse, UnderstoodResponses} from './HiveResponse';
-import {IHiveMindNeurons} from './HiveMindNeurons';
-import {SimpleResponse} from './neurons/responses/SimpleResponse';
-import {ActionResponse} from './neurons/responses/ActionResponse';
-import {ActionWithContextResponse} from './neurons/responses/ActionWithContextResponse';
-import {FailedResponses} from './FailedResponse';
-import {HiveMindInputNode} from './HiveMindInputNode';
-import {INeuronsResponse} from './NeuronsResponse';
-import {SilenceNeuron} from './SilenceNeuron';
-import {TranslationService} from "../language/i18n/TranslationService";
-import {BasicLocale, Locale} from "../language/i18n/BasicLocale";
-import {BasicUserInput} from "./BasicUserInput";
-import {BasicRequestContext} from "./BasicRequestContext";
-import {LanguageUtil} from "../language/LanguageUtil";
+import { IHiveResponse } from './HiveResponse';
+import { IHiveMindNeurons } from './HiveMindNeurons';
+import { SimpleResponse } from './neurons/responses/SimpleResponse';
+import { FailedResponses } from './FailedResponse';
+import { HiveMindInputNode } from './HiveMindInputNode';
+import { INeuronsResponse } from './NeuronsResponse';
+import { SilenceNeuron } from './SilenceNeuron';
+import { BasicLocale, Locale } from '../language/i18n/BasicLocale';
+import { BasicUserInput } from './BasicUserInput';
+import { BasicRequestContext } from './BasicRequestContext';
+import { LanguageUtil } from '../language/LanguageUtil';
+import { UnderstoodResponseFactory } from './UnderstoodResponseFactory';
 
 export interface IHiveMind {
     process(input: string,
@@ -37,8 +35,8 @@ export class BasicHiveMind implements IHiveMind {
                    locale: Locale,
                    clientModel: any,): Promise<IHiveResponse> {
 
-        const basicInput = new BasicUserInput(input)
-        const nullSafeLocale = LanguageUtil.isDefined(locale) ? locale : new BasicLocale("", "");
+        const basicInput = new BasicUserInput(input);
+        const nullSafeLocale = LanguageUtil.isDefined(locale) ? locale : new BasicLocale('', '');
         const context = new BasicRequestContext(this.previousInput, clientModel, nullSafeLocale,);
         const neuronsResponsePromise = this.neurons.findMatch(
             basicInput,
@@ -47,42 +45,17 @@ export class BasicHiveMind implements IHiveMind {
 
         return neuronsResponsePromise.then(
             (neuronsResponse: INeuronsResponse) => {
-                const response = neuronsResponse.getResponse();
+                const response = neuronsResponse.getMostCertainResponse().getResponse();
 
                 if (response.hasAnswer() && response instanceof SimpleResponse) {
                     this.previousInput = new HiveMindInputNode(
                         this.previousInput,
-                        [neuronsResponse.getFiredNeuron()],
-                        neuronsResponse.getFiredNeuron(),
+                        [neuronsResponse.getMostCertainResponse().getFiredNeuron()],
+                        neuronsResponse.getMostCertainResponse().getFiredNeuron(),
                         basicInput,
                     );
 
-                    const translatedResponse = TranslationService.translate(this.translations, response.response, response.params);
-                    if (response instanceof ActionWithContextResponse) {
-                        return new UnderstoodResponses([new UnderstoodResponse(
-                            translatedResponse,
-                            response.params,
-                            response.getCertainty(),
-                            response.action,
-                            response.context,
-                        )]);
-                    } else if (response instanceof ActionResponse) {
-                        return new UnderstoodResponses([new UnderstoodResponse(
-                            translatedResponse,
-                            response.params,
-                            response.getCertainty(),
-                            response.action,
-                            EMPTY_CONTEXT,
-                        )]);
-                    } else if (response instanceof SimpleResponse) {
-                        return new UnderstoodResponses([new UnderstoodResponse(
-                            translatedResponse,
-                            response.params,
-                            response.getCertainty(),
-                            EMPTY_ACTION,
-                            EMPTY_CONTEXT,
-                        )]);
-                    }
+                    return UnderstoodResponseFactory.createSingle(response, this.translations);
                 }
 
                 this.previousInput = new HiveMindInputNode(

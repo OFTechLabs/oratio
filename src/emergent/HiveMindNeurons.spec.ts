@@ -26,20 +26,20 @@ describe('BasicHiveMindNeurons', () => {
                 new BasicRequestContext(null, null, new BasicLocale('en', 'us')),
             )
             .then(response => {
-                expect((<SimpleResponse>response.getResponse()).response).toBe(
+                expect((<SimpleResponse>response.getMostCertainResponse().getResponse()).response).toBe(
                     'oratio.core.currentTime',
                 );
-                expect(response.getFiredNeuron()).toBe(timeNeuron);
+                expect(response.getMostCertainResponse().getFiredNeuron()).toBe(timeNeuron);
                 return neurons.findMatch(
                     new BasicUserInput('hello'),
                     new BasicRequestContext(null, null, new BasicLocale('en', 'us')),
                 );
             })
             .then(response => {
-                expect((<SimpleResponse>response.getResponse()).response).toBe(
+                expect((<SimpleResponse>response.getMostCertainResponse().getResponse()).response).toBe(
                     'oratio.core.hello',
                 );
-                expect(response.getFiredNeuron()).toBe(greetingNeuron);
+                expect(response.getMostCertainResponse().getFiredNeuron()).toBe(greetingNeuron);
             });
     });
 
@@ -50,7 +50,7 @@ describe('BasicHiveMindNeurons', () => {
                 new BasicRequestContext(null, null, new BasicLocale('en', 'us')),
             )
             .then(response => {
-                expect((<SimpleResponse>response.getResponse()).response).toBe(
+                expect((<SimpleResponse>response.getMostCertainResponse().getResponse()).response).toBe(
                     'oratio.core.currentTime',
                 );
                 expect(neurons['neurons'][0]).toBe(timeNeuron);
