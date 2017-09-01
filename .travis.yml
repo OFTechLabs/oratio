@@ -6,10 +6,12 @@ cache:
 install:
   - npm install
 env:
-  - NPM_RUN_COMMAND="npm run lint"
-  - NPM_RUN_COMMAND="npm run test:ci && npm run report-coverage"
-  - NPM_RUN_COMMAND="npm run build"
-script: "$NPM_RUN_COMMAND"
+  - NPM_RUN_COMMAND=lint
+  - NPM_RUN_COMMAND=test:ci
+  - NPM_RUN_COMMAND=build
+script: "npm run $NPM_RUN_COMMAND"
+after_success:
+- npm run report-coverage
 deploy:
   - provider: npm
     email: techlabs@ortec-finance.com
